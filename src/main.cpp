@@ -12,12 +12,15 @@
 void printUsage(void)
 {
     std::cout << "Usage: ./nts [filepath.nts]" << std::endl
-    << "filepath:\t Path to your config file. Must be written in .nts format." << std::endl;
+    << "filepath:\t Path to your config file. Must be written in the .nts format." << std::endl;
 }
 
 int main(int ac, char **av)
 {
-    if (ac != 2) throw std::invalid_argument("NTS needs a filepath to run properly. Use ./nts -h to get more infos.");
+    if (ac != 2) {
+        std::cout << "Invalid number of argument." << std::endl;
+        return 84;
+    }
     if (ac == 2 && !std::string(av[1]).compare("-h")) {
         printUsage();
         return 0;

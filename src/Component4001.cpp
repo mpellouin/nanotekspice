@@ -2,15 +2,15 @@
 ** EPITECH PROJECT, 2022
 ** B-OOP-400-LYN-4-1-tekspice-florian.gibault
 ** File description:
-** Test
+** Component4001
 */
 
-#include "Test.hpp"
+#include "Component4001.hpp"
 
-Test::Test()
+Component4001::Component4001()
 {
 }
 
-Test::~Test()
+Component4001::~Component4001()
 {
 }

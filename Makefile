@@ -17,7 +17,7 @@ else
 endif
 
 
-NAME := nanotekspice
+NAME  := nanotekspice
 
 
 MKDIR := mkdir -p
@@ -40,6 +40,7 @@ ifeq ($(MAKECMDGOALS), tests_run)
 else
   SOURCES := $(shell find $(SOURCES_DIR) -type f -name "*.cpp")
 endif
+
 OBJECTS := $(SOURCES:$(SOURCES_DIR)/%.cpp=$(OBJECTS_DIR)/%.o)
 DEPS    := $(SOURCES:$(SOURCES_DIR)/%.cpp=$(OBJECTS_DIR)/%.d)
 
@@ -57,21 +58,21 @@ TEST_OBJECTS := $(TEST_SOURCES:$(TEST_SOURCES_DIR)/%.cpp=$(TEST_OBJECTS_DIR)/%.o
 
 
 ifeq ($(MAKECMDGOALS), tests_run)
-  CXX         := g++
-  CXX_WARNINGS := -Wall -Wextra
-  CXXFLAGS     := -fprofile-arcs -ftest-coverage
-  LDFLAGS    := -lgcov -lcriterion
+  CXX           := g++
+  CXX_WARNINGS  := -Wall -Wextra
+  CXXFLAGS      := -fprofile-arcs -ftest-coverage
+  LDFLAGS       := -lgcov -lcriterion
 else
-  CXX         := clang++
-  CXX_WARNINGS := -Wall -Wextra -Wno-unused-parameter -Wpedantic
-  CXXFLAGS     :=
-  LDFLAGS    :=
+  CXX           := clang++
+  CXX_WARNINGS  := -Wall -Wextra -Wno-unused-parameter -Wpedantic
+  CXXFLAGS      :=
+  LDFLAGS       :=
 endif
 
 
-CXX_DEPS      = -MT $(OBJECTS_DIR)/$*.o -MMD -MP -MF $(OBJECTS_DIR)/$*.d
-CXX_DEBUG     := -g3 -ggdb3
-CXX_OPTIMIZE  := -O2 -march=native
+CXX_DEPS      =   -MT $(OBJECTS_DIR)/$*.o -MMD -MP -MF $(OBJECTS_DIR)/$*.d
+CXX_DEBUG     :=  -g3 -ggdb3
+CXX_OPTIMIZE  :=  -O2 -march=native
 
 
 CXXFLAGS := $(CXXFLAGS) $(CXX_DEBUG) $(CXX_OPTIMIZE) $(CXX_WARNINGS) -I $(INCLUDE_DIR)
@@ -134,6 +135,5 @@ fclean: clean
 
 .PHONY: re
 re: fclean all
-
 
 -include $(DEPS)

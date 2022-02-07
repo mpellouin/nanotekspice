@@ -1,99 +1,139 @@
-##
-## EPITECH PROJECT, 2020
-## makefile
-## File description:
-## Makefile
-##
+SHELL := bash
+.ONESHELL:
+.SHELLFLAGS := -eu -o pipefail -c
+.DELETE_ON_ERROR:
 
-ROOT	=		.
 
-SRC_DIR	=		src
+MAKEFLAGS := $(MAKEFLAGS)
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
+MAKEFLAGS += --no-builtin-variables
 
-CC		=		g++
 
-DEPS    := $(SOURCES:$(SRC_DIR)/%.cpp=$(REAL)/%.d)
+ifeq ($(origin .RECIPEPREFIX), undefined)
+  $(error This Make does not support .RECIPEPREFIX. Please use GNU Make 4.0 or later)
+else
+  .RECIPEPREFIX = >
+endif
 
-NAME	=		nanotekspice
 
-REAL	=		$(ROOT)/build
+NAME := nanotekspice
 
-SRC		=		$(SRC_DIR)/main.cpp\
-				$(SRC_DIR)/test.cpp\
 
-CFLAGS	=		-std=c++20  # -I $(ROOT)/inc $(EFLAGS)
+MKDIR := mkdir -p
+RM    := rm -f
+RMDIR := rm -fr
+TOUCH := touch -a
 
-C_DEPS  = -MT $(REAL)/$*.o -MMD -MP -MF $(REAL)/$*.d
 
-LFLAGS	=		# -lm  -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio #-L $(ROOT)/../lib/my -lmy #-fsanitize=address
+SOURCES_DIR := ./src
+INCLUDE_DIR := ./inc
+OBJECTS_DIR := ./build
 
-EFLAGS	=		-Wall -Wextra -Wpedantic -g3
 
-LIB 	=		../lib/%.a
+SOURCES_SUB_DIRS := $(shell find $(SOURCES_DIR) -type d)
+OBJECTS_SUB_DIRS := $(SOURCES_SUB_DIRS:$(SOURCES_DIR)%=$(OBJECTS_DIR)%)
 
-DEBUG_FLAG	=	--no-print-directory
 
-V		=		@
+ifeq ($(MAKECMDGOALS), tests_run)
+  SOURCES := $(shell find $(SOURCES_DIR) -type f -not -wholename "*/main.cpp" -name "*.cpp")
+else
+  SOURCES := $(shell find $(SOURCES_DIR) -type f -name "*.cpp")
+endif
+OBJECTS := $(SOURCES:$(SOURCES_DIR)/%.cpp=$(OBJECTS_DIR)/%.o)
+DEPS    := $(SOURCES:$(SOURCES_DIR)/%.cpp=$(OBJECTS_DIR)/%.d)
 
-OBJS	=		$(patsubst $(SRC_DIR)/%.cpp, $(REAL)/%.o, $(SRC))
 
-#COLOR
-WHITE	=			\e[0m
-DARK_RED	= 		\e[38;5;160m
-RED		=			\e[38;5;203m
-GREEN	=			\e[1;32m
-ORANGE	=			\e[1;33m
-BLUE	=			\e[38;5;21m
-PURPLE 	= 			\e[38;5;63m
-CYAN 	=			\e[38;5;51m
-PINK 	= 			\e[38;5;162m
-LIGHT_PURPLE = 		\e[38;5;147m
-DARK_BLUE	= 		\e[38;5;26m
-BOLD	=			\e[1m
+TEST_SOURCES_DIR := ./tests
+TEST_OBJECTS_DIR := ./tests_objects
 
-all: intro $(NAME)
 
-intro:
-	$(V) printf "$(DARK_RED)$(BOLD)+------------------------------+\n$(WHITE)"
-	$(V) printf "$(DARK_RED)$(BOLD)|        SIMULATION V0.1       |\n$(WHITE)"
-	$(V) printf "$(DARK_RED)$(BOLD)+------------------------------+\n\n$(WHITE)"
+TEST_SOURCES_SUB_DIRS := $(shell find $(TEST_SOURCES_DIR) -type d)
+TEST_OBJECTS_SUB_DIRS := $(TEST_SOURCES_SUB_DIRS:$(TEST_SOURCES_DIR)%=$(TEST_OBJECTS_DIR)%)
 
-$(NAME): $(REAL)/$(NAME)
-	$(V) cp $(REAL)/$(NAME) $(ROOT)
-	$(V) printf "$(RED)\nDup $(RED)$(BOLD)$(NAME)$(WHITE)$(RED) into root directory.$(WHITE)\n"
-	$(V) printf "$(ORANGE)Project compilation success\n$(WHITE)"
 
-#../lib/libmy.a
-$(REAL)/$(NAME):		$(OBJS)
-	$(V) printf "$(ORANGE)[OK]$(BOLD)$(DARK_BLUE) Linking obj and libraries.$(WHITE)\n"
-	$(V) $(CC) -o $(REAL)/$(NAME) $(OBJS) $(CFLAGS) $(LFLAGS)
-	$(V) printf "$(ORANGE)[OK]$(BOLD)$(DARK_BLUE) Binary link done.$(WHITE)\n"
+TEST_SOURCES := $(shell find $(TEST_SOURCES_DIR) -type f -name "*.cpp")
+TEST_OBJECTS := $(TEST_SOURCES:$(TEST_SOURCES_DIR)/%.cpp=$(TEST_OBJECTS_DIR)/%.o)
 
-$(REAL)/%.o: $(SRC_DIR)/%.cpp | $(REAL)
-	$(V) mkdir -p $(dir $@)
-	$(V) printf "$(DARK_BLUE)Compiling $(GREEN)$(DARK_BLUE)[$(WHITE)$(DARK_BLUE)$(notdir $<)$(GREEN)$(DARK_BLUE) -> $(CYAN)$(notdir $@)$(GREEN)$(DARK_BLUE)]\n$(WHITE)"
-	$(V) $(CC) -o $@ -c $< $(CFLAGS) $(LFLAGS) $(C_DEPS)
 
-../lib/lib%.a:
-	$(V) $(MAKE) -C ../lib/$* $(DEBUG_FLAG)
+ifeq ($(MAKECMDGOALS), tests_run)
+  CXX         := g++
+  CXX_WARNINGS := -Wall -Wextra
+  CXXFLAGS     := -fprofile-arcs -ftest-coverage
+  LDFLAGS    := -lgcov -lcriterion
+else
+  CXX         := clang++
+  CXX_WARNINGS := -Wall -Wextra -Wno-unused-parameter -Wpedantic
+  CXXFLAGS     :=
+  LDFLAGS    :=
+endif
 
-$(REAL):
-	$(V) mkdir $@
 
+CXX_DEPS      = -MT $(OBJECTS_DIR)/$*.o -MMD -MP -MF $(OBJECTS_DIR)/$*.d
+CXX_DEBUG     := -g3 -ggdb3
+CXX_OPTIMIZE  := -O2 -march=native
+
+
+CXXFLAGS := $(CXXFLAGS) $(CXX_DEBUG) $(CXX_OPTIMIZE) $(CXX_WARNINGS) -I $(INCLUDE_DIR)
+
+
+LDFLAGS := $(LDFLAGS)
+
+
+.PHONY: all
+all: $(NAME)
+
+
+$(NAME): $(OBJECTS)
+> @$(CXX) $^ $(LDFLAGS) -o $@
+> @echo CXX $@
+
+
+.PHONY: tests_run
+tests_run: fclean $(OBJECTS) $(TEST_OBJECTS)
+> @$(CXX) $(OBJECTS) $(TEST_OBJECTS) $(LDFLAGS) -o test
+> @echo CXX $@
+> ./test
+
+
+$(OBJECTS_DIR)/%.o: $(SOURCES_DIR)/%.cpp | $(OBJECTS_SUB_DIRS)
+> @$(CXX) $(CXXFLAGS) $(CXX_DEPS) -c $< -o $@
+> @echo CXX $@
+
+
+$(TEST_OBJECTS_DIR)/%.o: $(TEST_SOURCES_DIR)/%.cpp | $(TEST_OBJECTS_SUB_DIRS)
+> @$(CXX) $(CXXFLAGS) $(CXX_DEPS) -c $< -o $@
+> @echo CXX $@
+
+
+$(OBJECTS_SUB_DIRS):
+> @$(MKDIR) $(OBJECTS_SUB_DIRS)
+> @echo MKDIR $(OBJECTS_SUB_DIRS)
+
+
+$(TEST_OBJECTS_SUB_DIRS):
+> @$(MKDIR) $(TEST_OBJECTS_SUB_DIRS)
+> @echo MKDIR $(TEST_OBJECTS_SUB_DIRS)
+
+
+.PHONY: clean
 clean:
-	$(V) rm -rf $(OBJS)
-	$(V) printf "$(RED)Removing object files.$(WHITE)\n"
+> @$(RMDIR) $(OBJECTS_DIR)
+> @echo RMDIR $(OBJECTS_DIR)
+> @$(RMDIR) $(TEST_OBJECTS_DIR)
+> @echo RMDIR $(TEST_OBJECTS_DIR)
 
-fclean:	clean
-	$(V) rm -f $(REAL)/$(NAME)
-	$(V) rm -f $(ROOT)/$(NAME)
-	$(V) rm -rf $(REAL)
-	$(V) rm -rf $(ROOT)/champions/*.cor
-	$(V) rm -rf $(ROOT)/champions/test/*.cor
-	$(V) printf "$(RED)Removing binary file.$(WHITE)\n"
 
-re:	fclean
-	$(V) make --no-print-directory all
+.PHONY: fclean
+fclean: clean
+> @$(RM) $(NAME)
+> @echo RM $(NAME)
+> @$(RM) test
+> @echo RM test
 
-.PHONY: clean fclean debug all re intro
+
+.PHONY: re
+re: fclean all
+
 
 -include $(DEPS)

@@ -19,7 +19,7 @@ class Builder {
     public:
         Builder();
         ~Builder();
-        uComp createComponent(const std::string &type);
+        uComp createComponent(const std::string &type, const std::string &name);
     private:
         std::unordered_map<std::string, builderFunc> _builders;
         uComp createInput(std::string const &name);

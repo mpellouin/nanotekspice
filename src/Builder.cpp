@@ -10,14 +10,14 @@
 Builder::Builder()
 {
     _builders["input"] = &Builder::createInput;
-    // _builders["output"] = &Builder::createOutput;
+    _builders["output"] = &Builder::createOutput;
 }
 
 Builder::~Builder()
 {
 }
 
-uComp Builder::createComponent(const std::string &type)
+uComp Builder::createComponent(const std::string &type, const std::string &name)
 {
     builderFunc ptr = NULL;
 
@@ -25,7 +25,7 @@ uComp Builder::createComponent(const std::string &type)
         ptr = _builders[type];
     else
         throw std::invalid_argument("Unknown chipset type");
-    return (this->*ptr)(type);
+    return (this->*ptr)(name);
 }
 
 uComp Builder::createInput(std::string const &name)
@@ -36,7 +36,6 @@ uComp Builder::createInput(std::string const &name)
 
 uComp Builder::createOutput(std::string const &name)
 {
-    // nts::IComponent *component = new Output();
-    // return uComp(component);
-    return nullptr;
+    nts::IComponent *component = new Output(name);
+    return uComp(component);
 }

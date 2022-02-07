@@ -13,14 +13,12 @@
 class Input : public nts::IComponent {
     public:
         Input(std::string const &name);
-        Input(std::string const &name, nts::Tristate value);
         ~Input();
 
         void dump() const;
     private:
         std::string _name;
         nts::Tristate _value;
-
 };
 
 #endif /* !INPUT_HPP_ */

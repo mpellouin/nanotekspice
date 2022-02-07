@@ -12,8 +12,11 @@
 
 class Output : public nts::IComponent {
     public:
-        Output();
+        Output(std::string const &name);
+        Output(std::string const &name, nts::Tristate value);
         ~Output();
+
+        void dump() const;
     private:
         std::string _name;
         nts::Tristate _value;

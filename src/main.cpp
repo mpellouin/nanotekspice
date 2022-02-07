@@ -8,6 +8,9 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
+#include <memory>
+
+#include "Builder.hpp"
 
 void printUsage(void)
 {
@@ -25,5 +28,13 @@ int main(int ac, char **av)
         printUsage();
         return 0;
     }
-    return 84;
+
+    Builder builder;
+    uComp temp = builder.createComponent("input", "enter1");
+    uComp temp2 = builder.createComponent("input", "enter2");
+    uComp temp3 = builder.createComponent("output", "end1");
+
+    temp.get()->dump();
+    temp2.get()->dump();
+    temp3.get()->dump();
 }

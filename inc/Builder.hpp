@@ -9,9 +9,11 @@
 #define BUILDER_HPP_
 
 #include "IComponent.hpp"
+#include "Input.hpp"
+#include "Output.hpp"
 
 class Builder;
-using builderFunc = uComp (Builder::*)(std::string const &);
+using builderFunc = uComp (Builder::*)(std::string const &value);
 
 class Builder {
     public:
@@ -20,9 +22,8 @@ class Builder {
         uComp createComponent(const std::string &type);
     private:
         std::unordered_map<std::string, builderFunc> _builders;
-        uComp createInput();
-        uComp createOutput();
-        uComp create4001();
+        uComp createInput(std::string const &name);
+        uComp createOutput(std::string const &name);
 };
 
 #endif /* !BUILDER_HPP_ */

@@ -31,7 +31,7 @@ RMDIR := rm -fr
 TOUCH := touch -a
 
 SRC_DIR := ./src
-INC_DIR := ./inc
+INC_DIR := -I ./inc -I ./inc/Components
 OBJ_DIR := ./build
 
 SOURCES_SUB_DIRS := $(shell find $(SRC_DIR) -type d)
@@ -71,7 +71,7 @@ CXX_DEPS      =   -MT $(OBJ_DIR)/$*.o -MMD -MP -MF $(OBJ_DIR)/$*.d
 CXX_DEBUG     :=  -g3 -ggdb3
 CXX_OPTIMIZE  :=  -O2 -march=native
 
-CXXFLAGS := $(CXXFLAGS) $(CXX_DEBUG) $(CXX_OPTIMIZE) $(CXX_WARNINGS) -I $(INC_DIR)
+CXXFLAGS := $(CXXFLAGS) $(CXX_DEBUG) $(CXX_OPTIMIZE) $(CXX_WARNINGS) $(INC_DIR)
 
 LDFLAGS := $(LDFLAGS)
 

@@ -11,13 +11,18 @@ SRC_DIR	=		src
 
 CC		=		g++
 
+DEPS    := $(SOURCES:$(SRC_DIR)/%.cpp=$(REAL)/%.d)
+
 NAME	=		nanotekspice
 
 REAL	=		$(ROOT)/build
 
 SRC		=		$(SRC_DIR)/main.cpp\
+				$(SRC_DIR)/test.cpp\
 
 CFLAGS	=		-std=c++20  # -I $(ROOT)/inc $(EFLAGS)
+
+C_DEPS  = -MT $(REAL)/$*.o -MMD -MP -MF $(REAL)/$*.d
 
 LFLAGS	=		# -lm  -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio #-L $(ROOT)/../lib/my -lmy #-fsanitize=address
 
@@ -66,7 +71,7 @@ $(REAL)/$(NAME):		$(OBJS)
 $(REAL)/%.o: $(SRC_DIR)/%.cpp | $(REAL)
 	$(V) mkdir -p $(dir $@)
 	$(V) printf "$(DARK_BLUE)Compiling $(GREEN)$(DARK_BLUE)[$(WHITE)$(DARK_BLUE)$(notdir $<)$(GREEN)$(DARK_BLUE) -> $(CYAN)$(notdir $@)$(GREEN)$(DARK_BLUE)]\n$(WHITE)"
-	$(V) $(CC) -o $@ -c $< $(CFLAGS) $(LFLAGS)
+	$(V) $(CC) -o $@ -c $< $(CFLAGS) $(LFLAGS) $(C_DEPS)
 
 ../lib/lib%.a:
 	$(V) $(MAKE) -C ../lib/$* $(DEBUG_FLAG)
@@ -90,3 +95,5 @@ re:	fclean
 	$(V) make --no-print-directory all
 
 .PHONY: clean fclean debug all re intro
+
+-include $(DEPS)

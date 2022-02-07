@@ -9,6 +9,14 @@
 #define ICOMPONENT_HPP_
 
 #include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+#include <unordered_map>
+#include <exception>
+#include <memory>
+#include <list>
+
 
 namespace nts
 {
@@ -26,5 +34,7 @@ namespace nts
             virtual void dump() const = 0;
     };
 }
+
+using uComp = std::unique_ptr<nts::IComponent>;
 
 #endif /* !ICOMPONENT_HPP_ */

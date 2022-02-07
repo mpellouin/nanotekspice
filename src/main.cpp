@@ -8,6 +8,9 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
+#include <memory>
+
+#include "IComponent.hpp"
 
 void printUsage(void)
 {

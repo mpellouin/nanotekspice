@@ -31,22 +31,33 @@ int main(int ac, char **av)
 
     Builder builder;
     uComp temp1 = builder.createComponent("input", "enter1");
-    uComp temp2 = builder.createComponent("output", "end1");
-    uComp temp3 = builder.createComponent("clock", "timer1");
+    uComp temp2 = builder.createComponent("clock", "timer1");
+    uComp temp3 = builder.createComponent("output", "ENTER 1");
+    uComp temp4 = builder.createComponent("output", "TIMER 1");
 
     temp1.get()->dump();
     temp2.get()->dump();
     temp3.get()->dump();
+    temp4.get()->dump();
 
-    temp2.get()->setLink(1, *temp1.get(), 1);
+    temp3.get()->setLink(1, *temp1.get(), 1);
+    temp4.get()->setLink(1, *temp2.get(), 1);
     Input *dyn_temp = dynamic_cast<Input *>(temp1.get());
     dyn_temp->setValue(nts::TRUE);
-    temp1.get()->simulate(1);
-    temp2.get()->simulate(1);
+    Input *dyn_temp2 = dynamic_cast<Input *>(temp2.get());
+    dyn_temp2->setValue(nts::FALSE);
 
+    for (int i = 0; i < 8; i++) {
+        std::cout << "-------------------" << std::endl;
+        temp1.get()->simulate(i);
+        temp2.get()->simulate(i);
+        temp3.get()->simulate(i);
+        temp4.get()->simulate(i);
+        temp1.get()->dump();
+        temp2.get()->dump();
+        temp3.get()->dump();
+        temp4.get()->dump();
+    }
 
-    temp1.get()->dump();
-    temp2.get()->dump();
-    temp3.get()->dump();
     return 0;
 }

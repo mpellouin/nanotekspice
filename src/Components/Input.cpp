@@ -10,6 +10,7 @@
 Input::Input(std::string const &name) : _name(name)
 {
     _pins[1] = nts::UNDEFINED;
+    _newPins.clear();
 }
 
 Input::~Input()
@@ -18,7 +19,10 @@ Input::~Input()
 
 void Input::simulate(std::size_t tick)
 {
-    _pins = _newPins;
+    if (_newPins.size() > 0) {
+        _pins = _newPins;
+        _newPins.clear();
+    }
 }
 
 nts::Tristate Input::compute(std::size_t pin)

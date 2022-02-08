@@ -12,6 +12,7 @@
 #include "Input.hpp"
 #include "Output.hpp"
 #include "Clock.hpp"
+#include "And.hpp"
 
 class Builder;
 using builderFunc = uComp (Builder::*)(std::string const &value);
@@ -26,6 +27,7 @@ class Builder {
         uComp createInput(std::string const &name);
         uComp createOutput(std::string const &name);
         uComp createClock(std::string const &name);
+        uComp create4081(std::string const &name);
 };
 
 #endif /* !BUILDER_HPP_ */

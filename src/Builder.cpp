@@ -11,6 +11,7 @@ Builder::Builder()
 {
     _builders["input"] = &Builder::createInput;
     _builders["output"] = &Builder::createOutput;
+    _builders["clock"] = &Builder::createClock;
 }
 
 Builder::~Builder()
@@ -37,5 +38,11 @@ uComp Builder::createInput(std::string const &name)
 uComp Builder::createOutput(std::string const &name)
 {
     nts::IComponent *component = new Output(name);
+    return uComp(component);
+}
+
+uComp Builder::createClock(std::string const &name)
+{
+    nts::IComponent *component = new Clock(name);
     return uComp(component);
 }

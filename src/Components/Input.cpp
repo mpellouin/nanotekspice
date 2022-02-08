@@ -15,6 +15,11 @@ Input::~Input()
 {
 }
 
+void Input::simulate(std::size_t tick)
+{
+    return;
+}
+
 void Input::dump() const
 {
     std::cout << "Input " << _name << ": " << _value << std::endl;

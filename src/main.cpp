@@ -20,21 +20,25 @@ void printUsage(void)
 
 int main(int ac, char **av)
 {
-    if (ac != 2) {
-        std::cout << "Invalid number of argument." << std::endl;
-        return 84;
-    }
-    if (ac == 2 && !std::string(av[1]).compare("-h")) {
-        printUsage();
-        return 0;
-    }
+    // if (ac != 2) {
+    //     std::cout << "Invalid number of argument." << std::endl;
+    //     return 84;
+    // }
+    // if (ac == 2 && !std::string(av[1]).compare("-h")) {
+    //     printUsage();
+    //     return 0;
+    // }
 
     Builder builder;
-    uComp temp = builder.createComponent("input", "enter1");
+    uComp temp1 = builder.createComponent("input", "enter1");
     uComp temp2 = builder.createComponent("input", "enter2");
     uComp temp3 = builder.createComponent("output", "end1");
+    uComp temp4 = builder.createComponent("clock", "timer1");
 
-    temp.get()->dump();
+    temp1.get()->dump();
     temp2.get()->dump();
     temp3.get()->dump();
+    temp4.get()->dump();
+
+    return 0;
 }

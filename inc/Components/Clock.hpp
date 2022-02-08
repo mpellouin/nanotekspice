@@ -2,18 +2,18 @@
 ** EPITECH PROJECT, 2022
 ** B-OOP-400-LYN-4-1-tekspice-florian.gibault
 ** File description:
-** Input
+** Clock
 */
 
-#ifndef INPUT_HPP_
-#define INPUT_HPP_
+#ifndef CLOCK_HPP_
+#define CLOCK_HPP_
 
 #include "IComponent.hpp"
 
-class Input : public nts::IComponent {
+class Clock : public nts::IComponent{
     public:
-        Input(std::string const &name);
-        ~Input();
+        Clock(std::string const &name);
+        ~Clock();
 
         void simulate(std::size_t tick);
         void dump() const;
@@ -22,4 +22,4 @@ class Input : public nts::IComponent {
         nts::Tristate _value;
 };
 
-#endif /* !INPUT_HPP_ */
+#endif /* !CLOCK_HPP_ */

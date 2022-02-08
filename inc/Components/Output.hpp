@@ -16,6 +16,7 @@ class Output : public nts::IComponent {
         Output(std::string const &name, nts::Tristate value);
         ~Output();
 
+        void simulate(std::size_t tick);
         void dump() const;
     private:
         std::string _name;

@@ -15,6 +15,11 @@ Output::~Output()
 {
 }
 
+void Output::simulate(std::size_t tick)
+{
+    return;
+}
+
 void Output::dump() const
 {
     std::cout << "Output " << _name << ": " << _value << std::endl;

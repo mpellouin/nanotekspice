@@ -13,14 +13,14 @@
 class Output : public nts::IComponent {
     public:
         Output(std::string const &name);
-        Output(std::string const &name, nts::Tristate value);
         ~Output();
 
         void simulate(std::size_t tick);
+        bool setValue(nts::Tristate value);
         void dump() const;
     private:
         std::string _name;
-        nts::Tristate _value;
+        std::map<std::size_t, nts::Tristate> _pins;
 };
 
 #endif /* !OUTPUT_HPP_ */

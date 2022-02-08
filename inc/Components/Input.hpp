@@ -16,10 +16,11 @@ class Input : public nts::IComponent {
         ~Input();
 
         void simulate(std::size_t tick);
+        bool setValue(nts::Tristate value);
         void dump() const;
-    private:
+    protected:
         std::string _name;
-        nts::Tristate _value;
+        std::map<std::size_t, nts::Tristate> _pins;
 };
 
 #endif /* !INPUT_HPP_ */

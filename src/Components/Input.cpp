@@ -7,12 +7,22 @@
 
 #include "Input.hpp"
 
-Input::Input(std::string const &name) : _name(name), _value(nts::UNDEFINED)
+Input::Input(std::string const &name) : _name(name)
 {
+    _pins[1] = nts::UNDEFINED;
 }
 
 Input::~Input()
 {
+}
+
+bool Input::setValue(nts::Tristate value)
+{
+    if (value != _pins[1]) {
+        _pins[1] = value;
+        return true;
+    }
+    return false;
 }
 
 void Input::simulate(std::size_t tick)
@@ -22,5 +32,5 @@ void Input::simulate(std::size_t tick)
 
 void Input::dump() const
 {
-    std::cout << "Input " << _name << ": " << _value << std::endl;
+    std::cout << "Input " << _name << ": " << _pins.at(1) << std::endl;
 }

@@ -8,18 +8,14 @@
 #ifndef CLOCK_HPP_
 #define CLOCK_HPP_
 
-#include "IComponent.hpp"
+#include "Input.hpp"
 
-class Clock : public nts::IComponent{
+class Clock : public Input {
     public:
         Clock(std::string const &name);
         ~Clock();
 
         void simulate(std::size_t tick);
-        void dump() const;
-    private:
-        std::string _name;
-        nts::Tristate _value;
 };
 
 #endif /* !CLOCK_HPP_ */

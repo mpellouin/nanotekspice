@@ -27,7 +27,7 @@ class Builder {
         uComp createInput(std::string const &name);
         uComp createOutput(std::string const &name);
         uComp createClock(std::string const &name);
-        uComp create4081(std::string const &name);
+        uComp createAnd(std::string const &name);
 };
 
 #endif /* !BUILDER_HPP_ */

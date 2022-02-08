@@ -33,21 +33,20 @@ int main(int ac, char **av)
     uComp temp1 = builder.createComponent("input", "enter1");
     uComp temp2 = builder.createComponent("output", "end1");
     uComp temp3 = builder.createComponent("clock", "timer1");
-    uComp temp4 = builder.createComponent("4081", "and1");
 
     temp1.get()->dump();
     temp2.get()->dump();
     temp3.get()->dump();
-    temp4.get()->dump();
 
-    Input *dyn_temp = dynamic_cast<Input *>(temp3.get());
+    temp2.get()->setLink(1, *temp1.get(), 1);
+    Input *dyn_temp = dynamic_cast<Input *>(temp1.get());
     dyn_temp->setValue(nts::TRUE);
-    temp3.get()->simulate(1);
-    temp4.get()->simulate(1);
+    temp1.get()->simulate(1);
+    temp2.get()->simulate(1);
+
 
     temp1.get()->dump();
     temp2.get()->dump();
     temp3.get()->dump();
-    temp4.get()->dump();
     return 0;
 }

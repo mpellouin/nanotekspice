@@ -14,13 +14,15 @@ class And : public nts::IComponent {
     public:
         And(const std::string &name);
         ~And();
-        void dump() const;
+
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
-
+        void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
+        void dump() const;
     protected:
         std::string _name;
         std::map<std::size_t, nts::Tristate> _pins;
+        std::map<std::size_t, nts::Link> _link;
 };
 
 #endif /* !AND_HPP_ */

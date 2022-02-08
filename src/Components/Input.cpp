@@ -16,21 +16,34 @@ Input::~Input()
 {
 }
 
-bool Input::setValue(nts::Tristate value)
-{
-    if (value != _pins[1]) {
-        _pins[1] = value;
-        return true;
-    }
-    return false;
-}
-
 void Input::simulate(std::size_t tick)
 {
-    return;
+    _pins = _newPins;
+}
+
+nts::Tristate Input::compute(std::size_t pin)
+{
+    if (pin != 1)
+        return nts::UNDEFINED;
+    return _pins[pin];
+}
+
+
+void Input::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
+{
+   return;
 }
 
 void Input::dump() const
 {
     std::cout << "Input " << _name << ": " << _pins.at(1) << std::endl;
+}
+
+bool Input::setValue(nts::Tristate value)
+{
+    if (value != _pins[1]) {
+        _newPins[1] = value;
+        return true;
+    }
+    return false;
 }

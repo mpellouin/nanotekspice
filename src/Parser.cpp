@@ -19,17 +19,25 @@ Parser::~Parser()
 
 void Parser::getNextLine(void)
 {
-    std::string tempLine;
-    if (this->_stream.fail() || this->_stream.bad() || this->_stream.eof())
-        throw std::out_of_range("Can't read no more line");
-    getline(_stream, tempLine);
-    this->_line = new std::stringstream(tempLine);
+    std::string tempLine("");
+    while (tempLine == "") {
+        if (this->_stream.fail() || this->_stream.bad() || this->_stream.eof())
+            throw std::out_of_range("Can't read no more line");
+        getline(_stream, tempLine);
+        if (tempLine.find('#') != std::string::npos)
+            tempLine = tempLine.substr(0, tempLine.find('#'));
+        this->_line = new std::stringstream(tempLine);
+        this->_argNumber = 0;
+    }
 }
 
 std::string Parser::parseLine()
 {
     std::string nextArgument;
     *this->_line >> nextArgument;
+    if (nextArgument == "" && this->_argNumber > 0)
+        throw std::out_of_range("Missing an argument");
+    this->_argNumber++;
     return nextArgument;
 }
 

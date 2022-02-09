@@ -44,6 +44,7 @@ class Parser {
     private:
         std::ifstream _stream;
         std::stringstream *_line;
+        int _argNumber = 0;
 };
 
 #endif /* !PARSER_HPP_ */

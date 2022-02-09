@@ -17,18 +17,27 @@ Output::~Output()
 {
 }
 
-bool Output::setValue(nts::Tristate value)
-{
-    if (value != _pins[1]) {
-        _pins[1] = value;
-        return true;
-    }
-    return false;
-}
-
 void Output::simulate(std::size_t tick)
 {
+    _pins[1] = compute(1);
     return;
+}
+
+nts::Tristate Output::compute(std::size_t pin)
+{
+    if (pin != 1)
+        return nts::UNDEFINED;
+    if (_link[pin].component != nullptr)
+        return _link[pin].component->compute(_link[pin].pin);
+    return nts::UNDEFINED;
+}
+
+void Output::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
+{
+    if (pin != 1)
+        return;
+    _link[pin].component = &other;
+    _link[pin].pin = otherPin;
 }
 
 void Output::dump() const

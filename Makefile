@@ -31,7 +31,7 @@ RMDIR := rm -fr
 TOUCH := touch -a
 
 SRC_DIR := ./src
-INC_DIR := -I ./inc -I ./inc/Components
+INC_DIR := -I ./inc -I ./inc/Components -I ./inc/Gates
 OBJ_DIR := ./build
 
 SOURCES_SUB_DIRS := $(shell find $(SRC_DIR) -type d)
@@ -63,7 +63,7 @@ ifeq ($(MAKECMDGOALS), tests_run)
 else
   CXX           := clang++
   CXX_WARNINGS  := -Wall -Wextra -Wno-unused-parameter -Wpedantic
-  CXXFLAGS      :=
+  CXXFLAGS      := -std=c++20
   LDFLAGS       :=
 endif
 
@@ -82,10 +82,8 @@ DARK_RED	= 		\e[38;5;160m
 ORANGE	  =			\e[1;33m
 GREEN	    =			\e[1;32m
 DARK_BLUE	= 		\e[38;5;26m
-CYAN 	=			\e[38;5;51m
-
+CYAN 	    =			\e[38;5;51m
 BOLD	    =			\e[1m
-
 
 all: intro $(NAME)
 

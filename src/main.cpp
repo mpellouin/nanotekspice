@@ -14,6 +14,7 @@
 #include "Builder.hpp"
 #include "Shell.hpp"
 #include "Parser.hpp"
+#include "Circuit.hpp"
 
 /**
  * @brief Prints the program usage to the standard output.
@@ -21,8 +22,8 @@
  */
 void printUsage(void)
 {
-    std::cout << "Usage: ./nts [filepath.nts]" << std::endl
-    << "filepath:\t Path to your config file. Must be written in the .nts format." << std::endl;
+    std::cout << "Usage: ./nts [filepath.nts]" << std::endl;
+    std::cout << "filepath:\t Path to your config file. Must be written in the .nts format." << std::endl;
 }
 
 int main(int ac, char **av)
@@ -62,21 +63,67 @@ int main(int ac, char **av)
         }
     }
 
-    // Builder builder;
-    // uComp temp1 = builder.createComponent("input", "enter1");
-    // uComp temp2 = builder.createComponent("output", "end1");
-    // uComp temp3 = builder.createComponent("clock", "timer1");
+    temp1.get()->dump();
+    temp2.get()->dump();
+    temp3.get()->dump();
 
-    // temp1.get()->dump();
-    // temp2.get()->dump();
-    // temp3.get()->dump();
+    Input *dyn_temp = dynamic_cast<Input *>(temp3.get());
+    dyn_temp->setValue(nts::TRUE);
+    temp3.get()->simulate(1);
 
-    // Input *dyn_temp = dynamic_cast<Input *>(temp3.get());
-    // dyn_temp->setValue(nts::TRUE);
-    // temp3.get()->simulate(1);
+    // for (int i = 0; i < 8; i++) {
+    //     std::cout << "-------------------" << std::endl;
+    //     temp1.get()->simulate(i);
+    //     temp2.get()->simulate(i);
+    //     temp3.get()->simulate(i);
+    //     temp4.get()->simulate(i);
+    //     temp1.get()->dump();
+    //     temp2.get()->dump();
+    //     temp3.get()->dump();
+    //     temp4.get()->dump();
+    // }
+    Circuit *grid = new Circuit();
 
-    // temp1.get()->dump();
-    // temp2.get()->dump();
-    // temp3.get()->dump();
+    grid->AddComponent("input", "in1");
+    grid->AddComponent("clock", "cl1");
+    grid->AddComponent("output", "out1");
+    grid->AddComponent("and", "andDoor");
+
+    nts::IComponent *in1 = grid->operator[]("in1");
+    nts::IComponent *cl1 = grid->operator[]("cl1");
+    nts::IComponent *out1 = grid->operator[]("out1");
+    nts::IComponent *andDoor = grid->operator[]("andDoor");
+
+    Input *dyn_in1 = dynamic_cast<Input *>(in1);
+    dyn_in1->setValue(nts::TRUE);
+    Input *dyn_cl1 = dynamic_cast<Input *>(cl1);
+    dyn_cl1->setValue(nts::FALSE);
+
+    out1->setLink(1, *grid->operator[]("andDoor"), 3);
+    andDoor->setLink(1, *grid->operator[]("in1"), 1);
+    andDoor->setLink(2, *grid->operator[]("cl1"), 1);
+
+    grid->dump();
+
+    in1->simulate(1);
+    cl1->simulate(1);
+    andDoor->simulate(1);
+    out1->simulate(1);
+
+    grid->dump();
+
+    in1->simulate(1);
+    cl1->simulate(1);
+    andDoor->simulate(1);
+    out1->simulate(1);
+
+    grid->dump();
+
+    in1->simulate(1);
+    cl1->simulate(1);
+    andDoor->simulate(1);
+    out1->simulate(1);
+
+    grid->dump();
     return 0;
 }

@@ -16,11 +16,13 @@ class Output : public nts::IComponent {
         ~Output();
 
         void simulate(std::size_t tick);
-        bool setValue(nts::Tristate value);
+        nts::Tristate compute(std::size_t pin);
+        void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
         void dump() const;
     private:
         std::string _name;
         std::map<std::size_t, nts::Tristate> _pins;
+        std::map<std::size_t, nts::Link> _link;
 };
 
 #endif /* !OUTPUT_HPP_ */

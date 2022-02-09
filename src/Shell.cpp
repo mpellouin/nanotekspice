@@ -14,6 +14,7 @@ void test_func(Circuit *test) {
     (void)test;
 }
 
+
 void exitProgram(Circuit * test)
 {
     (void)test;
@@ -24,6 +25,10 @@ void displayCircuit(Circuit *test)
 {
     test->dump();
 }
+void simulateCircuit(Circuit *test)
+{
+    test->simulate(1);
+}
 
 Shell::Shell()
 {
@@ -31,7 +36,7 @@ Shell::Shell()
     // Shell::Commands[std::string("test")] = &test_func;
     Shell::Commands[std::string("display")] = &displayCircuit;
     Shell::Commands[std::string("exit")] = &exitProgram;
-    Shell::Commands[std::string("simulate")] = &test_func;
+    Shell::Commands[std::string("simulate")] = &simulateCircuit;
     Shell::Commands[std::string("loop")] = &test_func;
     Shell::Commands[std::string("dump")] = &test_func;
 }

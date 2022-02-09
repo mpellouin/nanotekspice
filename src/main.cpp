@@ -29,7 +29,7 @@ void printUsage(void)
 int main(int ac, char **av)
 {
     Shell shell;
-    parse::Parser parser("test.lol");
+    parse::Parser parser(av[1]);
     Circuit circuit;
 
     if (ac != 2) {

@@ -13,6 +13,7 @@
 
 #include "Builder.hpp"
 #include "Shell.hpp"
+#include "Parser.hpp"
 
 /**
  * @brief Prints the program usage to the standard output.
@@ -27,6 +28,7 @@ void printUsage(void)
 int main(int ac, char **av)
 {
     Shell shell;
+    Parser parser("test.lol");
 
     if (ac != 2) {
         std::cout << "Invalid number of argument." << std::endl;
@@ -36,7 +38,19 @@ int main(int ac, char **av)
         printUsage();
         return 0;
     }
+    // try {
+    //     while (true) {
+    //         parser.getNextLine();
+    //         std::cout << "ana" << std::endl;
+    //         if (parser.isNewSection()) {
+    //             std::cout << "nas" << std::endl;
+    //             std::cout << parser.parseLine() << std::endl;
+    //         } else
+    //         std::cout << parser.parseLine() << " " << parser.parseLine() << std::endl;
+    //     }
+    // } catch (...) {}
     //! Parse initial file in a try catcht
+    //! Same structure from above that probably returns a circuit instead of display
     while (!shell.isEofReached()) {
         std::cout << "> ";
         shell.getInputFromUser();

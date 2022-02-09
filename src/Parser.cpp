@@ -47,3 +47,8 @@ bool Parser::isNewSection()
         return true;
     return false;
 }
+
+const char *Parser::Error::what() const noexcept
+{
+    return this->message->c_str();
+}

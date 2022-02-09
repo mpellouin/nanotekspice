@@ -21,6 +21,13 @@ class Builder {
         Builder();
         ~Builder();
         uComp createComponent(const std::string &type, const std::string &name);
+        static class Error : public std::exception {
+            public:
+                Error(const std::string &message) {this->message = new std::string(message);};
+                const char *what() const noexcept override;
+            private:
+                std::string *message;
+        } err;
     private:
         std::unordered_map<std::string, builderFunc> _builders;
         uComp createInput(std::string const &name);

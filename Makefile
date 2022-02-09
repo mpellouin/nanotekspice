@@ -31,7 +31,7 @@ RMDIR := rm -fr
 TOUCH := touch -a
 
 SRC_DIR := ./src
-INC_DIR := -I ./inc -I ./inc/Components
+INC_DIR := -I ./inc -I ./inc/Components -I ./inc/Gates
 OBJ_DIR := ./build
 
 SOURCES_SUB_DIRS := $(shell find $(SRC_DIR) -type d)

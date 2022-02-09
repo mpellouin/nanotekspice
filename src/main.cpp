@@ -10,12 +10,12 @@
 #include <iostream>
 #include <memory>
 
-#include "Builder.hpp"
+#include "Circuit.hpp"
 
 void printUsage(void)
 {
-    std::cout << "Usage: ./nts [filepath.nts]" << std::endl
-    << "filepath:\t Path to your config file. Must be written in the .nts format." << std::endl;
+    std::cout << "Usage: ./nts [filepath.nts]" << std::endl;
+    std::cout << "filepath:\t Path to your config file. Must be written in the .nts format." << std::endl;
 }
 
 int main(int ac, char **av)
@@ -29,35 +29,51 @@ int main(int ac, char **av)
     //     return 0;
     // }
 
-    Builder builder;
-    uComp temp1 = builder.createComponent("input", "enter1");
-    uComp temp2 = builder.createComponent("clock", "timer1");
-    uComp temp3 = builder.createComponent("output", "ENTER 1");
-    uComp temp4 = builder.createComponent("output", "TIMER 1");
+    // Builder builder;
+    // uComp temp1 = builder.createComponent("input", "enter1");
+    // uComp temp2 = builder.createComponent("clock", "timer1");
+    // uComp temp3 = builder.createComponent("output", "ENTER 1");
+    // uComp temp4 = builder.createComponent("output", "TIMER 1");
 
-    temp1.get()->dump();
-    temp2.get()->dump();
-    temp3.get()->dump();
-    temp4.get()->dump();
+    // temp1.get()->dump();
+    // temp2.get()->dump();
+    // temp3.get()->dump();
+    // temp4.get()->dump();
 
-    temp3.get()->setLink(1, *temp1.get(), 1);
-    temp4.get()->setLink(1, *temp2.get(), 1);
-    Input *dyn_temp = dynamic_cast<Input *>(temp1.get());
-    dyn_temp->setValue(nts::TRUE);
-    Input *dyn_temp2 = dynamic_cast<Input *>(temp2.get());
-    dyn_temp2->setValue(nts::FALSE);
+    // temp3.get()->setLink(1, *temp1.get(), 1);
+    // temp4.get()->setLink(1, *temp2.get(), 1);
+    // Input *dyn_temp = dynamic_cast<Input *>(temp1.get());
+    // dyn_temp->setValue(nts::TRUE);
+    // Input *dyn_temp2 = dynamic_cast<Input *>(temp2.get());
+    // dyn_temp2->setValue(nts::FALSE);
 
-    for (int i = 0; i < 8; i++) {
-        std::cout << "-------------------" << std::endl;
-        temp1.get()->simulate(i);
-        temp2.get()->simulate(i);
-        temp3.get()->simulate(i);
-        temp4.get()->simulate(i);
-        temp1.get()->dump();
-        temp2.get()->dump();
-        temp3.get()->dump();
-        temp4.get()->dump();
-    }
+    // for (int i = 0; i < 8; i++) {
+    //     std::cout << "-------------------" << std::endl;
+    //     temp1.get()->simulate(i);
+    //     temp2.get()->simulate(i);
+    //     temp3.get()->simulate(i);
+    //     temp4.get()->simulate(i);
+    //     temp1.get()->dump();
+    //     temp2.get()->dump();
+    //     temp3.get()->dump();
+    //     temp4.get()->dump();
+    // }
+    Circuit *grid = new Circuit();
 
+    grid->AddComponent("input", "in1");
+    grid->AddComponent("clock", "cl1");
+    grid->AddComponent("output", "out1");
+    grid->AddComponent("output", "out2");
+    grid->dump();
+
+    nts::IComponent *out1 = grid->operator[]("out1");
+    nts::IComponent *in1 = grid->operator[]("in1");
+    Input *dyn_in1 = dynamic_cast<Input *>(in1);
+    dyn_in1->setValue(nts::TRUE);
+    in1->simulate(1);
+    out1->setLink(1, *grid->operator[]("in1"), 1);
+    out1->simulate(1);
+
+    grid->dump();
     return 0;
 }

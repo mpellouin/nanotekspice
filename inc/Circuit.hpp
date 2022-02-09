@@ -21,6 +21,7 @@ class Circuit : public nts::IComponent{
 
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
+        void setLink(std::size_t pin1, const std::string &comp1, std::size_t pin2, const std::string &comp2);
         void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
         void dump() const;
         static class Error : public std::exception {

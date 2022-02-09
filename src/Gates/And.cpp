@@ -33,6 +33,8 @@ void And::simulate(std::size_t tick)
 
 nts::Tristate And::compute(std::size_t pin)
 {
+    if (pin == 3)
+        return _pins[3];
     if (_link[pin].component != nullptr)
         return _link[pin].component->compute(_link[pin].pin);
     return nts::UNDEFINED;

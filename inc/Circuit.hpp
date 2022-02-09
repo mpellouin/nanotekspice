@@ -24,7 +24,7 @@ class Circuit : public nts::IComponent{
         void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
         void dump() const;
     private:
-        std::unordered_map<std::string, uComp> _components;
+        std::map<std::string, uComp> _components;
         Builder builder;
 };
 

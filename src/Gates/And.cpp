@@ -20,17 +20,22 @@ And::~And()
 
 void And::simulate(std::size_t tick)
 {
-    _pins[3] = compute(3);
+    _pins[1] = compute(1);
+    _pins[2] = compute(2);
+
+    if (_pins[1] == nts::FALSE || _pins[2] == nts::FALSE)
+        _pins[3] = nts::FALSE;
+    else if (_pins[1] == nts::TRUE && _pins[2] == nts::TRUE)
+        _pins[3] = nts::TRUE;
+    else
+        _pins[3] = nts::UNDEFINED;
 }
 
 nts::Tristate And::compute(std::size_t pin)
 {
-    if (_pins[1] == nts::FALSE || _pins[2] == nts::FALSE)
-        return nts::FALSE;
-    else if (_pins[1] == nts::TRUE && _pins[2] == nts::TRUE)
-        return nts::TRUE;
-    else
-        return nts::UNDEFINED;
+    if (_link[pin].component != nullptr)
+        return _link[pin].component->compute(_link[pin].pin);
+    return nts::UNDEFINED;
 }
 
 void And::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
@@ -43,9 +48,6 @@ void And::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 
 void And::dump() const
 {
-    std::cout << "==== And gate \"" << _name << "\" ====" << std::endl;
-    std::cout << "|- Door 1: " << _pins.at(1) << " & " << _pins.at(2) << " -> " << _pins.at(3) << std::endl;
-//     std::cout << "|- Door 2: " << _pins.at(5) << " & " << _pins.at(6) << " -> " << _pins.at(4) << std::endl;
-//     std::cout << "|- Door 3: " << _pins.at(8) << " & " << _pins.at(9) << " -> " << _pins.at(10) << std::endl;
-//     std::cout << "|- Door 4: " << _pins.at(12) << " & " << _pins.at(13) << " -> " << _pins.at(11) << std::endl;
+    std::cout << "== And \"" << _name << "\" ==" << std::endl;
+    std::cout << "= " << _pins.at(1) << " & " << _pins.at(2) << " -> " << _pins.at(3) << std::endl;
 }

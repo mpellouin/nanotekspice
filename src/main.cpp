@@ -64,15 +64,46 @@ int main(int ac, char **av)
     grid->AddComponent("clock", "cl1");
     grid->AddComponent("output", "out1");
     grid->AddComponent("output", "out2");
+    grid->AddComponent("and", "brain");
     grid->dump();
 
-    nts::IComponent *out1 = grid->operator[]("out1");
     nts::IComponent *in1 = grid->operator[]("in1");
+    nts::IComponent *cl1 = grid->operator[]("cl1");
+    nts::IComponent *out1 = grid->operator[]("out1");
+    nts::IComponent *out2 = grid->operator[]("out2");
+    nts::IComponent *mid = grid->operator[]("brain");
+
     Input *dyn_in1 = dynamic_cast<Input *>(in1);
     dyn_in1->setValue(nts::TRUE);
-    in1->simulate(1);
+    Input *dyn_cl1 = dynamic_cast<Input *>(cl1);
+    dyn_cl1->setValue(nts::FALSE);
+
     out1->setLink(1, *grid->operator[]("in1"), 1);
+    out2->setLink(1, *grid->operator[]("brain"), 3);
+    mid->setLink(1, *grid->operator[]("in1"), 1);
+    mid->setLink(2, *grid->operator[]("cl1"), 1);
+
+    in1->simulate(1);
+    cl1->simulate(1);
     out1->simulate(1);
+    out2->simulate(1);
+    mid->simulate(1);
+
+    grid->dump();
+
+    in1->simulate(1);
+    cl1->simulate(1);
+    out1->simulate(1);
+    out2->simulate(1);
+    mid->simulate(1);
+
+    grid->dump();
+
+    in1->simulate(1);
+    cl1->simulate(1);
+    out1->simulate(1);
+    out2->simulate(1);
+    mid->simulate(1);
 
     grid->dump();
     return 0;

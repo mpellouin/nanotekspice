@@ -18,7 +18,7 @@
 
 /**
  * @brief Prints the program usage to the standard output.
- * 
+ *
  */
 void printUsage(void)
 {
@@ -63,25 +63,6 @@ int main(int ac, char **av)
         }
     }
 
-    temp1.get()->dump();
-    temp2.get()->dump();
-    temp3.get()->dump();
-
-    Input *dyn_temp = dynamic_cast<Input *>(temp3.get());
-    dyn_temp->setValue(nts::TRUE);
-    temp3.get()->simulate(1);
-
-    // for (int i = 0; i < 8; i++) {
-    //     std::cout << "-------------------" << std::endl;
-    //     temp1.get()->simulate(i);
-    //     temp2.get()->simulate(i);
-    //     temp3.get()->simulate(i);
-    //     temp4.get()->simulate(i);
-    //     temp1.get()->dump();
-    //     temp2.get()->dump();
-    //     temp3.get()->dump();
-    //     temp4.get()->dump();
-    // }
     Circuit *grid = new Circuit();
 
     grid->AddComponent("input", "in1");
@@ -93,15 +74,15 @@ int main(int ac, char **av)
     nts::IComponent *cl1 = grid->operator[]("cl1");
     nts::IComponent *out1 = grid->operator[]("out1");
     nts::IComponent *andDoor = grid->operator[]("andDoor");
+    out1->setLink(1, *grid->operator[]("andDoor"), 3);
+    andDoor->setLink(1, *grid->operator[]("in1"), 1);
+    andDoor->setLink(2, *grid->operator[]("cl1"), 1);
+
 
     Input *dyn_in1 = dynamic_cast<Input *>(in1);
     dyn_in1->setValue(nts::TRUE);
     Input *dyn_cl1 = dynamic_cast<Input *>(cl1);
     dyn_cl1->setValue(nts::FALSE);
-
-    out1->setLink(1, *grid->operator[]("andDoor"), 3);
-    andDoor->setLink(1, *grid->operator[]("in1"), 1);
-    andDoor->setLink(2, *grid->operator[]("cl1"), 1);
 
     grid->dump();
 

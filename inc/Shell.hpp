@@ -48,6 +48,14 @@ class Shell {
          */
         void executeCommand();
 
+        static class Error : public std::exception {
+            public:
+                Error(const std::string &message) {this->message = new std::string(message);};
+                const char *what() const noexcept override;
+            private:
+                std::string *message;
+        } err;
+
     protected:
     private:
         std::string _userInput;

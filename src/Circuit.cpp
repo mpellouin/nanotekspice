@@ -57,7 +57,6 @@ void Circuit::dump() const
     std::cout << "==== Circuit ====" << std::endl;
     std::cout << "= Size : " << _components.size() << std::endl;
     for (auto &comp : _components) {
-        // comp.second->simulate(1);
         comp.second->dump();
     }
 }

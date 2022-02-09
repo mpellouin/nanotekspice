@@ -20,7 +20,6 @@ Input::~Input()
 void Input::simulate(std::size_t tick)
 {
     if (_newPins.size() > 0) {
-        // std::cout << "Updated input " << _name << " to " << _newPins[1] << std::endl;
         _pins = _newPins;
         _newPins.clear();
     }

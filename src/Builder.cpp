@@ -46,3 +46,8 @@ uComp Builder::createClock(std::string const &name)
     nts::IComponent *component = new Clock(name);
     return uComp(component);
 }
+
+const char *Builder::Error::what() const noexcept
+{
+    return this->message->c_str();
+}

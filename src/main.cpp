@@ -29,7 +29,8 @@ void printUsage(void)
 int main(int ac, char **av)
 {
     Shell shell;
-    Parser parser("test.lol");
+    parse::Parser parser("test.lol");
+    Circuit circuit;
 
     if (ac != 2) {
         std::cout << "Invalid number of argument." << std::endl;
@@ -39,72 +40,84 @@ int main(int ac, char **av)
         printUsage();
         return 0;
     }
-    // try {
-    //     while (true) {
-    //         parser.getNextLine();
-    //         std::cout << "ana" << std::endl;
-    //         if (parser.isNewSection()) {
-    //             std::cout << "nas" << std::endl;
-    //             std::cout << parser.parseLine() << std::endl;
-    //         } else
-    //         std::cout << parser.parseLine() << " " << parser.parseLine() << std::endl;
-    //     }
-    // } catch (...) {}
+    try {
+        parser.getNextLine();
+        if (!parser.isNewSection() || parser.parseLine() != ".chipsets:")
+            throw parse::Parser::Error("No Chipsets.");
+        parser.getNextLine();
+        while (!parser.isNewSection()) {
+            circuit.AddComponent(parser.parseLine(), parser.parseLine());
+            parser.getNextLine();
+        }
+        if (parser.parseLine() == ".chipsets:") throw parse::Parser::Error("Multiple .chipsets definition.");
+        // while (!parser.isNewSection()) {
+        //     circuit.setLink
+        //     parser.getNextLine();
+        //     std::string component = parser.parseLine();
+        //     std::string toLink = parser.parseLine();
+        //     if (component.find(':') != std::string::npos && toFind.find(':') != std::string::npos) {
+        //         circuit[component.substr(0, component.find(':'))]->setLink(component.substr(component.find(':')),
+        //         circuit[toFind.substr(0, component.find(':'))], toFind.substr(toFind.find(':')));
+        //     }
+            // circuit.oper
+        //}
+
+    } catch (...) {};
     //! Parse initial file in a try catcht
     //! Same structure from above that probably returns a circuit instead of display
     while (!shell.isEofReached()) {
         std::cout << "> ";
         shell.getInputFromUser();
         try {
-            shell.executeCommand();
+            shell.executeCommand(&circuit);
         } catch (const std::exception &err) {
             std::cout << err.what() << std::endl;
             return 84;
         }
     }
 
-    Circuit *grid = new Circuit();
+    // Circuit *grid = new Circuit();
 
-    grid->AddComponent("input", "in1");
-    grid->AddComponent("clock", "cl1");
-    grid->AddComponent("output", "out1");
-    grid->AddComponent("and", "andDoor");
+    // grid->AddComponent("input", "in1");
+    // grid->AddComponent("clock", "cl1");
+    // grid->AddComponent("output", "out1");
+    // grid->AddComponent("and", "andDoor");
 
-    nts::IComponent *in1 = grid->operator[]("in1");
-    nts::IComponent *cl1 = grid->operator[]("cl1");
-    nts::IComponent *out1 = grid->operator[]("out1");
-    nts::IComponent *andDoor = grid->operator[]("andDoor");
-    out1->setLink(1, *grid->operator[]("andDoor"), 3);
-    andDoor->setLink(1, *grid->operator[]("in1"), 1);
-    andDoor->setLink(2, *grid->operator[]("cl1"), 1);
+    // nts::IComponent *in1 = grid->operator[]("in1");
+    // nts::IComponent *cl1 = grid->operator[]("cl1");
+    // nts::IComponent *out1 = grid->operator[]("out1");
+    // nts::IComponent *andDoor = grid->operator[]("andDoor");
+    // out1->setLink(1, *grid->operator[]("andDoor"), 3);
+    // andDoor->setLink(1, *grid->operator[]("in1"), 1);
+    // andDoor->setLink(2, *grid->operator[]("cl1"), 1);
 
 
-    Input *dyn_in1 = dynamic_cast<Input *>(in1);
-    dyn_in1->setValue(nts::TRUE);
-    Input *dyn_cl1 = dynamic_cast<Input *>(cl1);
-    dyn_cl1->setValue(nts::FALSE);
+    // Input *dyn_in1 = dynamic_cast<Input *>(in1);
+    // dyn_in1->setValue(nts::TRUE);
+    // Input *dyn_cl1 = dynamic_cast<Input *>(cl1);
+    // dyn_cl1->setValue(nts::FALSE);
 
-    grid->dump();
+    // grid->dump();
 
-    in1->simulate(1);
-    cl1->simulate(1);
-    andDoor->simulate(1);
-    out1->simulate(1);
+    // in1->simulate(1);
+    // cl1->simulate(1);
+    // andDoor->simulate(1);
+    // out1->simulate(1);
 
-    grid->dump();
+    // grid->dump();
 
-    in1->simulate(1);
-    cl1->simulate(1);
-    andDoor->simulate(1);
-    out1->simulate(1);
+    // in1->simulate(1);
+    // cl1->simulate(1);
+    // andDoor->simulate(1);
+    // out1->simulate(1);
 
-    grid->dump();
+    // grid->dump();
 
-    in1->simulate(1);
-    cl1->simulate(1);
-    andDoor->simulate(1);
-    out1->simulate(1);
+    // in1->simulate(1);
+    // cl1->simulate(1);
+    // andDoor->simulate(1);
+    // out1->simulate(1);
 
-    grid->dump();
+    // grid->dump();
     return 0;
 }

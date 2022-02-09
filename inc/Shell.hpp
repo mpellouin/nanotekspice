@@ -12,12 +12,14 @@
 #include <map>
 #include <functional>
 
+#include "Circuit.hpp"
+
 class Shell {
     public:
         Shell();
         ~Shell();
 
-        std::map<std::string, std::function<void()>> Commands;
+        std::map<std::string, std::function<void(Circuit *)>> Commands;
 
         /**
          * @brief Get the Input From User object
@@ -41,12 +43,13 @@ class Shell {
 
         /**
          * @brief Execute the command stored in the class.
+         * @param circuit Current nts circuit.
          * 
          * @exception exception-object Unknown command.
          * @exception exception-object Not enough arguments.
          * @exception exception-object Bad arguments.
          */
-        void executeCommand();
+        void executeCommand(Circuit *circuit);
 
         static class Error : public std::exception {
             public:

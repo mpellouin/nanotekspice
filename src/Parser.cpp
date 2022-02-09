@@ -22,7 +22,7 @@ void Parser::getNextLine(void)
     std::string tempLine("");
     while (tempLine == "") {
         if (this->_stream.fail() || this->_stream.bad() || this->_stream.eof())
-            throw std::out_of_range("Can't read no more line");
+            throw Parser::Error("Can't read no more line");
         getline(_stream, tempLine);
         if (tempLine.find('#') != std::string::npos)
             tempLine = tempLine.substr(0, tempLine.find('#'));
@@ -36,7 +36,7 @@ std::string Parser::parseLine()
     std::string nextArgument;
     *this->_line >> nextArgument;
     if (nextArgument == "" && this->_argNumber > 0)
-        throw std::out_of_range("Missing an argument");
+        throw Parser::Error("Missing an argument");
     this->_argNumber++;
     return nextArgument;
 }

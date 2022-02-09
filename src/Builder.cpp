@@ -26,7 +26,7 @@ uComp Builder::createComponent(const std::string &type, const std::string &name)
     if (_builders.find(type) != _builders.end())
         ptr = _builders[type];
     else
-        throw std::invalid_argument("Unknown chipset type");
+        throw Builder::Error("Unknown chipset type");
     return (this->*ptr)(name);
 }
 

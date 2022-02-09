@@ -23,6 +23,13 @@ class Circuit : public nts::IComponent{
         nts::Tristate compute(std::size_t pin);
         void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
         void dump() const;
+        static class Error : public std::exception {
+            public:
+                Error(const std::string &message) {this->message = new std::string(message);};
+                const char *what() const noexcept override;
+            private:
+                std::string *message;
+        } err;
     private:
         std::map<std::string, uComp> _components;
         Builder builder;

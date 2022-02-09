@@ -57,3 +57,8 @@ void Circuit::dump() const
         comp.second->dump();
     }
 }
+
+const char *Circuit::Error::what() const noexcept
+{
+    return this->message->c_str();
+}

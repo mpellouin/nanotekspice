@@ -13,20 +13,30 @@
 #include <fstream>
 #include <stdexcept>
 
-class Parser {
+namespace parse
+{
+    enum State
+    {
+        null,
+        chipsets,
+        links
+    };
+
+    class Parser
+    {
     public:
         Parser(const std::string &filepath);
         ~Parser();
 
         /**
          * @brief Get the Next Line object and stores it in parser class.
-         * 
+         *
          */
         void getNextLine();
 
         /**
          * @brief Parse the next line from input.
-         * 
+         *
          * In case of error, throws an exception
          * @return Next parsable element as an std::string
          */
@@ -35,17 +45,19 @@ class Parser {
         /**
          * @brief Indicates if next line is the beggining of a new
          * section.
-         * 
+         *
          * @return true if new section, false otherwise
          */
         bool isNewSection();
 
-        static class Error : public std::exception {
-            public:
-                Error(const std::string &message) {this->message = new std::string(message);};
-                const char *what() const noexcept override;
-            private:
-                std::string *message;
+        static class Error : public std::exception
+        {
+        public:
+            Error(const std::string &message) { this->message = new std::string(message); };
+            const char *what() const noexcept override;
+
+        private:
+            std::string *message;
         } err;
 
     protected:
@@ -53,6 +65,8 @@ class Parser {
         std::ifstream _stream;
         std::stringstream *_line;
         int _argNumber = 0;
-};
+        parse::State _parseState = null;
+    };
+}
 
 #endif /* !PARSER_HPP_ */

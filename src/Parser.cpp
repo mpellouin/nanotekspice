@@ -7,22 +7,22 @@
 
 #include "Parser.hpp"
 
-Parser::Parser(const std::string &filepath)
+parse::Parser::Parser(const std::string &filepath)
 {
     this->_stream = std::ifstream(filepath);
     this->_line = new std::stringstream("");
 }
 
-Parser::~Parser()
+parse::Parser::~Parser()
 {
 }
 
-void Parser::getNextLine(void)
+void parse::Parser::getNextLine(void)
 {
     std::string tempLine("");
     while (tempLine == "") {
         if (this->_stream.fail() || this->_stream.bad() || this->_stream.eof())
-            throw Parser::Error("Can't read no more line");
+            throw parse::Parser::Error("Can't read no more line");
         getline(_stream, tempLine);
         if (tempLine.find('#') != std::string::npos)
             tempLine = tempLine.substr(0, tempLine.find('#'));
@@ -31,24 +31,26 @@ void Parser::getNextLine(void)
     }
 }
 
-std::string Parser::parseLine()
+std::string parse::Parser::parseLine()
 {
     std::string nextArgument;
     *this->_line >> nextArgument;
     if (nextArgument == "" && this->_argNumber > 0)
-        throw Parser::Error("Missing an argument");
+        throw parse::Parser::Error("Missing an argument");
     this->_argNumber++;
     return nextArgument;
 }
 
-bool Parser::isNewSection()
+bool parse::Parser::isNewSection()
 {
-    if (!this->_line->str().compare(".chipsets:") || !this->_line->str().compare(".links:"))
+    if (!this->_line->str().compare(".chipsets:") || !this->_line->str().compare(".links:")) {
+        this->_parseState = !this->_line->str().compare(".chipsets:") ? chipsets : links;
         return true;
+    }
     return false;
 }
 
-const char *Parser::Error::what() const noexcept
+const char *parse::Parser::Error::what() const noexcept
 {
     return this->message->c_str();
 }

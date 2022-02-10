@@ -47,7 +47,7 @@ OBJECTS := $(SOURCES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 DEPS    := $(SOURCES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.d)
 
 TEST_SRC_DIR := ./tests
-TEST_OBJ_DIR := ./tests_objects
+TEST_OBJ_DIR := ./tests_build
 
 TEST_SOURCES_SUB_DIRS := $(shell find $(TEST_SRC_DIR) -type d)
 TEST_OBJECTS_SUB_DIRS := $(TEST_SOURCES_SUB_DIRS:$(TEST_SRC_DIR)%=$(TEST_OBJ_DIR)%)
@@ -96,7 +96,7 @@ $(NAME): $(OBJECTS)
 > @ $(CXX) $^ $(LDFLAGS) -o $@
 > @ printf "$(ORANGE)$@ linking success\n$(WHITE)"
 
-tests_run: fclean $(OBJECTS) $(TEST_OBJECTS)
+tests_run: clean $(OBJECTS) $(TEST_OBJECTS)
 > @$(CXX) $(OBJECTS) $(TEST_OBJECTS) $(LDFLAGS) -o test
 > @ printf "$(ORANGE)Gonna launch criterion tests\n$(WHITE)"
 > ./test

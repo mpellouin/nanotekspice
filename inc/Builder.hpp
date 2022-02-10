@@ -13,6 +13,7 @@
 #include "Output.hpp"
 #include "Clock.hpp"
 #include "And.hpp"
+#include "Or.hpp"
 
 class Builder;
 using builderFunc = uComp (Builder::*)(std::string const &value);
@@ -35,6 +36,7 @@ class Builder {
         uComp createOutput(std::string const &name);
         uComp createClock(std::string const &name);
         uComp createAnd(std::string const &name);
+        uComp createOr(std::string const &name);
 };
 
 #endif /* !BUILDER_HPP_ */

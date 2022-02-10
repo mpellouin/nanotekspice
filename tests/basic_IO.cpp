@@ -22,7 +22,22 @@ Test(Circuit, Circuit_AddComponent)
     grid->AddComponent("input", "A");
     grid->AddComponent("output", "B");
     grid->AddComponent("clock", "C");
+    grid->AddComponent("and", "D");
 
+    cr_assert_eq(0, 0);
+}
+
+Test(Circuit, Circuit_Simlation)
+{
+    Circuit *grid = new Circuit();
+
+    grid->AddComponent("input", "A");
+    grid->AddComponent("output", "B");
+    grid->AddComponent("clock", "C");
+    grid->AddComponent("and", "D");
+
+    grid->simulate(1);
+    grid->dump();
     cr_assert_eq(0, 0);
 }
 

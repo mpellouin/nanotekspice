@@ -18,8 +18,7 @@ Circuit::~Circuit()
 nts::IComponent *Circuit::operator[](const std::string &name)
 {
     if (_components.find(name) == _components.end()) {
-        std::cout << "Unknown component " << name << std::endl;
-        throw std::exception();
+        throw Circuit::Error("Component not found");
     }
     return _components[name].get();
 }
@@ -27,8 +26,7 @@ nts::IComponent *Circuit::operator[](const std::string &name)
 void Circuit::AddComponent(const std::string &type, const std::string &name)
 {
     if (_components.find(name) != _components.end()) {
-        std::cout << "This component is already in this circuit" << std::endl;
-        return;
+        throw Circuit::Error("This component already exists in this circuit");
     }
     uComp newComp = builder.createComponent(type, name);
     _components.emplace(name, std::move(newComp));

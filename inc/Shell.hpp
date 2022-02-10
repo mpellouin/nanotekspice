@@ -60,6 +60,7 @@ class Shell {
         static class Error : public std::exception {
             public:
                 Error(const std::string &message) {this->message = new std::string(message);};
+                ~Error() {delete this->message;};
                 const char *what() const noexcept override;
             private:
                 std::string *message;

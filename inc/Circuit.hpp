@@ -26,10 +26,12 @@ class Circuit : public nts::IComponent{
         static class Error : public std::exception {
             public:
                 Error(const std::string &message) {this->message = new std::string(message);};
+                ~Error() {delete this->message;};
                 const char *what() const noexcept override;
             private:
                 std::string *message;
         } err;
+        bool isExiting = false;
     private:
         std::map<std::string, uComp> _components;
         Builder builder;

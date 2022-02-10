@@ -76,6 +76,7 @@ namespace parse
         {
         public:
             Error(const std::string &message) { this->message = new std::string(message); };
+            ~Error() {delete this->message;};
             const char *what() const noexcept override;
 
         private:
@@ -84,7 +85,7 @@ namespace parse
 
     protected:
     private:
-        std::ifstream _stream;
+        std::ifstream *_stream = nullptr;
         std::stringstream *_line;
         int _argNumber = 0;
         parse::State _parseState = null;

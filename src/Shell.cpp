@@ -15,10 +15,9 @@ void test_func(Circuit *test) {
 }
 
 
-void exitProgram(Circuit * test)
+void exitProgram(Circuit *test)
 {
-    (void)test;
-    exit(0);
+    test->isExiting = true;
 }
 
 void displayCircuit(Circuit *test)
@@ -34,11 +33,11 @@ Shell::Shell()
 {
     //! Init commands here
     // Shell::Commands[std::string("test")] = &test_func;
-    Shell::Commands[std::string("display")] = &displayCircuit;
-    Shell::Commands[std::string("exit")] = &exitProgram;
-    Shell::Commands[std::string("simulate")] = &simulateCircuit;
-    Shell::Commands[std::string("loop")] = &test_func;
-    Shell::Commands[std::string("dump")] = &test_func;
+    Shell::Commands["display"] = &displayCircuit;
+    Shell::Commands["exit"] = &exitProgram;
+    Shell::Commands["simulate"] = &simulateCircuit;
+    Shell::Commands["loop"] = &test_func;
+    Shell::Commands["dump"] = &test_func;
 }
 
 Shell::~Shell()
@@ -85,7 +84,7 @@ void Shell::executeCommand(Circuit *circuit)
 
 void Shell::run(Circuit &circuit)
 {
-    while (!this->isEofReached()) {
+    while (!this->isEofReached() && !circuit.isExiting) {
         std::cout << "> ";
         this->getInputFromUser();
         this->executeCommand(&circuit);

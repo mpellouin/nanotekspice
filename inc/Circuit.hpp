@@ -8,7 +8,6 @@
 #ifndef CIRCUIT_HPP_
 #define CIRCUIT_HPP_
 
-#include "IComponent.hpp"
 #include "Builder.hpp"
 
 class Circuit : public nts::IComponent{

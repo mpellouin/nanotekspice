@@ -18,7 +18,6 @@
 #include <exception>
 #include <list>
 
-
 namespace nts
 {
     enum Tristate {

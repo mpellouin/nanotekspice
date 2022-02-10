@@ -12,21 +12,19 @@ Test(Circuit, Circuit_Basic)
 {
     Circuit *grid = new Circuit();
 
-    grid->AddComponent("input", "in1");
-
     cr_assert_eq(grid->compute(1), nts::UNDEFINED);
 }
 
-// Test(Circuit, Circuit_AddComponent)
-// {
-//     nts::Circuit circuit("circuit");
-//     nts::IComponent *component = new nts::Input("input");
-//     std::size_t id = circuit.addComponent(component);
+Test(Circuit, Circuit_AddComponent)
+{
+    Circuit *grid = new Circuit();
 
-//     cr_assert(id == 0);
-//     cr_assert(circuit.getNbComponents() == 1);
-//     cr_assert(circuit.getComponent(id) == component);
-// }
+    grid->AddComponent("input", "A");
+    grid->AddComponent("output", "B");
+    grid->AddComponent("clock", "C");
+
+    cr_assert_eq(0, 0);
+}
 
 // Test(Circuit, Circuit_AddLink)
 // {

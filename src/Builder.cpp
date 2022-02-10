@@ -14,6 +14,7 @@ Builder::Builder()
     _builders["clock"] = &Builder::createClock;
     _builders["and"] = &Builder::createAnd;
     _builders["or"] = &Builder::createOr;
+    _builders["not"] = &Builder::createNot;
 }
 
 Builder::~Builder()
@@ -58,6 +59,12 @@ uComp Builder::createAnd(std::string const &name)
 uComp Builder::createOr(std::string const &name)
 {
     nts::IComponent *component = new Or(name);
+    return uComp(component);
+}
+
+uComp Builder::createNot(std::string const &name)
+{
+    nts::IComponent *component = new Not(name);
     return uComp(component);
 }
 

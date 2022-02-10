@@ -1,8 +1,9 @@
 .chipsets:
 input a
-input b
+clock b
 and chip1
 or chip2
+not chip3
 output s1
 output s2
 .links:

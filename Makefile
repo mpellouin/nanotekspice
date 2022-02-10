@@ -101,20 +101,24 @@ tests_run: fclean $(OBJECTS) $(TEST_OBJECTS)
 > @ printf "$(ORANGE)Gonna launch criterion tests\n$(WHITE)"
 > ./test
 
+test_recap:
+> @ printf "$(ORANGE)$(BOLD)Tests recap:$(WHITE)\n"
+> gcovr --exclude tests --exclude inc
+> gcovr --exclude tests --exclude inc --branches
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJECTS_SUB_DIRS)
 > @$(CXX) $(CXXFLAGS) $(CXX_DEPS) -c $< -o $@
 > @ printf "$(DARK_BLUE)Compiling [$(CYAN)$@$(WHITE)$(DARK_BLUE)]$(WHITE)\n"
 
 $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp | $(TEST_OBJECTS_SUB_DIRS)
 > @$(CXX) $(CXXFLAGS) $(CXX_DEPS) -c $< -o $@
-> @echo CXX $@
+> @ printf "$(DARK_BLUE)Compiling [$(CYAN)$@$(WHITE)$(DARK_BLUE)]$(WHITE)\n"
 
 $(OBJECTS_SUB_DIRS):
 > @$(MKDIR) $(OBJECTS_SUB_DIRS)
 
 $(TEST_OBJECTS_SUB_DIRS):
 > @$(MKDIR) $(TEST_OBJECTS_SUB_DIRS)
-> @echo MKDIR $(TEST_OBJECTS_SUB_DIRS)
 
 clean:
 > @$(RMDIR) $(OBJ_DIR)

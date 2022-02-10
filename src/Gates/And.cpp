@@ -20,6 +20,7 @@ And::~And()
 
 void And::simulate(std::size_t tick)
 {
+    (void)tick;
     _pins[1] = compute(1);
     _pins[2] = compute(2);
 

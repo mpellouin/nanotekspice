@@ -20,7 +20,8 @@ void Clock::simulate(std::size_t tick)
 {
     if (_pins[1] != nts::UNDEFINED) {
         std::cout << "Clock simulation" << std::endl;
-        _pins[1] = (_pins[1] == nts::TRUE) ? nts::FALSE : nts::TRUE;
+        for (size_t i = 0; i < tick; i++)
+            _pins[1] = (_pins[1] == nts::TRUE) ? nts::FALSE : nts::TRUE;
     }
     if (_newPins.size() > 0) {
         _pins = _newPins;

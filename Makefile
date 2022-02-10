@@ -57,17 +57,17 @@ TEST_OBJECTS := $(TEST_SOURCES:$(TEST_SRC_DIR)/%.cpp=$(TEST_OBJ_DIR)/%.o)
 
 ifeq ($(MAKECMDGOALS), tests_run)
   CXX           := g++
-  CXX_WARNINGS  := -Wall -Wextra
+  CXX_WARNINGS  := -Wall -Wextra -Wpedantic
   CXXFLAGS      := -fprofile-arcs -ftest-coverage
   LDFLAGS       := -lgcov -lcriterion
 else
   CXX           := clang++
-  CXX_WARNINGS  := -Wall -Wextra -Wno-unused-parameter -Wpedantic
+  CXX_WARNINGS  := -Wall -Wextra -Wpedantic
   CXXFLAGS      := -std=c++20
   LDFLAGS       :=
 endif
 
-CXX_DEPS      =   -MT $(OBJ_DIR)/$*.o -MMD -MP -MF $(OBJ_DIR)/$*.d
+CXX_DEPS      =   -MT $(OBJ_DIR)/$*.o -MP -MMD  -MF $(OBJ_DIR)/$*.d
 CXX_DEBUG     :=  -g3 -ggdb3
 CXX_OPTIMIZE  :=  -O2 -march=native
 
@@ -98,8 +98,13 @@ $(NAME): $(OBJECTS)
 
 tests_run: fclean $(OBJECTS) $(TEST_OBJECTS)
 > @$(CXX) $(OBJECTS) $(TEST_OBJECTS) $(LDFLAGS) -o test
-> @echo CXX $@
+> @ printf "$(ORANGE)Gonna launch criterion tests\n$(WHITE)"
 > ./test
+
+test_recap:
+> @ printf "$(ORANGE)$(BOLD)Tests recap:$(WHITE)\n"
+> gcovr --exclude tests --exclude inc
+> gcovr --exclude tests --exclude inc --branches
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJECTS_SUB_DIRS)
 > @$(CXX) $(CXXFLAGS) $(CXX_DEPS) -c $< -o $@
@@ -107,14 +112,13 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJECTS_SUB_DIRS)
 
 $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp | $(TEST_OBJECTS_SUB_DIRS)
 > @$(CXX) $(CXXFLAGS) $(CXX_DEPS) -c $< -o $@
-> @echo CXX $@
+> @ printf "$(DARK_BLUE)Compiling [$(CYAN)$@$(WHITE)$(DARK_BLUE)]$(WHITE)\n"
 
 $(OBJECTS_SUB_DIRS):
 > @$(MKDIR) $(OBJECTS_SUB_DIRS)
 
 $(TEST_OBJECTS_SUB_DIRS):
 > @$(MKDIR) $(TEST_OBJECTS_SUB_DIRS)
-> @echo MKDIR $(TEST_OBJECTS_SUB_DIRS)
 
 clean:
 > @$(RMDIR) $(OBJ_DIR)

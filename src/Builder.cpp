@@ -48,12 +48,13 @@ uComp Builder::createClock(std::string const &name)
     return uComp(component);
 }
 
-const char *Builder::Error::what() const noexcept
-{
-    return this->message->c_str();
-}
 uComp Builder::createAnd(std::string const &name)
 {
     nts::IComponent *component = new And(name);
     return uComp(component);
+}
+
+const char *Builder::Error::what() const noexcept
+{
+    return this->message->c_str();
 }

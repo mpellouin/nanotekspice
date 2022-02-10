@@ -72,7 +72,7 @@ void parse::Parser::buildCircuit(Circuit &circuit)
                 static_cast<size_t>(std::atoi(component.substr(component.find(':') + 1).c_str())),
                 component.substr(0, component.find(':')),
                 static_cast<size_t>(std::atoi(toLink.substr(toLink.find(':') + 1).c_str())),
-                toLink.substr(0, component.find(':')));
+                toLink.substr(0, toLink.find(':')));
         }
         this->getNextLine();
     }

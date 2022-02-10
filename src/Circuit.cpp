@@ -50,12 +50,10 @@ nts::Tristate Circuit::compute(std::size_t pin)
 void Circuit::setLink(std::size_t pin1, const std::string &comp1, std::size_t pin2, const std::string &comp2)
 {
     if (_components.find(comp1) == _components.end()) {
-        std::cout << "This component isn't in the circuit \"" << comp1 << "\"" << std::endl;
-        return;
+        throw Circuit::Error("This component isn't in the circuit \"" + comp1 + "\"");
     }
     if (_components.find(comp2) == _components.end()) {
-        std::cout << "This component isn't in the circuit \"" << comp2 << "\"" << std::endl;
-        return;
+        throw Circuit::Error("This component isn't in the circuit \"" + comp2 + "\"");
     }
     _components[comp1]->setLink(pin1, *_components[comp2], pin2);
     _components[comp2]->setLink(pin2, *_components[comp1], pin1);

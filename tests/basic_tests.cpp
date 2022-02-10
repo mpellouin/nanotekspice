@@ -57,6 +57,7 @@ Test(Circuit, Circuit_AddLink)
     grid.AddComponent("or", "E");
     grid.AddComponent("not", "F");
     grid.AddComponent("nand", "G");
+    grid.setLink(1, *grid["A"], 1);
     grid.setLink(1, "A", 1, "B");
     grid.setLink(1, "C", 1, "B");
     grid.setLink(3, "D", 1, "B");
@@ -78,7 +79,17 @@ Test(Circuit, Component_access)
     input->setValue(nts::Tristate::TRUE);
     grid["A"]->simulate(1);
     grid["B"]->simulate(1);
+    grid["B"]->compute(5);
     cr_assert_eq(grid["B"]->compute(1), nts::Tristate::TRUE);
+}
+
+Test(Circuit, Circuit_dump)
+{
+    Circuit grid;
+    grid.AddComponent("input", "A");
+    grid.AddComponent("output", "B");
+
+    grid.dump();
 }
 
 Test(Circuit, Circuit_errors)
@@ -100,5 +111,15 @@ Test(Circuit, Circuit_errors)
         grid["B"];
     } catch (std::exception &e) {
         cr_assert_str_eq(e.what(), "Component not found");
+    }
+    try {
+        grid.setLink(1, "F", 1, "A");
+    } catch (std::exception &e) {
+        cr_assert_str_eq(e.what(), "This component isn't in the circuit \"F\"");
+    }
+    try {
+        grid.setLink(1, "A", 1, "F");
+    } catch (std::exception &e) {
+        cr_assert_str_eq(e.what(), "This component isn't in the circuit \"F\"");
     }
 }

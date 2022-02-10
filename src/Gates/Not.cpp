@@ -26,9 +26,9 @@ void Not::simulate(std::size_t tick)
     if (_pins[1] == nts::TRUE)
         _pins[2] = nts::FALSE;
     else if (_pins[1] == nts::FALSE)
-        _pins[3] = nts::TRUE;
+        _pins[2] = nts::TRUE;
     else
-        _pins[3] = nts::UNDEFINED;
+        _pins[2] = nts::UNDEFINED;
 }
 
 nts::Tristate Not::compute(std::size_t pin)

@@ -28,8 +28,14 @@ namespace parse
     class Parser
     {
     public:
-        Parser(const std::string &filepath);
+        Parser();
         ~Parser();
+
+        /**
+         * @brief Opens file ans sets it as parser stream
+         * @param filepath File path
+         */
+        void openFile(const std::string &filepath);
 
         /**
          * @brief Get the Next Line object and stores it in parser class.

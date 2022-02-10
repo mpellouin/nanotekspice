@@ -29,7 +29,7 @@ void printUsage(void)
 int main(int ac, char **av)
 {
     Shell shell;
-    parse::Parser parser(av[1]);
+    parse::Parser parser;
     Circuit circuit;
 
     if (ac != 2) {
@@ -42,6 +42,7 @@ int main(int ac, char **av)
     }
 
     try {
+        parser.openFile(av[1]);
         parser.buildCircuit(circuit);
     } catch (const std::exception &except) {
         if (except.what() != std::string("EOF")) {

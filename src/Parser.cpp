@@ -7,14 +7,20 @@
 
 #include "Parser.hpp"
 
-parse::Parser::Parser(const std::string &filepath)
+parse::Parser::Parser()
 {
-    this->_stream = std::ifstream(filepath);
     this->_line = new std::stringstream("");
 }
 
 parse::Parser::~Parser()
 {
+}
+
+void parse::Parser::openFile(const std::string &filepath)
+{
+    if (filepath.find(".nts") == std::string::npos || filepath.find(".nts") != filepath.length() - 4)
+        throw parse::Parser::Error("File does not have .nts extension");
+    this->_stream = std::ifstream(filepath);
 }
 
 void parse::Parser::getNextLine(void)

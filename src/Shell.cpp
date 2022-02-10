@@ -30,6 +30,12 @@ void simulateCircuit(Circuit *test)
     test->simulate(1);
 }
 
+void roundCircuit(Circuit *test)
+{
+    test->simulate(1);
+    test->dump();
+}
+
 Shell::Shell()
 {
     //! Init commands here
@@ -39,6 +45,7 @@ Shell::Shell()
     Shell::Commands[std::string("simulate")] = &simulateCircuit;
     Shell::Commands[std::string("loop")] = &test_func;
     Shell::Commands[std::string("dump")] = &test_func;
+    Shell::Commands[std::string("round")] = &roundCircuit;
 }
 
 Shell::~Shell()

@@ -3,7 +3,7 @@ input a
 clock b
 and chip1
 or chip2
-not chip3
+nand chip3
 output s1
 output s2
 .links:
@@ -12,4 +12,6 @@ b:1 chip1:2
 chip1:3 s1:1
 a:1 chip2:1
 b:1 chip2:2
-chip2:3 s2:1
+chip2:3 chip3:1
+chip3:2 b:1
+chip3:3 s2:1

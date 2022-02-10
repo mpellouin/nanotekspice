@@ -36,6 +36,7 @@ void Circuit::AddComponent(const std::string &type, const std::string &name)
 
 void Circuit::simulate(std::size_t tick)
 {
+    (void)tick;
     for (auto &comp : _components) {
         comp.second->simulate(1);
     }
@@ -44,6 +45,7 @@ void Circuit::simulate(std::size_t tick)
 
 nts::Tristate Circuit::compute(std::size_t pin)
 {
+    (void)pin;
     return nts::UNDEFINED;
 }
 
@@ -64,6 +66,9 @@ void Circuit::setLink(std::size_t pin1, const std::string &comp1, std::size_t pi
 
 void Circuit::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
+    (void)pin;
+    (void)other;
+    (void)otherPin;
     return;
 }
 

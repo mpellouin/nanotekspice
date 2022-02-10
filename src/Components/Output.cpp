@@ -19,6 +19,7 @@ Output::~Output()
 
 void Output::simulate(std::size_t tick)
 {
+    (void)tick;
     _pins[1] = compute(1);
     return;
 }

@@ -57,17 +57,17 @@ TEST_OBJECTS := $(TEST_SOURCES:$(TEST_SRC_DIR)/%.cpp=$(TEST_OBJ_DIR)/%.o)
 
 ifeq ($(MAKECMDGOALS), tests_run)
   CXX           := g++
-  CXX_WARNINGS  := -Wall -Wextra
+  CXX_WARNINGS  := -Wall -Wextra -Wpedantic
   CXXFLAGS      := -fprofile-arcs -ftest-coverage
   LDFLAGS       := -lgcov -lcriterion
 else
   CXX           := clang++
-  CXX_WARNINGS  := -Wall -Wextra -Wno-unused-parameter -Wpedantic
+  CXX_WARNINGS  := -Wall -Wextra -Wpedantic
   CXXFLAGS      := -std=c++20
   LDFLAGS       :=
 endif
 
-CXX_DEPS      =   -MT $(OBJ_DIR)/$*.o -MMD -MP -MF $(OBJ_DIR)/$*.d
+CXX_DEPS      =   -MT $(OBJ_DIR)/$*.o -MP -MMD  -MF $(OBJ_DIR)/$*.d
 CXX_DEBUG     :=  -g3 -ggdb3
 CXX_OPTIMIZE  :=  -O2 -march=native
 
@@ -98,7 +98,7 @@ $(NAME): $(OBJECTS)
 
 tests_run: fclean $(OBJECTS) $(TEST_OBJECTS)
 > @$(CXX) $(OBJECTS) $(TEST_OBJECTS) $(LDFLAGS) -o test
-> @echo CXX $@
+> @ printf "$(ORANGE)Gonna launch criterion tests\n$(WHITE)"
 > ./test
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJECTS_SUB_DIRS)

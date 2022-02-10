@@ -19,6 +19,7 @@ Input::~Input()
 
 void Input::simulate(std::size_t tick)
 {
+    (void)tick;
     if (_newPins.size() > 0) {
         _pins = _newPins;
         _newPins.clear();
@@ -35,6 +36,9 @@ nts::Tristate Input::compute(std::size_t pin)
 
 void Input::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
 {
+    (void)pin;
+    (void)other;
+    (void)otherPin;
    return;
 }
 

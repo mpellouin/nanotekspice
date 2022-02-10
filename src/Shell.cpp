@@ -63,7 +63,6 @@ void Shell::executeCommand(Circuit *circuit)
         throw Shell::Error("EOF");
     if (cmd.find('=') != std::string::npos && cmd.find('=') != 0) {
         std::string var = cmd.substr(0, cmd.find('='));
-        //! Check if var exists
         int state;
         if ((std::stringstream(cmd.substr(cmd.find('=') + 1)) >> state).fail()) {
             std::string undefinedChecker;
@@ -82,6 +81,15 @@ void Shell::executeCommand(Circuit *circuit)
     if (Shell::Commands.count(cmd) == 0)
         throw Shell::Error("Unknown command.");
     Shell::Commands[cmd](circuit);
+}
+
+void Shell::run(Circuit &circuit)
+{
+    while (!this->isEofReached()) {
+        std::cout << "> ";
+        this->getInputFromUser();
+        this->executeCommand(&circuit);
+    }
 }
 
 const char *Shell::Error::what() const noexcept

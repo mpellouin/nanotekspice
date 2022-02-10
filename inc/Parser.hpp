@@ -12,6 +12,9 @@
 #include <sstream>
 #include <fstream>
 #include <stdexcept>
+#include <iostream>
+
+#include "Circuit.hpp"
 
 namespace parse
 {
@@ -49,6 +52,19 @@ namespace parse
          * @return true if new section, false otherwise
          */
         bool isNewSection();
+
+        /**
+         * @brief Gets the state of parse
+         * 
+         */
+        parse::State getParseState() const {return this->_parseState;};
+
+        /**
+         * @brief Adds the components and the links to the circuit in parameter
+         * @param circuit Circuit to add teh components in
+         * 
+         */
+        void buildCircuit(Circuit &circuit);
 
         static class Error : public std::exception
         {

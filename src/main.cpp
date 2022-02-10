@@ -40,41 +40,24 @@ int main(int ac, char **av)
         printUsage();
         return 0;
     }
-    try {
-        parser.getNextLine();
-        if (!parser.isNewSection() || parser.parseLine() != ".chipsets:")
-            throw parse::Parser::Error("No Chipsets.");
-        parser.getNextLine();
-        while (!parser.isNewSection()) {
-            circuit.AddComponent(parser.parseLine(), parser.parseLine());
-            parser.getNextLine();
-        }
-        if (parser.parseLine() == ".chipsets:") throw parse::Parser::Error("Multiple .chipsets definition.");
-        // while (!parser.isNewSection()) {
-        //     circuit.setLink
-        //     parser.getNextLine();
-        //     std::string component = parser.parseLine();
-        //     std::string toLink = parser.parseLine();
-        //     if (component.find(':') != std::string::npos && toFind.find(':') != std::string::npos) {
-        //         circuit[component.substr(0, component.find(':'))]->setLink(component.substr(component.find(':')),
-        //         circuit[toFind.substr(0, component.find(':'))], toFind.substr(toFind.find(':')));
-        //     }
-            // circuit.oper
-        //}
 
-    } catch (...) {};
-    //! Parse initial file in a try catcht
-    //! Same structure from above that probably returns a circuit instead of display
-    while (!shell.isEofReached()) {
-        std::cout << "> ";
-        shell.getInputFromUser();
-        try {
-            shell.executeCommand(&circuit);
-        } catch (const std::exception &err) {
-            std::cout << err.what() << std::endl;
+    try {
+        parser.buildCircuit(circuit);
+    } catch (const std::exception &except) {
+        if (except.what() != std::string("EOF")) {
+            std::cerr << except.what() << std::endl;
             return 84;
         }
+    };
+    try {
+        shell.run(circuit);
+    } catch (const std::exception &err) {
+        std::cerr << err.what() << std::endl;
+        return 84;
     }
+
+    return 0;
+}
 
     // Circuit *grid = new Circuit();
 
@@ -119,5 +102,3 @@ int main(int ac, char **av)
     // out1->simulate(1);
 
     // grid->dump();
-    return 0;
-}

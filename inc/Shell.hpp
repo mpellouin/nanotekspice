@@ -51,6 +51,12 @@ class Shell {
          */
         void executeCommand(Circuit *circuit);
 
+        /**
+         * @brief Runs the shell CLI
+         * @param circuit Current nts circuit.
+         */
+        void run(Circuit &circuit);
+
         static class Error : public std::exception {
             public:
                 Error(const std::string &message) {this->message = new std::string(message);};

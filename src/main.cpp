@@ -15,6 +15,7 @@
 #include "Shell.hpp"
 #include "Parser.hpp"
 #include "Circuit.hpp"
+#include "newAnd.hpp"
 
 /**
  * @brief Prints the program usage to the standard output.
@@ -28,36 +29,49 @@ void printUsage(void)
 
 int main(int ac, char **av)
 {
-    Shell shell;
-    parse::Parser parser;
-    Circuit circuit;
+    // Shell shell;
+    // parse::Parser parser;
+    // Circuit circuit;
 
-    if (ac != 2) {
-        std::cout << "Invalid number of argument." << std::endl;
-        return 84;
-    }
-    if (ac == 2 && !std::string(av[1]).compare("-h")) {
-        printUsage();
-        return 0;
-    }
+    // if (ac != 2) {
+    //     std::cout << "Invalid number of argument." << std::endl;
+    //     return 84;
+    // }
+    // if (ac == 2 && !std::string(av[1]).compare("-h")) {
+    //     printUsage();
+    //     return 0;
+    // }
 
-    try {
-        parser.openFile(av[1]);
-        parser.buildCircuit(circuit);
-    } catch (const std::exception &except) {
-        if (except.what() != std::string("EOF")) {
-            std::cerr << except.what() << std::endl;
-            return 84;
-        }
-    };
-    try {
-        shell.run(circuit);
-    } catch (const std::exception &err) {
-        std::cerr << err.what() << std::endl;
-        return 84;
-    }
+    // try {
+    //     parser.openFile(av[1]);
+    //     parser.buildCircuit(circuit);
+    // } catch (const std::exception &except) {
+    //     if (except.what() != std::string("EOF")) {
+    //         std::cerr << except.what() << std::endl;
+    //         return 84;
+    //     }
+    // };
+    // try {
+    //     shell.run(circuit);
+    // } catch (const std::exception &err) {
+    //     std::cerr << err.what() << std::endl;
+    //     return 84;
+    // }
 
-    return 0;
+    // return 0;
+    Input inp1("input");
+    Input inp2("input");
+    newAnd and1("and1", 3);
+    and1.setLink(1, inp1, 1);
+    and1.setLink(2, inp2, 1);
+    inp1.setValue(nts::FALSE);
+    inp2.setValue(nts::UNDEFINED);
+
+    inp1.simulate(1);
+    inp2.simulate(1);
+    and1.simulate(1);
+    and1.dump();
+
 }
 
     // Circuit *grid = new Circuit();

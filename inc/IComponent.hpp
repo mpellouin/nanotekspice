@@ -16,6 +16,7 @@
 #include <exception>
 #include <memory>
 #include <exception>
+#include <algorithm>
 #include <list>
 
 namespace nts

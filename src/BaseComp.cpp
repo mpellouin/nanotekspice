@@ -9,7 +9,7 @@
 
 BaseComp::BaseComp(const std::string &name, std::size_t nbPin) : _name(name), _nbPin(nbPin)
 {
-    for (int i = 1; i <= _nbPin; i++) {
+    for (size_t i = 1; i <= _nbPin; i++) {
         _pins[i] = nts::UNDEFINED;
     }
 }

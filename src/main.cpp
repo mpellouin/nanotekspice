@@ -59,19 +59,23 @@ int main(int ac, char **av)
     // }
 
     // return 0;
-    Input inp1("input");
-    Input inp2("input");
-    newAnd and1("and1", 3);
-    and1.setLink(1, inp1, 1);
-    and1.setLink(2, inp2, 1);
-    inp1.setValue(nts::FALSE);
-    inp2.setValue(nts::UNDEFINED);
+    Circuit circuit;
+    circuit.AddComponent("input", "in1");
+    circuit.AddComponent("input", "in2");
+    circuit.AddComponent("newAnd", "and1");
+    circuit.AddComponent("output", "out");
+    circuit["and1"]->setLink(1, *circuit["in1"], 1);
+    circuit["and1"]->setLink(2, *circuit["in2"], 1);
+    circuit["out"]->setLink(1, *circuit["and1"], 3);
+    dynamic_cast<Input *>(circuit["in1"])->setValue(nts::TRUE);
+    dynamic_cast<Input *>(circuit["in2"])->setValue(nts::FALSE);
 
-    inp1.simulate(1);
-    inp2.simulate(1);
-    and1.simulate(1);
-    and1.dump();
-
+    circuit.dump();
+    circuit["in1"]->simulate(1);
+    circuit["in2"]->simulate(1);
+    circuit["and1"]->simulate(1);
+    circuit["out"]->simulate(1);
+    circuit.dump();
 }
 
     // Circuit *grid = new Circuit();

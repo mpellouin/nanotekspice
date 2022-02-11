@@ -16,6 +16,7 @@ Builder::Builder()
     _builders["or"] = &Builder::createOr;
     _builders["not"] = &Builder::createNot;
     _builders["nand"] = &Builder::createNand;
+    _builders["newAnd"] = &Builder::createNewAnd;
 }
 
 Builder::~Builder()
@@ -72,6 +73,12 @@ uComp Builder::createNot(std::string const &name)
 uComp Builder::createNand(std::string const &name)
 {
     nts::IComponent *component = new Nand(name);
+    return uComp(component);
+}
+
+uComp Builder::createNewAnd(std::string const &name)
+{
+    nts::IComponent *component = new newAnd(name, 3);
     return uComp(component);
 }
 

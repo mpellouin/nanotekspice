@@ -36,6 +36,8 @@ class Circuit : public BaseComp {
         bool isExiting = false;
     private:
         std::map<std::string, uComp> _components;
+        std::map<std::string, uComp> _inpComponents;
+        std::map<std::string, uComp> _outComponents;
         Builder builder;
 };
 

@@ -34,19 +34,30 @@ void Circuit::AddComponent(const std::string &type, const std::string &name)
     }
     uComp newComp = builder.createComponent(type, name);
     _components.emplace(name, std::move(newComp));
-    // if (type == "input" || type == "clock") {
-    //     _inpComponents.emplace(name, std::move(newComp));
-    // } else if (type == "output" || type == "logger") {
-    //     _outComponents.emplace(name, std::move(newComp));
-    // }
-
+    if (type == "input" || type == "clock") {
+        _inpComponents.emplace(name, std::move(newComp));
+    } else if (type == "output" || type == "logger") {
+        _outComponents.emplace(name, std::move(newComp));
+    }
 }
 
 
 void Circuit::simulate(std::size_t tick)
 {
-    (void)tick;
+    std::cout << "Inp : " << _inpComponents.size() << std::endl;
 
+    std::for_each(_inpComponents.begin(), _inpComponents.end(), [](const std::pair<std::string, uComp> pair) {
+        // pair.second->simulate(tick);
+    });
+    // for (auto &comp : _inpComponents) {
+    //     comp.second.get()->simulate(1);
+    // }
+    // std::cout << "Input simulation done" << std::endl;
+    // for (auto &comp : _outComponents) {
+    //     comp.second.get()->simulate(1);
+    // }
+    std::cout << "Output simulation done" << std::endl;
+    (void)tick;
     // for (auto &comp : _inPins) {
     //     if (_links[comp].component != nullptr) {
     //         std::cout << "Simulated pin " << comp << " of " << _name << " : " << _links[comp].component->compute(_links[comp].pin) << std::endl;

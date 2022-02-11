@@ -72,9 +72,10 @@ int main(int ac, char **av)
     dynamic_cast<Input *>(global["in2"])->setValue(nts::FALSE);
 
     global.dump();
-    global["in1"]->simulate(1);
-    global["in2"]->simulate(1);
-    global["out"]->simulate(1);
+    // global["in1"]->simulate(1);
+    // global["in2"]->simulate(1);
+    // global["out"]->simulate(1);
+    global.simulate(1);
     global.dump();
 }
 

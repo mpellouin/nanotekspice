@@ -8,12 +8,12 @@
 #include "Shell.hpp"
 #include <iostream>
 #include <sstream>
+#include <csignal>
 
 void test_func(Circuit *test) {
     std::cout << "pouet" << std::endl;
     (void)test;
 }
-
 
 void exitProgram(Circuit *test)
 {
@@ -35,6 +35,24 @@ void roundCircuit(Circuit *test)
     test->dump();
 }
 
+void sigintHandler(int signal)   
+{
+    (void)signal;
+    nts::simulationIsRunning = false;
+}
+
+
+void loopCircuit(Circuit *test)
+{
+    nts::simulationIsRunning = true;
+    signal(SIGINT, &sigintHandler);
+    while (nts::simulationIsRunning) {
+        simulateCircuit(test);
+        displayCircuit(test);
+    }
+    signal(SIGINT, SIG_DFL);
+}
+
 Shell::Shell()
 {
     //! Init commands here
@@ -42,8 +60,8 @@ Shell::Shell()
     Shell::Commands["display"] = &displayCircuit;
     Shell::Commands["exit"] = &exitProgram;
     Shell::Commands["simulate"] = &simulateCircuit;
-    Shell::Commands["loop"] = &test_func;
-    Shell::Commands["dump"] = &test_func;
+    Shell::Commands["loop"] = &loopCircuit;
+    Shell::Commands["dump"] = &displayCircuit;
     Shell::Commands["round"] = &roundCircuit;
 }
 

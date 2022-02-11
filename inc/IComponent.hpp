@@ -20,6 +20,7 @@
 
 namespace nts
 {
+    static bool simulationIsRunning;
     enum Tristate {
         UNDEFINED = (-true),
         TRUE = true,

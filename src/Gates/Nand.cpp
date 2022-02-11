@@ -7,11 +7,10 @@
 
 #include "Nand.hpp"
 
-Nand::Nand(const std::string &name)
+Nand::Nand(const std::string &name, std::size_t nbPin) : BaseComp(name, nbPin)
 {
-    _name = name;
-    for (size_t i = 1; i <= 3; i++)
-        _pins[i] = nts::UNDEFINED;
+    _inPins = std::vector<int> {1, 2};
+    _outPins = std::vector<int> {3};
 }
 
 Nand::~Nand()
@@ -21,9 +20,11 @@ Nand::~Nand()
 void Nand::simulate(size_t tick)
 {
     (void)tick;
-    _pins[1] = compute(1);
-    _pins[2] = compute(2);
-
+    for (size_t i = 0; i < _inPins.size(); i++) {
+        if (_links[_inPins.at(i)].component != nullptr) {
+            _pins[_inPins.at(i)] = _links[_inPins.at(i)].component->compute(_links[_inPins.at(i)].pin);
+        }
+    }
     if (_pins[1] == nts::FALSE || _pins[2] == nts::FALSE)
         _pins[3] = nts::TRUE;
     else if (_pins[1] == nts::TRUE && _pins[2] == nts::TRUE)
@@ -35,23 +36,12 @@ void Nand::simulate(size_t tick)
 
 nts::Tristate Nand::compute(std::size_t pin)
 {
-    if (pin == 3)
-        return _pins[3];
-    if (_link[pin].component != nullptr)
-        return _link[pin].component->compute(_link[pin].pin);
+    std::cout << "Nand computed pin n*" << pin << std::endl;
+    simulate(0);
+    if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
+        return _pins[pin];
+    } else {
+        throw BaseComp::Error("Pin not found");
+    }
     return nts::UNDEFINED;
-}
-
-void Nand::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
-{
-    if (pin != 1 && pin != 2)
-        return;
-    _link[pin].component = &other;
-    _link[pin].pin = otherPin;
-}
-
-void Nand::dump() const
-{
-    std::cout << "== Nand \"" << _name << "\" ==" << std::endl;
-    std::cout << "= " << _pins.at(1) << " & " << _pins.at(2) << " -> " << _pins.at(3) << std::endl;
 }

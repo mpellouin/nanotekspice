@@ -8,22 +8,15 @@
 #ifndef NOT_HPP_
 #define NOT_HPP_
 
-#include "IComponent.hpp"
+#include "BaseComp.hpp"
 
-class Not : public nts::IComponent {
+class Not : public BaseComp {
     public:
-        Not(const std::string &name);
+        Not(const std::string &name, std::size_t nbPin);
         ~Not();
 
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
-        void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
-        void dump() const;
-
-    protected:
-        std::string _name;
-        std::map<std::size_t, nts::Tristate> _pins;
-        std::map<std::size_t, nts::Link> _link;
 };
 
 #endif /* !NOT_HPP_ */

@@ -7,11 +7,10 @@
 
 #include "Not.hpp"
 
-Not::Not(const std::string &name)
+Not::Not(const std::string &name, std::size_t nbPin) : BaseComp(name, nbPin)
 {
-    _name = name;
-    for (int i = 1; i <= 2; i++)
-        _pins[i] = nts::UNDEFINED;
+    _inPins = std::vector<int> {1};
+    _outPins = std::vector<int> {2};
 }
 
 Not::~Not()
@@ -21,8 +20,11 @@ Not::~Not()
 void Not::simulate(std::size_t tick)
 {
     (void)tick;
-    _pins[1] = compute(1);
-
+    for (size_t i = 0; i < _inPins.size(); i++) {
+        if (_links[_inPins.at(i)].component != nullptr) {
+            _pins[_inPins.at(i)] = _links[_inPins.at(i)].component->compute(_links[_inPins.at(i)].pin);
+        }
+    }
     if (_pins[1] == nts::TRUE)
         _pins[2] = nts::FALSE;
     else if (_pins[1] == nts::FALSE)
@@ -33,25 +35,12 @@ void Not::simulate(std::size_t tick)
 
 nts::Tristate Not::compute(std::size_t pin)
 {
-    if (pin == 2)
-        return _pins[2];
-    if (pin != 1)
-        return nts::UNDEFINED;
-    if (_link[pin].component != nullptr)
-        return _link[pin].component->compute(_link[pin].pin);
+    std::cout << "Not computed pin n*" << pin << std::endl;
+    simulate(0);
+    if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
+        return _pins[pin];
+    } else {
+        throw BaseComp::Error("Pin not found");
+    }
     return nts::UNDEFINED;
-}
-
-void Not::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
-{
-    if (pin != 1)
-        return;
-    _link[pin].component = &other;
-    _link[pin].pin = otherPin;
-}
-
-void Not::dump() const
-{
-    std::cout << "== Not \"" << _name << "\" ==" << std::endl;
-    std::cout << "= " << _pins.at(1) << " -> " << _pins.at(2) << std::endl;
 }

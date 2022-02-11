@@ -19,7 +19,4 @@ class And : public BaseComp{
         nts::Tristate compute(std::size_t pin);
 };
 
-
-
-
 #endif /* !AND_HPP_ */

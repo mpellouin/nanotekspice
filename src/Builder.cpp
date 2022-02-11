@@ -59,19 +59,19 @@ uComp Builder::createAnd(std::string const &name)
 
 uComp Builder::createOr(std::string const &name)
 {
-    nts::IComponent *component = new Or(name);
+    nts::IComponent *component = new Or(name, 3);
     return uComp(component);
 }
 
 uComp Builder::createNot(std::string const &name)
 {
-    nts::IComponent *component = new Not(name);
+    nts::IComponent *component = new Not(name, 2);
     return uComp(component);
 }
 
 uComp Builder::createNand(std::string const &name)
 {
-    nts::IComponent *component = new Nand(name);
+    nts::IComponent *component = new Nand(name, 3);
     return uComp(component);
 }
 

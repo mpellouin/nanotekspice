@@ -15,40 +15,40 @@ void test_func(Circuit *test) {
     (void)test;
 }
 
-void exitProgram(Circuit *test)
+void Shell::_exitProgram(Circuit *test)
 {
     test->isExiting = true;
 }
 
-void displayCircuit(Circuit *test)
+void Shell::_displayCircuit(Circuit *test)
 {
     test->dump();
 }
-void simulateCircuit(Circuit *test)
+void Shell::_simulateCircuit(Circuit *test)
 {
     test->simulate(1);
 }
 
-void roundCircuit(Circuit *test)
+void Shell::_roundCircuit(Circuit *test)
 {
     test->simulate(1);
     test->dump();
 }
 
-void sigintHandler(int signal)   
+void Shell::_sigintHandler(int signal)   
 {
     (void)signal;
     nts::simulationIsRunning = false;
 }
 
 
-void loopCircuit(Circuit *test)
+void Shell::_loopCircuit(Circuit *test)
 {
     nts::simulationIsRunning = true;
-    signal(SIGINT, &sigintHandler);
+    signal(SIGINT, &Shell::_sigintHandler);
     while (nts::simulationIsRunning) {
-        simulateCircuit(test);
-        displayCircuit(test);
+        Shell::_simulateCircuit(test);
+        Shell::_displayCircuit(test);
     }
     signal(SIGINT, SIG_DFL);
 }
@@ -57,12 +57,12 @@ Shell::Shell()
 {
     //! Init commands here
     // Shell::Commands[std::string("test")] = &test_func;
-    Shell::Commands["display"] = &displayCircuit;
-    Shell::Commands["exit"] = &exitProgram;
-    Shell::Commands["simulate"] = &simulateCircuit;
-    Shell::Commands["loop"] = &loopCircuit;
-    Shell::Commands["dump"] = &displayCircuit;
-    Shell::Commands["round"] = &roundCircuit;
+    Shell::Commands["display"] = &Shell::_displayCircuit;
+    Shell::Commands["exit"] = &Shell::_exitProgram;
+    Shell::Commands["simulate"] = &Shell::_simulateCircuit;
+    Shell::Commands["loop"] = &Shell::_loopCircuit;
+    Shell::Commands["dump"] = &Shell::_displayCircuit;
+    Shell::Commands["round"] = &Shell::_roundCircuit;
 }
 
 Shell::~Shell()

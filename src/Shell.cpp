@@ -10,48 +10,6 @@
 #include <sstream>
 #include <csignal>
 
-void test_func(Circuit *test) {
-    std::cout << "pouet" << std::endl;
-    (void)test;
-}
-
-void Shell::_exitProgram(Circuit *test)
-{
-    test->isExiting = true;
-}
-
-void Shell::_displayCircuit(Circuit *test)
-{
-    test->dump();
-}
-void Shell::_simulateCircuit(Circuit *test)
-{
-    test->simulate(1);
-}
-
-void Shell::_roundCircuit(Circuit *test)
-{
-    test->simulate(1);
-    test->dump();
-}
-
-void Shell::_sigintHandler(int signal)   
-{
-    (void)signal;
-    nts::simulationIsRunning = false;
-}
-
-
-void Shell::_loopCircuit(Circuit *test)
-{
-    nts::simulationIsRunning = true;
-    signal(SIGINT, &Shell::_sigintHandler);
-    while (nts::simulationIsRunning) {
-        Shell::_simulateCircuit(test);
-        Shell::_displayCircuit(test);
-    }
-    signal(SIGINT, SIG_DFL);
-}
 
 Shell::Shell()
 {
@@ -119,4 +77,42 @@ void Shell::run(Circuit &circuit)
 const char *Shell::Error::what() const noexcept
 {
     return this->message->c_str();
+}
+
+void Shell::_exitProgram(Circuit *test)
+{
+    test->isExiting = true;
+}
+
+void Shell::_displayCircuit(Circuit *test)
+{
+    test->dump();
+}
+void Shell::_simulateCircuit(Circuit *test)
+{
+    test->simulate(1);
+}
+
+void Shell::_roundCircuit(Circuit *test)
+{
+    test->simulate(1);
+    test->dump();
+}
+
+void Shell::_sigintHandler(int signal)   
+{
+    (void)signal;
+    nts::simulationIsRunning = false;
+}
+
+
+void Shell::_loopCircuit(Circuit *test)
+{
+    nts::simulationIsRunning = true;
+    signal(SIGINT, &Shell::_sigintHandler);
+    while (nts::simulationIsRunning) {
+        Shell::_simulateCircuit(test);
+        Shell::_displayCircuit(test);
+    }
+    signal(SIGINT, SIG_DFL);
 }

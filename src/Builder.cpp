@@ -16,7 +16,6 @@ Builder::Builder()
     _builders["or"] = &Builder::createOr;
     _builders["not"] = &Builder::createNot;
     _builders["nand"] = &Builder::createNand;
-    _builders["newAnd"] = &Builder::createNewAnd;
 }
 
 Builder::~Builder()
@@ -36,13 +35,13 @@ uComp Builder::createComponent(const std::string &type, const std::string &name)
 
 uComp Builder::createInput(std::string const &name)
 {
-    nts::IComponent *component = new Input(name);
+    nts::IComponent *component = new Input(name, 1);
     return uComp(component);
 }
 
 uComp Builder::createOutput(std::string const &name)
 {
-    nts::IComponent *component = new Output(name);
+    nts::IComponent *component = new Output(name, 1);
     return uComp(component);
 }
 
@@ -54,7 +53,7 @@ uComp Builder::createClock(std::string const &name)
 
 uComp Builder::createAnd(std::string const &name)
 {
-    nts::IComponent *component = new And(name);
+    nts::IComponent *component = new And(name, 3);
     return uComp(component);
 }
 
@@ -73,12 +72,6 @@ uComp Builder::createNot(std::string const &name)
 uComp Builder::createNand(std::string const &name)
 {
     nts::IComponent *component = new Nand(name);
-    return uComp(component);
-}
-
-uComp Builder::createNewAnd(std::string const &name)
-{
-    nts::IComponent *component = new newAnd(name, 3);
     return uComp(component);
 }
 

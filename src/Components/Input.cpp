@@ -7,9 +7,10 @@
 
 #include "Input.hpp"
 
-Input::Input(std::string const &name) : _name(name)
+Input::Input(std::string const &name, std::size_t nbPin) : BaseComp(name, nbPin)
 {
-    _pins[1] = nts::UNDEFINED;
+    _inPins = std::vector<int> {};
+    _outPins = std::vector<int> {1};
     _newPins.clear();
 }
 
@@ -24,27 +25,6 @@ void Input::simulate(std::size_t tick)
         _pins = _newPins;
         _newPins.clear();
     }
-}
-
-nts::Tristate Input::compute(std::size_t pin)
-{
-    if (pin != 1)
-        return nts::UNDEFINED;
-    return _pins[pin];
-}
-
-
-void Input::setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin)
-{
-    (void)pin;
-    (void)other;
-    (void)otherPin;
-   return;
-}
-
-void Input::dump() const
-{
-    std::cout << "Input " << _name << ": " << _pins.at(1) << std::endl;
 }
 
 bool Input::setValue(nts::Tristate value)

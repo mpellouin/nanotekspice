@@ -10,9 +10,10 @@
 
 #include "Builder.hpp"
 
-class Circuit : public nts::IComponent{
+class Circuit : public BaseComp {
     public:
         Circuit();
+        Circuit(std::string const &name, std::size_t nbPin);
         ~Circuit();
 
         nts::IComponent *operator[](const std::string &name);
@@ -23,6 +24,7 @@ class Circuit : public nts::IComponent{
         void setLink(std::size_t pin1, const std::string &comp1, std::size_t pin2, const std::string &comp2);
         void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
         void dump() const;
+
         static class Error : public std::exception {
             public:
                 Error(const std::string &message) {this->message = new std::string(message);};

@@ -7,7 +7,7 @@
 
 #include "Clock.hpp"
 
-Clock::Clock(std::string const &name) : Input(name)
+Clock::Clock(std::string const &name) : Input(name, 1)
 {
     _newPins.clear();
 }

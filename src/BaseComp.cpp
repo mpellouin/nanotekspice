@@ -32,6 +32,7 @@ void BaseComp::simulate(std::size_t tick)
 
 nts::Tristate BaseComp::compute(std::size_t pin)
 {
+    std::cout << _name << " computed pin n*" << pin << std::endl;
     if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
         return _pins[pin];
     } else if (std::find(_inPins.begin(), _inPins.end(), pin) != _inPins.end()) {
@@ -57,10 +58,12 @@ void BaseComp::setLink(std::size_t pin, nts::IComponent &other, std::size_t othe
 void BaseComp::dump() const
 {
     std::cout << "=== " << _name << " ===" << std::endl;
+    // std::cout << "= Inputs : " << _inPins.size() << " Outputs : " << _outPins.size() << std::endl;
     for (size_t i = 0; i < _inPins.size(); i++) {
         std::cout << "| Input " << _inPins.at(i) << ": " << _pins.at(_inPins.at(i)) << std::endl;
     }
     for (size_t i = 0; i < _outPins.size(); i++) {
         std::cout << "| Output " << _outPins.at(i) << ": " << _pins.at(_outPins.at(i)) << std::endl;
     }
+
 }

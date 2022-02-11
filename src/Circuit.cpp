@@ -7,7 +7,11 @@
 
 #include "Circuit.hpp"
 
-Circuit::Circuit()
+Circuit::Circuit() : BaseComp("Global Circuit", 0)
+{
+}
+
+Circuit::Circuit(const std::string &name, const std::size_t nbPin) : BaseComp(name, nbPin)
 {
 }
 
@@ -30,14 +34,31 @@ void Circuit::AddComponent(const std::string &type, const std::string &name)
     }
     uComp newComp = builder.createComponent(type, name);
     _components.emplace(name, std::move(newComp));
+    // if (type == "input" || type == "clock") {
+    //     _inpComponents.emplace(name, std::move(newComp));
+    // } else if (type == "output" || type == "logger") {
+    //     _outComponents.emplace(name, std::move(newComp));
+    // }
+
 }
+
 
 void Circuit::simulate(std::size_t tick)
 {
     (void)tick;
-    for (auto &comp : _components) {
-        comp.second->simulate(1);
-    }
+
+    // for (auto &comp : _inPins) {
+    //     if (_links[comp].component != nullptr) {
+    //         std::cout << "Simulated pin " << comp << " of " << _name << " : " << _links[comp].component->compute(_links[comp].pin) << std::endl;
+    //         _pins[comp] = _links[comp].component->compute(_links[comp].pin);
+    //     }
+    // }
+    // for (auto &comp : _outPins) {
+    //     if (_links[comp].component != nullptr) {
+    //         std::cout << "Simulated pin " << comp << " of " << _name << " : " << _links[comp].component->compute(_links[comp].pin) << std::endl;
+    //         _pins[comp] = _links[comp].component->compute(_links[comp].pin);
+    //     }
+    // }
     return;
 }
 
@@ -70,11 +91,11 @@ void Circuit::setLink(std::size_t pin, nts::IComponent &other, std::size_t other
 
 void Circuit::dump() const
 {
-    std::cout << "==== Circuit ====" << std::endl;
-    std::cout << "= Size : " << _components.size() << std::endl;
+    std::cout << "Dump of the circuit " << _name << std::endl;
     for (auto &comp : _components) {
         comp.second->dump();
     }
+    return;
 }
 
 const char *Circuit::Error::what() const noexcept

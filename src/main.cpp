@@ -15,7 +15,6 @@
 #include "Shell.hpp"
 #include "Parser.hpp"
 #include "Circuit.hpp"
-#include "newAnd.hpp"
 
 /**
  * @brief Prints the program usage to the standard output.
@@ -59,23 +58,24 @@ int main(int ac, char **av)
     // }
 
     // return 0;
-    Circuit circuit;
-    circuit.AddComponent("input", "in1");
-    circuit.AddComponent("input", "in2");
-    circuit.AddComponent("newAnd", "and1");
-    circuit.AddComponent("output", "out");
-    circuit["and1"]->setLink(1, *circuit["in1"], 1);
-    circuit["and1"]->setLink(2, *circuit["in2"], 1);
-    circuit["out"]->setLink(1, *circuit["and1"], 3);
-    dynamic_cast<Input *>(circuit["in1"])->setValue(nts::TRUE);
-    dynamic_cast<Input *>(circuit["in2"])->setValue(nts::FALSE);
+    Circuit global;
+    Circuit compCircuit;
+    global.AddComponent("input", "in1");
+    global.AddComponent("input", "in2");
+    global.AddComponent("output", "out");
+    compCircuit.AddComponent("and", "and1");
 
-    circuit.dump();
-    circuit["in1"]->simulate(1);
-    circuit["in2"]->simulate(1);
-    circuit["and1"]->simulate(1);
-    circuit["out"]->simulate(1);
-    circuit.dump();
+    compCircuit["and1"]->setLink(1, *global["in1"], 1);
+    compCircuit["and1"]->setLink(2, *global["in2"], 1);
+    global["out"]->setLink(1, *compCircuit["and1"], 3);
+    dynamic_cast<Input *>(global["in1"])->setValue(nts::TRUE);
+    dynamic_cast<Input *>(global["in2"])->setValue(nts::FALSE);
+
+    global.dump();
+    global["in1"]->simulate(1);
+    global["in2"]->simulate(1);
+    global["out"]->simulate(1);
+    global.dump();
 }
 
     // Circuit *grid = new Circuit();

@@ -17,6 +17,7 @@
 #include "Not.hpp"
 #include "Nand.hpp"
 #include "Nor.hpp"
+#include "Xor.hpp"
 
 class Builder;
 using builderFunc = uComp (Builder::*)(std::string const &value);
@@ -44,6 +45,7 @@ class Builder {
         uComp createNot(std::string const &name);
         uComp createNand(std::string const &name);
         uComp createNor(std::string const &name);
+        uComp createXor(std::string const &name);
 };
 
 #endif /* !BUILDER_HPP_ */

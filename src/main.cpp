@@ -28,55 +28,36 @@ void printUsage(void)
 
 int main(int ac, char **av)
 {
-    // Shell shell;
-    // parse::Parser parser;
-    // Circuit circuit;
+    Shell shell;
+    parse::Parser parser;
+    Circuit circuit;
 
-    // if (ac != 2) {
-    //     std::cout << "Invalid number of argument." << std::endl;
-    //     return 84;
-    // }
-    // if (ac == 2 && !std::string(av[1]).compare("-h")) {
-    //     printUsage();
-    //     return 0;
-    // }
+    if (ac != 2) {
+        std::cout << "Invalid number of argument." << std::endl;
+        return 84;
+    }
+    if (ac == 2 && !std::string(av[1]).compare("-h")) {
+        printUsage();
+        return 0;
+    }
 
-    // try {
-    //     parser.openFile(av[1]);
-    //     parser.buildCircuit(circuit);
-    // } catch (const std::exception &except) {
-    //     if (except.what() != std::string("EOF")) {
-    //         std::cerr << except.what() << std::endl;
-    //         return 84;
-    //     }
-    // };
-    // try {
-    //     shell.run(circuit);
-    // } catch (const std::exception &err) {
-    //     std::cerr << err.what() << std::endl;
-    //     return 84;
-    // }
+    try {
+        parser.openFile(av[1]);
+        parser.buildCircuit(circuit);
+    } catch (const std::exception &except) {
+        if (except.what() != std::string("EOF")) {
+            std::cerr << except.what() << std::endl;
+            return 84;
+        }
+    };
+    try {
+        shell.run(circuit);
+    } catch (const std::exception &err) {
+        std::cerr << err.what() << std::endl;
+        return 84;
+    }
 
-    // return 0;
-    Circuit global;
-    Circuit compCircuit;
-    global.AddComponent("input", "in1");
-    global.AddComponent("input", "in2");
-    global.AddComponent("output", "out");
-    compCircuit.AddComponent("and", "and1");
-
-    compCircuit["and1"]->setLink(1, *global["in1"], 1);
-    compCircuit["and1"]->setLink(2, *global["in2"], 1);
-    global["out"]->setLink(1, *compCircuit["and1"], 3);
-    dynamic_cast<Input *>(global["in1"])->setValue(nts::TRUE);
-    dynamic_cast<Input *>(global["in2"])->setValue(nts::FALSE);
-
-    global.dump();
-    // global["in1"]->simulate(1);
-    // global["in2"]->simulate(1);
-    // global["out"]->simulate(1);
-    global.simulate(1);
-    global.dump();
+    return 0;
 }
 
     // Circuit *grid = new Circuit();

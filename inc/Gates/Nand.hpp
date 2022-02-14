@@ -8,21 +8,15 @@
 #ifndef NAND_HPP_
 #define NAND_HPP_
 
-#include "IComponent.hpp"
+#include "BaseComp.hpp"
 
-class Nand : public nts::IComponent {
+class Nand : public BaseComp {
     public:
-        Nand(const std::string &name);
+        Nand(const std::string &name, std::size_t nbPin);
         ~Nand();
 
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
-        void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
-        void dump() const;
-    protected:
-        std::string _name;
-        std::map<std::size_t, nts::Tristate> _pins;
-        std::map<std::size_t, nts::Link> _link;
 };
 
 #endif /* !NAND_HPP_ */

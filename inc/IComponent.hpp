@@ -16,10 +16,12 @@
 #include <exception>
 #include <memory>
 #include <exception>
+#include <algorithm>
 #include <list>
 
 namespace nts
 {
+    static bool simulationIsRunning;
     enum Tristate {
         UNDEFINED = (-true),
         TRUE = true,

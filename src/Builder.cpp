@@ -35,13 +35,13 @@ uComp Builder::createComponent(const std::string &type, const std::string &name)
 
 uComp Builder::createInput(std::string const &name)
 {
-    nts::IComponent *component = new Input(name);
+    nts::IComponent *component = new Input(name, 1);
     return uComp(component);
 }
 
 uComp Builder::createOutput(std::string const &name)
 {
-    nts::IComponent *component = new Output(name);
+    nts::IComponent *component = new Output(name, 1);
     return uComp(component);
 }
 
@@ -53,25 +53,25 @@ uComp Builder::createClock(std::string const &name)
 
 uComp Builder::createAnd(std::string const &name)
 {
-    nts::IComponent *component = new And(name);
+    nts::IComponent *component = new And(name, 3);
     return uComp(component);
 }
 
 uComp Builder::createOr(std::string const &name)
 {
-    nts::IComponent *component = new Or(name);
+    nts::IComponent *component = new Or(name, 3);
     return uComp(component);
 }
 
 uComp Builder::createNot(std::string const &name)
 {
-    nts::IComponent *component = new Not(name);
+    nts::IComponent *component = new Not(name, 2);
     return uComp(component);
 }
 
 uComp Builder::createNand(std::string const &name)
 {
-    nts::IComponent *component = new Nand(name);
+    nts::IComponent *component = new Nand(name, 3);
     return uComp(component);
 }
 

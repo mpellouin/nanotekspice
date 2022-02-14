@@ -8,24 +8,16 @@
 #ifndef INPUT_HPP_
 #define INPUT_HPP_
 
-#include "IComponent.hpp"
+#include "BaseComp.hpp"
 
-class Input : public nts::IComponent {
+class Input : public BaseComp {
     public:
-        Input(std::string const &name);
+        Input(std::string const &name, std::size_t nbPin);
         ~Input();
 
         void simulate(std::size_t tick);
-        nts::Tristate compute(std::size_t pin);
-        void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
-        void dump() const;
 
         bool setValue(nts::Tristate value);
-    protected:
-        std::string _name;
-        std::map<std::size_t, nts::Tristate> _pins;
-        std::map<std::size_t, nts::Tristate> _newPins;
-        std::map<std::size_t, nts::Link> _link;
 };
 
 #endif /* !INPUT_HPP_ */

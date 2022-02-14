@@ -68,6 +68,12 @@ class Shell {
 
     protected:
     private:
+        static void _exitProgram(Circuit *test);
+        static void _displayCircuit(Circuit *test);
+        static void _simulateCircuit(Circuit *test);
+        static void _roundCircuit(Circuit *test);
+        static void _loopCircuit(Circuit *test);
+        static void _sigintHandler(int signal);
         std::string _userInput;
 };
 

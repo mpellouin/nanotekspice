@@ -57,7 +57,7 @@ TEST_OBJECTS := $(TEST_SOURCES:$(TEST_SRC_DIR)/%.cpp=$(TEST_OBJ_DIR)/%.o)
 
 ifeq ($(MAKECMDGOALS), tests_run)
   CXX           := g++
-  CXX_WARNINGS  := -Wall -Wextra -Wpedantic
+  CXX_WARNINGS  := -Wall -Wextra -Wpedantic -Wno-unused-variable
   CXXFLAGS      := -fprofile-arcs -ftest-coverage
   LDFLAGS       := -lgcov -lcriterion
 else

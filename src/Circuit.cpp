@@ -59,6 +59,7 @@ void Circuit::simulate(std::size_t tick)
             throw Circuit::Error("Component not found");
         }
     }
+    _tickCount++;
     std::sort(_inpComponents.begin(), _inpComponents.end());
     std::sort(_outComponents.begin(), _outComponents.end());
     return;
@@ -98,6 +99,30 @@ void Circuit::dump() const
         comp.second->dump();
     }
     return;
+}
+
+void Circuit::display()
+{
+    std::sort(_inpComponents.begin(), _inpComponents.end());
+    std::sort(_outComponents.begin(), _outComponents.end());
+
+    std::cout << "tick: " << _tickCount << std::endl;
+    std::cout << "input(s):" << std::endl;
+    for (auto it = _inpComponents.begin(); it != _inpComponents.end(); it++) {
+        if (_components.find(*it) != _components.end()) {
+            std::cout << std::setw(3) << *it << ": " << _components[*it]->compute(1) << std::endl;
+        } else {
+            throw Circuit::Error("Component not found");
+        }
+    }
+    std::cout << "output(s):" << std::endl;
+    for (auto it = _outComponents.begin(); it != _outComponents.end(); it++) {
+        if (_components.find(*it) != _components.end()) {
+            std::cout << std::setw(3) << *it << ": " << _components[*it]->compute(1) << std::endl;
+        } else {
+            throw Circuit::Error("Component not found");
+        }
+    }
 }
 
 const char *Circuit::Error::what() const noexcept

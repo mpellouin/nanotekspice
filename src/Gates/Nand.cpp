@@ -36,7 +36,6 @@ void Nand::simulate(size_t tick)
 
 nts::Tristate Nand::compute(std::size_t pin)
 {
-    std::cout << "Nand computed pin n*" << pin << std::endl;
     simulate(0);
     if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
         return _pins[pin];

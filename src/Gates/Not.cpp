@@ -35,7 +35,6 @@ void Not::simulate(std::size_t tick)
 
 nts::Tristate Not::compute(std::size_t pin)
 {
-    std::cout << "Not computed pin n*" << pin << std::endl;
     simulate(0);
     if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
         return _pins[pin];

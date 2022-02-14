@@ -32,7 +32,6 @@ void BaseComp::simulate(std::size_t tick)
 
 nts::Tristate BaseComp::compute(std::size_t pin)
 {
-    std::cout << _name << " computed pin n*" << pin << std::endl;
     if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
         return _pins[pin];
     } else if (std::find(_inPins.begin(), _inPins.end(), pin) != _inPins.end()) {

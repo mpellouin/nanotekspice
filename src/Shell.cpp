@@ -86,7 +86,7 @@ void Shell::_exitProgram(Circuit *test)
 
 void Shell::_displayCircuit(Circuit *test)
 {
-    test->dump();
+    test->display();
 }
 void Shell::_simulateCircuit(Circuit *test)
 {
@@ -99,7 +99,7 @@ void Shell::_roundCircuit(Circuit *test)
     test->dump();
 }
 
-void Shell::_sigintHandler(int signal)   
+void Shell::_sigintHandler(int signal)
 {
     (void)signal;
     nts::simulationIsRunning = false;

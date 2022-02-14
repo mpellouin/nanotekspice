@@ -24,6 +24,7 @@ class Circuit : public BaseComp {
         void setLink(std::size_t pin1, const std::string &comp1, std::size_t pin2, const std::string &comp2);
         void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
         void dump() const;
+        void display();
 
         static class Error : public std::exception {
             public:
@@ -38,6 +39,7 @@ class Circuit : public BaseComp {
         std::map<std::string, uComp> _components;
         std::vector<std::string> _inpComponents;
         std::vector<std::string> _outComponents;
+        int _tickCount = 0;
         Builder builder;
 };
 

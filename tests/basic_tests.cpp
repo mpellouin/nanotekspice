@@ -79,7 +79,7 @@ Test(Circuit, Component_access)
     input->setValue(nts::Tristate::TRUE);
     grid["A"]->simulate(1);
     grid["B"]->simulate(1);
-    grid["B"]->compute(5);
+    grid["B"]->compute(1);
     cr_assert_eq(grid["B"]->compute(1), nts::Tristate::TRUE);
 }
 

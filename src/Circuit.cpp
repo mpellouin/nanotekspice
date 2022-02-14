@@ -59,6 +59,8 @@ void Circuit::simulate(std::size_t tick)
             throw Circuit::Error("Component not found");
         }
     }
+    std::sort(_inpComponents.begin(), _inpComponents.end());
+    std::sort(_outComponents.begin(), _outComponents.end());
     return;
 }
 

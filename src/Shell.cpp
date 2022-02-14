@@ -102,7 +102,7 @@ void Shell::_simulateCircuit(Circuit *test)
 void Shell::_roundCircuit(Circuit *test)
 {
     test->simulate(1);
-    test->dump();
+    test->display();
 }
 
 void Shell::_sigintHandler(int signal)

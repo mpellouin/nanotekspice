@@ -23,28 +23,28 @@ class Shell {
 
         /**
          * @brief Get the Input From User object
-         * 
+         *
          */
         void getInputFromUser();
 
         /**
          * @brief Checks if the eof has been reached
-         * 
+         *
          * @return true if eof is reached, false instead
          */
         bool isEofReached();
 
         /**
          * @brief Get the User Input object
-         * 
-         * @return std::string 
+         *
+         * @return std::string
          */
         std::string getUserInput() {return _userInput;};
 
         /**
          * @brief Execute the command stored in the class.
          * @param circuit Current nts circuit.
-         * 
+         *
          * @exception exception-object Unknown command.
          * @exception exception-object Not enough arguments.
          * @exception exception-object Bad arguments.
@@ -72,6 +72,7 @@ class Shell {
         static void _displayCircuit(Circuit *test);
         static void _simulateCircuit(Circuit *test);
         static void _roundCircuit(Circuit *test);
+        static void _dumpCircuit(Circuit *test);
         static void _loopCircuit(Circuit *test);
         static void _sigintHandler(int signal);
         std::string _userInput;

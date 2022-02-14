@@ -19,7 +19,7 @@ Shell::Shell()
     Shell::Commands["exit"] = &Shell::_exitProgram;
     Shell::Commands["simulate"] = &Shell::_simulateCircuit;
     Shell::Commands["loop"] = &Shell::_loopCircuit;
-    Shell::Commands["dump"] = &Shell::_displayCircuit;
+    Shell::Commands["dump"] = &Shell::_dumpCircuit;
     Shell::Commands["round"] = &Shell::_roundCircuit;
 }
 
@@ -84,10 +84,16 @@ void Shell::_exitProgram(Circuit *test)
     test->isExiting = true;
 }
 
+void Shell::_dumpCircuit(Circuit *test)
+{
+    test->dump();
+}
+
 void Shell::_displayCircuit(Circuit *test)
 {
     test->display();
 }
+
 void Shell::_simulateCircuit(Circuit *test)
 {
     test->simulate(1);

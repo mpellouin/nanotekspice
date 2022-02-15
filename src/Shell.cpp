@@ -6,10 +6,6 @@
 */
 
 #include "Shell.hpp"
-#include <iostream>
-#include <sstream>
-#include <csignal>
-
 
 Shell::Shell()
 {
@@ -119,6 +115,7 @@ void Shell::_loopCircuit(Circuit *test)
     while (nts::simulationIsRunning) {
         Shell::_simulateCircuit(test);
         Shell::_displayCircuit(test);
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
     signal(SIGINT, SIG_DFL);
 }

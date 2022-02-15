@@ -20,6 +20,7 @@
 #include "Xor.hpp"
 #include "True.hpp"
 #include "False.hpp"
+#include "C4081.hpp"
 
 class Builder;
 using builderFunc = uComp (Builder::*)(std::string const &value);
@@ -45,6 +46,7 @@ class Builder {
         uComp createFalse(std::string const &name);
         uComp createClock(std::string const &name);
         uComp createAnd(std::string const &name);
+        uComp createC4081(std::string const &name);
         uComp createOr(std::string const &name);
         uComp createNot(std::string const &name);
         uComp createNand(std::string const &name);

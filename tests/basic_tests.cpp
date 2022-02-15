@@ -100,26 +100,26 @@ Test(Circuit, Circuit_errors)
     try {
         grid.AddComponent("vache", "B");
     } catch (std::exception &e) {
-        cr_assert_str_eq(e.what(), "Unknown chipset type");
+        cr_assert_str_eq(e.what(), "Builder error: Unknown chipset type");
     }
     try {
         grid.AddComponent("input", "A");
     } catch (std::exception &e) {
-        cr_assert_str_eq(e.what(), "This component already exists in this circuit");
+        cr_assert_str_eq(e.what(), "Circuit error: This component already exists in this circuit");
     }
     try {
         grid["B"];
     } catch (std::exception &e) {
-        cr_assert_str_eq(e.what(), "Component not found");
+        cr_assert_str_eq(e.what(), "Circuit error: Component not found");
     }
     try {
         grid.setLink(1, "F", 1, "A");
     } catch (std::exception &e) {
-        cr_assert_str_eq(e.what(), "This component isn't in the circuit \"F\"");
+        cr_assert_str_eq(e.what(), "Linking error: This component isn't in the circuit \"F\"");
     }
     try {
         grid.setLink(1, "A", 1, "F");
     } catch (std::exception &e) {
-        cr_assert_str_eq(e.what(), "This component isn't in the circuit \"F\"");
+        cr_assert_str_eq(e.what(), "Linking error: This component isn't in the circuit \"F\"");
     }
 }

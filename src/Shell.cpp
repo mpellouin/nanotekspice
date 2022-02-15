@@ -46,18 +46,17 @@ void Shell::executeCommand(Circuit *circuit)
     if (cmd.find('=') != std::string::npos && cmd.find('=') != 0) {
         std::string var = cmd.substr(0, cmd.find('='));
         int state;
+        if (!dynamic_cast<Input *>(circuit->operator[](var))) throw Shell::Error("Bad operation.");
         if ((std::stringstream(cmd.substr(cmd.find('=') + 1)) >> state).fail()) {
             std::string undefinedChecker;
             if (!(std::stringstream(cmd.substr(cmd.find('=') + 1)) >> undefinedChecker).fail() && undefinedChecker == "U") {
-                Input *toChange = dynamic_cast<Input *>(circuit->operator[](var));
-                toChange->setValue(nts::Tristate::UNDEFINED);
+                dynamic_cast<Input *>(circuit->operator[](var))->setValue(nts::Tristate::UNDEFINED);
                 return ;
             }
             throw Shell::Error("Assignment value is not 0 1 or U.");
         }
         if (state < 0 || state > 1) throw Shell::Error("Assignment value is not 0 1 or U.");
-        Input *toChange = dynamic_cast<Input *>(circuit->operator[](var));
-        toChange->setValue(state ? nts::Tristate::TRUE : nts::Tristate::FALSE);
+        dynamic_cast<Input *>(circuit->operator[](var))->setValue(state ? nts::Tristate::TRUE : nts::Tristate::FALSE);
         return;
     }
     if (Shell::Commands.count(cmd) == 0)

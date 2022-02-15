@@ -24,6 +24,7 @@ void printUsage(void)
 {
     std::cout << "Usage: ./nts [filepath.nts]" << std::endl;
     std::cout << "filepath:\t Path to your config file. Must be written in the .nts format." << std::endl;
+    exit(0);
 }
 
 int main(int ac, char **av)
@@ -36,10 +37,7 @@ int main(int ac, char **av)
         std::cout << "Invalid number of argument." << std::endl;
         return 84;
     }
-    if (ac == 2 && !std::string(av[1]).compare("-h")) {
-        printUsage();
-        return 0;
-    }
+    if (ac == 2 && !std::string(av[1]).compare("-h")) printUsage();
 
     try {
         parser.openFile(av[1]);
@@ -52,8 +50,9 @@ int main(int ac, char **av)
     };
     try {
         shell.run(circuit);
-    } catch (const std::exception &err) {
-        std::cerr << err.what() << std::endl;
+    } catch (const std::exception &exception) {
+        if (exception.what() == std::string("EOF")) return 0;
+        std::cerr << exception.what() << std::endl;
         return 84;
     }
 

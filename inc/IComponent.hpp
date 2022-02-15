@@ -8,6 +8,7 @@
 #ifndef ICOMPONENT_HPP_
 #define ICOMPONENT_HPP_
 
+#include <cstddef>
 #include <iostream>
 #include <iomanip>
 #include <string>

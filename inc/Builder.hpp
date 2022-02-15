@@ -18,6 +18,8 @@
 #include "Nand.hpp"
 #include "Nor.hpp"
 #include "Xor.hpp"
+#include "True.hpp"
+#include "False.hpp"
 
 class Builder;
 using builderFunc = uComp (Builder::*)(std::string const &value);
@@ -39,6 +41,8 @@ class Builder {
         std::unordered_map<std::string, builderFunc> _builders;
         uComp createInput(std::string const &name);
         uComp createOutput(std::string const &name);
+        uComp createTrue(std::string const &name);
+        uComp createFalse(std::string const &name);
         uComp createClock(std::string const &name);
         uComp createAnd(std::string const &name);
         uComp createOr(std::string const &name);

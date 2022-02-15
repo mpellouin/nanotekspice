@@ -11,6 +11,8 @@ Builder::Builder()
 {
     _builders["input"] = &Builder::createInput;
     _builders["output"] = &Builder::createOutput;
+    _builders["true"] = &Builder::createTrue;
+    _builders["false"] = &Builder::createFalse;
     _builders["clock"] = &Builder::createClock;
     _builders["and"] = &Builder::createAnd;
     _builders["or"] = &Builder::createOr;
@@ -44,6 +46,18 @@ uComp Builder::createInput(std::string const &name)
 uComp Builder::createOutput(std::string const &name)
 {
     nts::IComponent *component = new Output(name, 1);
+    return uComp(component);
+}
+
+uComp Builder::createTrue(std::string const &name)
+{
+    nts::IComponent *component = new True(name, 1);
+    return uComp(component);
+}
+
+uComp Builder::createFalse(std::string const &name)
+{
+    nts::IComponent *component = new False(name, 1);
     return uComp(component);
 }
 

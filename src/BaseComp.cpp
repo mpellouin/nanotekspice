@@ -57,7 +57,6 @@ void BaseComp::setLink(std::size_t pin, nts::IComponent &other, std::size_t othe
 void BaseComp::dump() const
 {
     std::cout << "=== " << _name << " ===" << std::endl;
-    // std::cout << "= Inputs : " << _inPins.size() << " Outputs : " << _outPins.size() << std::endl;
     for (size_t i = 0; i < _inPins.size(); i++) {
         std::cout << "| Input " << _inPins.at(i) << ": " << _pins.at(_inPins.at(i)) << std::endl;
     }

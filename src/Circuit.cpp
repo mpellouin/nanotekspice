@@ -34,7 +34,7 @@ void Circuit::AddComponent(const std::string &type, const std::string &name)
     }
     uComp newComp = builder.createComponent(type, name);
     _components.emplace(name, std::move(newComp));
-    if (type == "input" || type == "clock") {
+    if (type == "input" || type == "clock" || type == "true" || type == "false") {
         _inpComponents.insert(_inpComponents.begin(), name);
     } else if (type == "output" || type == "logger") {
         _outComponents.insert(_outComponents.begin(), name);

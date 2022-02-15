@@ -96,12 +96,12 @@ $(NAME): $(OBJECTS)
 > @ $(CXX) $^ $(LDFLAGS) -o $@
 > @ printf "$(ORANGE)$@ linking success\n$(WHITE)"
 
-tests_run: clean $(OBJECTS) $(TEST_OBJECTS)
+tests_run: $(OBJECTS) $(TEST_OBJECTS)
 > @$(CXX) $(OBJECTS) $(TEST_OBJECTS) $(LDFLAGS) -o test
 > @ printf "$(ORANGE)Gonna launch criterion tests\n$(WHITE)"
 > ./test
 
-test_recap:
+tests_recap:
 > @ printf "$(ORANGE)$(BOLD)Tests recap:$(WHITE)\n"
 > gcovr --exclude tests --exclude inc
 > gcovr --exclude tests --exclude inc --branches

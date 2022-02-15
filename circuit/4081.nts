@@ -1,9 +1,9 @@
 .chipsets:
-true in1
-false in2
+input in1
+input in2
 4081 door
 output out1
 .links:
-in1:1 door:1
-in2:1 door:2
-door:3 out1:1
+in1:1 door:5
+in2:1 door:6
+door:4 out1:1

@@ -20,7 +20,6 @@ And::~And()
 void And::simulate(std::size_t tick)
 {
     (void)tick;
-    this->dump();
     for (size_t i = 0; i < _inPins.size(); i++) {
         if (_links[_inPins.at(i)].component != nullptr) {
             _pins[_inPins.at(i)] = _links[_inPins.at(i)].component->compute(_links[_inPins.at(i)].pin);

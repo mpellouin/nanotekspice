@@ -46,6 +46,17 @@ Test(Circuit, Circuit_Simlation)
     cr_assert_eq(0, 0);
 }
 
+Test(Circuit, Circuit_Clock_Simlation)
+{
+    Circuit grid;
+
+    grid.AddComponent("clock", "A");
+    dynamic_cast<Clock *>(grid["A"])->setValue(nts::TRUE);
+    grid["A"]->simulate(10);
+    grid.simulate(1);
+    cr_assert_eq(0, 0);
+}
+
 Test(Circuit, Circuit_AddLink)
 {
     Circuit grid;
@@ -57,6 +68,9 @@ Test(Circuit, Circuit_AddLink)
     grid.AddComponent("or", "E");
     grid.AddComponent("not", "F");
     grid.AddComponent("nand", "G");
+    grid.AddComponent("true", "H");
+    grid.AddComponent("false", "I");
+
     grid.setLink(1, *grid["A"], 1);
     grid.setLink(1, "A", 1, "B");
     grid.setLink(1, "C", 1, "B");
@@ -64,6 +78,8 @@ Test(Circuit, Circuit_AddLink)
     grid.setLink(3, "E", 1, "B");
     grid.setLink(2, "F", 1, "B");
     grid.setLink(3, "G", 1, "B");
+    grid.setLink(3, "H", 1, "B");
+    grid.setLink(3, "I", 1, "B");
 
     cr_assert_eq(0, 0);
 }
@@ -122,4 +138,15 @@ Test(Circuit, Circuit_errors)
     } catch (std::exception &e) {
         cr_assert_str_eq(e.what(), "Linking error: This component isn't in the circuit \"F\"");
     }
+}
+
+Test(Circuit, Circuit_Specific_Cases)
+{
+    Circuit grid;
+    grid.AddComponent("input", "B");
+    grid.AddComponent("input", "A");
+    grid.AddComponent("output", "C");
+    grid.display();
+    grid.simulate(1);
+
 }

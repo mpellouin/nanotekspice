@@ -17,10 +17,15 @@ Builder::Builder()
     _builders["and"] = &Builder::createAnd;
     _builders["4081"] = &Builder::createC4081;
     _builders["or"] = &Builder::createOr;
+    _builders["4071"] = &Builder::createC4071;
     _builders["not"] = &Builder::createNot;
+    _builders["4069"] = &Builder::createC4069;
     _builders["nand"] = &Builder::createNand;
+    _builders["4011"] = &Builder::createC4011;
     _builders["nor"] = &Builder::createNor;
+    _builders["4001"] = &Builder::createC4001;
     _builders["xor"] = &Builder::createXor;
+    _builders["4030"] = &Builder::createC4030;
 }
 
 Builder::~Builder()
@@ -86,9 +91,21 @@ uComp Builder::createOr(std::string const &name)
     return uComp(component);
 }
 
+uComp Builder::createC4071(std::string const &name)
+{
+    nts::IComponent *component = new C4071(name, 14);
+    return uComp(component);
+}
+
 uComp Builder::createNot(std::string const &name)
 {
     nts::IComponent *component = new Not(name, 2);
+    return uComp(component);
+}
+
+uComp Builder::createC4069(std::string const &name)
+{
+    nts::IComponent *component = new C4069(name, 14);
     return uComp(component);
 }
 
@@ -98,15 +115,33 @@ uComp Builder::createNand(std::string const &name)
     return uComp(component);
 }
 
+uComp Builder::createC4011(std::string const &name)
+{
+    nts::IComponent *component = new C4011(name, 14);
+    return uComp(component);
+}
+
 uComp Builder::createNor(std::string const &name)
 {
     nts::IComponent *component = new Nor(name, 3);
     return uComp(component);
 }
 
+uComp Builder::createC4001(std::string const &name)
+{
+    nts::IComponent *component = new C4001(name, 14);
+    return uComp(component);
+}
+
 uComp Builder::createXor(std::string const &name)
 {
     nts::IComponent *component = new Xor(name, 3);
+    return uComp(component);
+}
+
+uComp Builder::createC4030(std::string const &name)
+{
+    nts::IComponent *component = new C4030(name, 14);
     return uComp(component);
 }
 

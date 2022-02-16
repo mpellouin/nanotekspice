@@ -21,6 +21,11 @@
 #include "True.hpp"
 #include "False.hpp"
 #include "C4081.hpp"
+#include "C4071.hpp"
+#include "C4069.hpp"
+#include "C4011.hpp"
+#include "C4001.hpp"
+#include "C4030.hpp"
 
 class Builder;
 using builderFunc = uComp (Builder::*)(std::string const &value);
@@ -48,10 +53,15 @@ class Builder {
         uComp createAnd(std::string const &name);
         uComp createC4081(std::string const &name);
         uComp createOr(std::string const &name);
+        uComp createC4071(std::string const &name);
         uComp createNot(std::string const &name);
+        uComp createC4069(std::string const &name);
         uComp createNand(std::string const &name);
+        uComp createC4011(std::string const &name);
         uComp createNor(std::string const &name);
+        uComp createC4001(std::string const &name);
         uComp createXor(std::string const &name);
+        uComp createC4030(std::string const &name);
 };
 
 #endif /* !BUILDER_HPP_ */

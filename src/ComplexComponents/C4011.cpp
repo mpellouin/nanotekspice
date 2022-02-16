@@ -35,15 +35,6 @@ C4011::~C4011()
 {
 }
 
-int getIndex(std::vector<int> v, int k)
-{
-    for (size_t i = 0; i < v.size(); i++) {
-        if (v.at(i) == k)
-            return i;
-    }
-    throw BaseComp::Error("Pin out of bounds");
-}
-
 int C4011::getIndex(std::vector<int> v, int k)
 {
     for (size_t i = 0; i < v.size(); i++) {

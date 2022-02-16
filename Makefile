@@ -31,7 +31,7 @@ RMDIR := rm -fr
 TOUCH := touch -a
 
 SRC_DIR := ./src
-INC_DIR := -I ./inc -I ./inc/Components -I ./inc/Gates
+INC_DIR := -I ./inc -I ./inc/Components -I ./inc/Gates -I ./inc/ComplexComponents
 OBJ_DIR := ./build
 
 SOURCES_SUB_DIRS := $(shell find $(SRC_DIR) -type d)
@@ -96,12 +96,12 @@ $(NAME): $(OBJECTS)
 > @ $(CXX) $^ $(LDFLAGS) -o $@
 > @ printf "$(ORANGE)$@ linking success\n$(WHITE)"
 
-tests_run: clean $(OBJECTS) $(TEST_OBJECTS)
+tests_run: $(OBJECTS) $(TEST_OBJECTS)
 > @$(CXX) $(OBJECTS) $(TEST_OBJECTS) $(LDFLAGS) -o test
 > @ printf "$(ORANGE)Gonna launch criterion tests\n$(WHITE)"
 > ./test
 
-test_recap:
+tests_recap:
 > @ printf "$(ORANGE)$(BOLD)Tests recap:$(WHITE)\n"
 > gcovr --exclude tests --exclude inc
 > gcovr --exclude tests --exclude inc --branches

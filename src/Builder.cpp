@@ -15,6 +15,7 @@ Builder::Builder()
     _builders["false"] = &Builder::createFalse;
     _builders["clock"] = &Builder::createClock;
     _builders["and"] = &Builder::createAnd;
+    _builders["4081"] = &Builder::createC4081;
     _builders["or"] = &Builder::createOr;
     _builders["not"] = &Builder::createNot;
     _builders["nand"] = &Builder::createNand;
@@ -33,7 +34,7 @@ uComp Builder::createComponent(const std::string &type, const std::string &name)
     if (_builders.find(type) != _builders.end())
         ptr = _builders[type];
     else
-        throw Builder::Error("Unknown chipset type");
+        throw Builder::Error("Builder error: Unknown chipset type");
     return (this->*ptr)(name);
 }
 
@@ -70,6 +71,12 @@ uComp Builder::createClock(std::string const &name)
 uComp Builder::createAnd(std::string const &name)
 {
     nts::IComponent *component = new And(name, 3);
+    return uComp(component);
+}
+
+uComp Builder::createC4081(std::string const &name)
+{
+    nts::IComponent *component = new C4081(name, 14);
     return uComp(component);
 }
 

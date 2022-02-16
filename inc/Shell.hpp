@@ -11,7 +11,11 @@
 #include <string>
 #include <map>
 #include <functional>
-
+#include <iostream>
+#include <sstream>
+#include <csignal>
+#include <chrono>
+#include <thread>
 #include "Circuit.hpp"
 
 class Shell {

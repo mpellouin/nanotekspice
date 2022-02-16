@@ -22,7 +22,7 @@ Circuit::~Circuit()
 nts::IComponent *Circuit::operator[](const std::string &name)
 {
     if (_components.find(name) == _components.end()) {
-        throw Circuit::Error("Component not found");
+        throw Circuit::Error("Circuit error: Component not found");
     }
     return _components[name].get();
 }
@@ -30,11 +30,11 @@ nts::IComponent *Circuit::operator[](const std::string &name)
 void Circuit::AddComponent(const std::string &type, const std::string &name)
 {
     if (_components.find(name) != _components.end()) {
-        throw Circuit::Error("This component already exists in this circuit");
+        throw Circuit::Error("Circuit error: This component already exists in this circuit");
     }
     uComp newComp = builder.createComponent(type, name);
     _components.emplace(name, std::move(newComp));
-    if (type == "input" || type == "clock") {
+    if (type == "input" || type == "clock" || type == "true" || type == "false") {
         _inpComponents.insert(_inpComponents.begin(), name);
     } else if (type == "output" || type == "logger") {
         _outComponents.insert(_outComponents.begin(), name);
@@ -49,14 +49,14 @@ void Circuit::simulate(std::size_t tick)
         if (_components.find(*it) != _components.end()) {
             _components[*it]->simulate(tick);
         } else {
-            throw Circuit::Error("Component not found");
+            throw Circuit::Error("Circuit error: Component not found");
         }
     }
     for (auto it = _outComponents.begin(); it != _outComponents.end(); it++) {
         if (_components.find(*it) != _components.end()) {
             _components[*it]->simulate(tick);
         } else {
-            throw Circuit::Error("Component not found");
+            throw Circuit::Error("Circuit error: Component not found");
         }
     }
     _tickCount++;
@@ -74,10 +74,10 @@ nts::Tristate Circuit::compute(std::size_t pin)
 void Circuit::setLink(std::size_t pin1, const std::string &comp1, std::size_t pin2, const std::string &comp2)
 {
     if (_components.find(comp1) == _components.end()) {
-        throw Circuit::Error("This component isn't in the circuit \"" + comp1 + "\"");
+        throw Circuit::Error("Linking error: This component isn't in the circuit \"" + comp1 + "\"");
     }
     if (_components.find(comp2) == _components.end()) {
-        throw Circuit::Error("This component isn't in the circuit \"" + comp2 + "\"");
+        throw Circuit::Error("Linking error: This component isn't in the circuit \"" + comp2 + "\"");
     }
     _components[comp1]->setLink(pin1, *_components[comp2], pin2);
     _components[comp2]->setLink(pin2, *_components[comp1], pin1);

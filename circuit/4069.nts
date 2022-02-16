@@ -1,0 +1,25 @@
+.chipsets:
+input A
+input B
+4069 door
+output D
+output E
+output F
+output G
+output H
+output I
+
+.links:
+A:1 door:1
+A:1 door:3
+A:1 door:5
+B:1 door:9
+B:1 door:11
+B:1 door:13
+
+door:2      D:1
+door:4      E:1
+door:6      F:1
+door:8      G:1
+door:10     H:1
+door:12     I:1

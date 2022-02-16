@@ -7,11 +7,11 @@
 
 #include "C4081.hpp"
 
-C4081::C4081(std::string const &name, std::size_t nbPin) : BaseComp(name, nbPin)
+C4081::C4081(std::string const &name, std::size_t nbPin = 14) : BaseComp(name, nbPin)
 {
     _inPins = std::vector<int> {1, 2, 5, 6, 8, 9, 12, 13};
     _outPins = std::vector<int> {3, 4, 10, 11};
-    for (int i = 0; i < 4; i++) {
+    for (int i =0; i < 4; i++) {
         _andComponents.push_back(And("And" + std::to_string(i), 3));
     }
     _andComponents[0].setLink(1, *this, 1);
@@ -35,29 +35,27 @@ C4081::~C4081()
 {
 }
 
-void C4081::simulate(std::size_t tick)
+int getIndex(std::vector<int> v, int k)
 {
-    (void)tick;
-    for (size_t i = 0; i < _inPins.size(); i++) {
-        if (_links[_inPins.at(i)].component != nullptr) {
-            _pins[_inPins.at(i)] = _links[_inPins.at(i)].component->compute(_links[_inPins.at(i)].pin);
-        }
+    for (size_t i = 0; i < v.size(); i++) {
+        if (v.at(i) == k)
+            return i;
     }
-    for (size_t i = 0; i < _outPins.size(); i++) {
-        _pins[_outPins.at(i)] = _andComponents[i].compute(3);
-    }
+    throw BaseComp::Error("Pin out of bounds");
 }
 
 nts::Tristate C4081::compute(std::size_t pin)
 {
-    if (std::find(_inPins.begin(), _inPins.end(), pin) != _inPins.end()) {
+    if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
+        _pins[pin] = _andComponents[getIndex(_outPins, pin)].compute(3);
         return _pins[pin];
-    }
-    else if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
-        simulate(0);
-        return _pins[pin];
+    } else if (std::find(_inPins.begin(), _inPins.end(), pin) != _inPins.end()) {
+        if (_links[pin].component != nullptr) {
+            _pins[pin] = _links[pin].component->compute(_links[pin].pin);
+            return _pins[pin];
+        }
     } else {
-        throw BaseComp::Error("C4081 Pin not found");
+        throw BaseComp::Error("C4081: Pin not found");
     }
     return nts::UNDEFINED;
 }

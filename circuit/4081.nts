@@ -1,9 +1,19 @@
 .chipsets:
 input in1
 input in2
-4081 door
+input in3
+input in4
+input in5
 output out1
+4081 door
+
 .links:
-in1:1 door:5
-in2:1 door:6
-door:4 out1:1
+in1:1 door:1
+in2:1 door:2
+door:3 door:13
+in3:1 door:5
+in4:1 door:6
+door:4 door:12
+door:11 door:9
+in5:1 door:8
+door:10 out1:1

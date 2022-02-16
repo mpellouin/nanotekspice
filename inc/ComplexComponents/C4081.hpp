@@ -10,12 +10,11 @@
 
 #include "And.hpp"
 
-class C4081 : public BaseComp {
+class C4081 : public BaseComp{
     public:
         C4081(std::string const &name, std::size_t nbPin);
         ~C4081();
 
-        void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
     protected:
         std::vector<And> _andComponents;

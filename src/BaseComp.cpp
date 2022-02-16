@@ -26,8 +26,7 @@ const char *BaseComp::Error::what() const noexcept
 
 void BaseComp::simulate(std::size_t tick)
 {
-    (void)tick;
-    return;
+    return (void)tick;
 }
 
 nts::Tristate BaseComp::compute(std::size_t pin)

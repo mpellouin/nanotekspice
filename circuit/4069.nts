@@ -1,7 +1,7 @@
 .chipsets:
 input A
 input B
-4069 door
+4069 exa_lpb
 output D
 output E
 output F
@@ -10,16 +10,16 @@ output H
 output I
 
 .links:
-A:1 door:1
-A:1 door:3
-A:1 door:5
-B:1 door:9
-B:1 door:11
-B:1 door:13
+A:1 exa_lpb:1
+A:1 exa_lpb:3
+A:1 exa_lpb:5
+B:1 exa_lpb:9
+B:1 exa_lpb:11
+B:1 exa_lpb:13
 
-door:2      D:1
-door:4      E:1
-door:6      F:1
-door:8      G:1
-door:10     H:1
-door:12     I:1
+exa_lpb:2      D:1
+exa_lpb:4      E:1
+exa_lpb:6      F:1
+exa_lpb:8      G:1
+exa_lpb:10     H:1
+exa_lpb:12     I:1

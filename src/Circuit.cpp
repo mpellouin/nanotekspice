@@ -11,10 +11,6 @@ Circuit::Circuit() : BaseComp("Global Circuit", 0)
 {
 }
 
-Circuit::Circuit(const std::string &name, const std::size_t nbPin) : BaseComp(name, nbPin)
-{
-}
-
 Circuit::~Circuit()
 {
 }

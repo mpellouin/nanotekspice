@@ -147,6 +147,8 @@ Test(Circuit, Circuit_Specific_Cases)
     grid.AddComponent("input", "A");
     grid.AddComponent("output", "C");
     grid.display();
+    dynamic_cast<BaseComp *>(grid["A"])->simulate(1);
+    dynamic_cast<BaseComp *>(grid["C"])->simulate(1);
     grid.simulate(1);
 
 }

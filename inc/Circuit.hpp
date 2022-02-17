@@ -13,7 +13,6 @@
 class Circuit : public BaseComp {
     public:
         Circuit();
-        Circuit(std::string const &name, std::size_t nbPin);
         ~Circuit();
 
         nts::IComponent *operator[](const std::string &name);

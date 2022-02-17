@@ -108,7 +108,7 @@ void Circuit::display()
         if (_components.find(*it) != _components.end()) {
             nts::Tristate res = _components[*it]->compute(1);
             char st = res == nts::UNDEFINED ? 'U' : res == 0 ? '0' : '1';
-            std::cout << std::setw(3) << *it << ": " << st << std::endl;
+            std::cout << "  " << *it << ": " << st << std::endl;
         } else {
             throw Circuit::Error("Component not found");
         }
@@ -118,7 +118,7 @@ void Circuit::display()
         if (_components.find(*it) != _components.end()) {
             nts::Tristate res = _components[*it]->compute(1);
             char st = res == nts::UNDEFINED ? 'U' : res == 0 ? '0' : '1';
-            std::cout << std::setw(3) << *it << ": " << st << std::endl;
+            std::cout << "  " << *it << ": " << st << std::endl;
         } else {
             throw Circuit::Error("Component not found");
         }

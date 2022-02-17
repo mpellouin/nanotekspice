@@ -67,7 +67,9 @@ void parse::Parser::buildCircuit(Circuit &circuit)
         throw parse::Parser::Error("No Chipsets.");
     this->getNextLine();
     while (!this->isNewSection()) {
-        circuit.AddComponent(this->parseLine(), this->parseLine());
+        std::string componentType = this->parseLine();
+        std::string componentName = this->parseLine();
+        circuit.AddComponent(componentType, componentName);
         this->getNextLine();
     }
     if (this->parseLine() == ".chipsets:") throw parse::Parser::Error("Multiple .chipsets definition.");

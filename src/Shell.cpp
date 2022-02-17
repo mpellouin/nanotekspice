@@ -9,8 +9,6 @@
 
 Shell::Shell()
 {
-    //! Init commands here
-    // Shell::Commands[std::string("test")] = &test_func;
     Shell::Commands["display"] = &Shell::_displayCircuit;
     Shell::Commands["exit"] = &Shell::_exitProgram;
     Shell::Commands["simulate"] = &Shell::_simulateCircuit;

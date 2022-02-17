@@ -33,6 +33,9 @@ void parse::Parser::getNextLine(void)
         getline(*_stream, tempLine);
         if (tempLine.find('#') != std::string::npos)
             tempLine = tempLine.substr(0, tempLine.find('#'));
+        while (tempLine[0] <= 32 && tempLine != "") {
+            tempLine = tempLine.length() > 1 ? tempLine.substr(1) : "";
+            }
         delete this->_line;
         this->_line = new std::stringstream(tempLine);
         this->_argNumber = 0;
@@ -53,10 +56,15 @@ std::string parse::Parser::parseLine()
 
 bool parse::Parser::isNewSection()
 {
-    if (!this->_line->str().compare(".chipsets:") || !this->_line->str().compare(".links:")) {
-        this->_parseState = !this->_line->str().compare(".chipsets:") ? chipsets : links;
+    std::string sectionChecker;
+    std::string holder(this->_line->str());
+    (*this->_line) >> sectionChecker;
+    if (!sectionChecker.compare(".chipsets:") || !sectionChecker.compare(".links:")) {
+        this->_parseState = !sectionChecker.compare(".chipsets:") ? chipsets : links;
+        this->_line = new std::stringstream(holder);
         return true;
     }
+    this->_line = new std::stringstream(holder);
     return false;
 }
 

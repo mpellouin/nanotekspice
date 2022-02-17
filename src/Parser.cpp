@@ -22,6 +22,7 @@ void parse::Parser::openFile(const std::string &filepath)
     if (filepath.find(".nts") == std::string::npos || filepath.find(".nts") != filepath.length() - 4)
         throw parse::Parser::Error("File does not have .nts extension");
     this->_stream = new std::ifstream(filepath);
+    if (this->_stream->eof()) throw Error("Empty file.");
 }
 
 void parse::Parser::getNextLine(void)
@@ -29,7 +30,8 @@ void parse::Parser::getNextLine(void)
     std::string tempLine("");
     while (tempLine == "") {
         if (this->_stream->fail() || this->_stream->bad() || this->_stream->eof())
-            throw parse::Parser::Error("EOF");
+            throw getParseState() == parse::State::links ? parse::Parser::Error("EOF") :
+            parse::Parser::Error("Stream failed.");
         getline(*_stream, tempLine);
         if (tempLine.find('#') != std::string::npos)
             tempLine = tempLine.substr(0, tempLine.find('#'));

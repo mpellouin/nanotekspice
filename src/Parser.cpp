@@ -72,17 +72,20 @@ bool parse::Parser::isNewSection()
 
 void parse::Parser::buildCircuit(Circuit &circuit)
 {
+    bool isThereAComponent = false;
     this->getNextLine();
     if (!this->isNewSection() || this->parseLine() != ".chipsets:")
         throw parse::Parser::Error("No Chipsets.");
     this->getNextLine();
     while (!this->isNewSection()) {
+        isThereAComponent = true;
         std::string componentType = this->parseLine();
         std::string componentName = this->parseLine();
         circuit.AddComponent(componentType, componentName);
         this->getNextLine();
     }
     if (this->parseLine() == ".chipsets:") throw parse::Parser::Error("Multiple .chipsets definition.");
+    if (!isThereAComponent) throw parse::Parser::Error("No components in file.");
     this->getNextLine();
     while (!this->isNewSection()) {
         std::string component = this->parseLine();

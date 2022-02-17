@@ -77,13 +77,15 @@ void parse::Parser::buildCircuit(Circuit &circuit)
     while (!this->isNewSection()) {
         std::string component = this->parseLine();
         std::string toLink = this->parseLine();
-        if (component.find(':') != std::string::npos && toLink.find(':') != std::string::npos) {
+        if (component.find(':') != std::string::npos && toLink.find(':') != std::string::npos &&
+            component.find(':') != 0 && component.find(':') != component.length() - 1 &&
+            toLink.find(':') != 0 && toLink.find(':') != toLink.length() - 1) {
             circuit.setLink(
                 static_cast<size_t>(std::atoi(component.substr(component.find(':') + 1).c_str())),
                 component.substr(0, component.find(':')),
                 static_cast<size_t>(std::atoi(toLink.substr(toLink.find(':') + 1).c_str())),
                 toLink.substr(0, toLink.find(':')));
-        }
+        } else throw Error("Wrong linking syntax.");
         this->getNextLine();
     }
 }

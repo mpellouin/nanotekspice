@@ -52,7 +52,7 @@ void C4040::simulate(std::size_t tick)
 {
     (void)tick;
     if (_links[11].component != nullptr) {
-        if (_links[11].component->compute(_links[11].pin) == nts::TRUE) {
+        if (compute(11) == nts::TRUE) {
             this->resetCounter();
             return;
         }
@@ -62,7 +62,7 @@ void C4040::simulate(std::size_t tick)
             _counter++;
         }
         this->updateOutputPins();
-        _pins[10] = _links[10].component->compute(_links[10].pin);
+        _pins[10] = compute(10);
         return;
     }
 

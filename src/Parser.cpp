@@ -22,6 +22,7 @@ void parse::Parser::openFile(const std::string &filepath)
     if (filepath.find(".nts") == std::string::npos || filepath.find(".nts") != filepath.length() - 4)
         throw parse::Parser::Error("File does not have .nts extension");
     this->_stream = new std::ifstream(filepath);
+    if (this->_stream->eof()) throw Error("Empty file.");
 }
 
 void parse::Parser::getNextLine(void)
@@ -29,10 +30,14 @@ void parse::Parser::getNextLine(void)
     std::string tempLine("");
     while (tempLine == "") {
         if (this->_stream->fail() || this->_stream->bad() || this->_stream->eof())
-            throw parse::Parser::Error("EOF");
+            throw getParseState() == parse::State::links ? parse::Parser::Error("EOF") :
+            parse::Parser::Error("Stream failed.");
         getline(*_stream, tempLine);
         if (tempLine.find('#') != std::string::npos)
             tempLine = tempLine.substr(0, tempLine.find('#'));
+        while (tempLine[0] <= 32 && tempLine != "") {
+            tempLine = tempLine.length() > 1 ? tempLine.substr(1) : "";
+            }
         delete this->_line;
         this->_line = new std::stringstream(tempLine);
         this->_argNumber = 0;
@@ -53,26 +58,34 @@ std::string parse::Parser::parseLine()
 
 bool parse::Parser::isNewSection()
 {
-    if (!this->_line->str().compare(".chipsets:") || !this->_line->str().compare(".links:")) {
-        this->_parseState = !this->_line->str().compare(".chipsets:") ? chipsets : links;
+    std::string sectionChecker;
+    std::string holder(this->_line->str());
+    (*this->_line) >> sectionChecker;
+    if (!sectionChecker.compare(".chipsets:") || !sectionChecker.compare(".links:")) {
+        this->_parseState = !sectionChecker.compare(".chipsets:") ? chipsets : links;
+        this->_line = new std::stringstream(holder);
         return true;
     }
+    this->_line = new std::stringstream(holder);
     return false;
 }
 
 void parse::Parser::buildCircuit(Circuit &circuit)
 {
+    bool isThereAComponent = false;
     this->getNextLine();
     if (!this->isNewSection() || this->parseLine() != ".chipsets:")
         throw parse::Parser::Error("No Chipsets.");
     this->getNextLine();
     while (!this->isNewSection()) {
+        isThereAComponent = true;
         std::string componentType = this->parseLine();
         std::string componentName = this->parseLine();
         circuit.AddComponent(componentType, componentName);
         this->getNextLine();
     }
     if (this->parseLine() == ".chipsets:") throw parse::Parser::Error("Multiple .chipsets definition.");
+    if (!isThereAComponent) throw parse::Parser::Error("No components in file.");
     this->getNextLine();
     while (!this->isNewSection()) {
         std::string component = this->parseLine();

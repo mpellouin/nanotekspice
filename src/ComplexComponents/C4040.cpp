@@ -6,12 +6,13 @@
 */
 
 #include "C4040.hpp"
+#include <bitset>
 
 C4040::C4040(std::string const &name, std::size_t nbPin = 16) : BaseComp(name, nbPin)
 {
     _inPins = std::vector<int> {10, 11};
     _outPins = std::vector<int> {1, 2, 3, 4, 5, 6, 7, 9, 12, 13, 14, 15};
-
+    _counter = 0;
 }
 
 C4040::~C4040()
@@ -28,36 +29,40 @@ void C4040::resetCounter(void)
 
 void C4040::updateOutputPins(void)
 {
-    _pins[9] = _counter % 2 ? nts::TRUE : nts::FALSE; // Q1
-    _pins[7] = _counter % 4 ? nts::TRUE : nts::FALSE; // Q2
-    _pins[6] = _counter % 8 ? nts::TRUE : nts::FALSE; // Q3
-    _pins[5] = _counter % 16 ? nts::TRUE : nts::FALSE; // Q4
-    _pins[3] = _counter % 32 ? nts::TRUE : nts::FALSE; // Q5
-    _pins[2] = _counter % 64 ? nts::TRUE : nts::FALSE; // Q6
-    _pins[4] = _counter % 128 ? nts::TRUE : nts::FALSE; // Q7
-    _pins[13] = _counter % 512 ? nts::TRUE : nts::FALSE; // Q8
-    _pins[12] = _counter % 1024 ? nts::TRUE : nts::FALSE; // Q9
-    _pins[14] = _counter % 2048 ? nts::TRUE : nts::FALSE; // Q10
-    _pins[15] = _counter % 4096 ? nts::TRUE : nts::FALSE; // Q11
-    _pins[1] = _counter % 8192 ? nts::TRUE : nts::FALSE; // Q12
+    if (_counter == 0) {
+        resetCounter();
+        return;
+    }
+    std::bitset<12> bits(_counter);
+    _pins[9] = bits[0] == 1 ? nts::TRUE : nts::FALSE; // Q1
+    _pins[7] = bits[1] == 1 ? nts::TRUE : nts::FALSE; // Q2
+    _pins[6] = bits[2] == 1 ? nts::TRUE : nts::FALSE; // Q3
+    _pins[5] = bits[3] == 1 ? nts::TRUE : nts::FALSE; // Q4
+    _pins[3] = bits[4] == 1 ? nts::TRUE : nts::FALSE; // Q5
+    _pins[2] = bits[5] == 1 ? nts::TRUE : nts::FALSE; // Q6
+    _pins[4] = bits[6] == 1 ? nts::TRUE : nts::FALSE; // Q7
+    _pins[13] = bits[7] == 1 ? nts::TRUE : nts::FALSE; // Q8
+    _pins[12] = bits[8] == 1 ? nts::TRUE : nts::FALSE; // Q9
+    _pins[14] = bits[9] == 1 ? nts::TRUE : nts::FALSE; // Q10
+    _pins[15] = bits[10] == 1 ? nts::TRUE : nts::FALSE; // Q11
+    _pins[1] = bits[11] == 1 ? nts::TRUE : nts::FALSE; // Q12
 }
 
 void C4040::simulate(std::size_t tick)
 {
-    std::cout << "Gonna simulate C4040" << std::endl;
     (void)tick;
-    if (_links[10].component != nullptr) {
-        if (_links[10].component->compute(_links[10].pin) == nts::TRUE) {
-            this->resetCounter();
-        }
-        return;
-    }
     if (_links[11].component != nullptr) {
-        if (_links[11].component->compute(_links[11].pin) == nts::FALSE && _pins[11] == nts::TRUE) {
-            _counter++;
-            std::cout << "C4040: " << _name << ": " << _counter << std::endl;
-            this->updateOutputPins();
+        if (_links[11].component->compute(_links[11].pin) == nts::TRUE) {
+            this->resetCounter();
+            return;
         }
+    }
+    if (_links[10].component != nullptr) {
+        if (_links[10].component->compute(_links[10].pin) == nts::FALSE && _pins[10] == nts::TRUE) {
+            _counter++;
+        }
+        this->updateOutputPins();
+        _pins[10] = _links[10].component->compute(_links[10].pin);
         return;
     }
 

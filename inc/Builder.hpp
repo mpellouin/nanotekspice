@@ -26,6 +26,7 @@
 #include "C4011.hpp"
 #include "C4001.hpp"
 #include "C4030.hpp"
+#include "C4040.hpp"
 
 class Builder;
 using builderFunc = uComp (Builder::*)(std::string const &value);
@@ -62,6 +63,7 @@ class Builder {
         uComp createC4001(std::string const &name);
         uComp createXor(std::string const &name);
         uComp createC4030(std::string const &name);
+        uComp createC4040(std::string const &name);
 };
 
 #endif /* !BUILDER_HPP_ */

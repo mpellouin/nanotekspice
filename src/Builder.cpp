@@ -14,6 +14,7 @@ Builder::Builder()
     _builders["true"] = &Builder::createTrue;
     _builders["false"] = &Builder::createFalse;
     _builders["clock"] = &Builder::createClock;
+    _builders["flipflop"] = &Builder::createFlipFlop;
     _builders["and"] = &Builder::createAnd;
     _builders["4081"] = &Builder::createC4081;
     _builders["or"] = &Builder::createOr;
@@ -72,6 +73,12 @@ uComp Builder::createFalse(std::string const &name)
 uComp Builder::createClock(std::string const &name)
 {
     nts::IComponent *component = new Clock(name);
+    return uComp(component);
+}
+
+uComp Builder::createFlipFlop(std::string const &name)
+{
+    nts::IComponent *component = new FlipFlop(name, 6);
     return uComp(component);
 }
 

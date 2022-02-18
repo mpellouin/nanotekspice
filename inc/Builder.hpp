@@ -20,6 +20,7 @@
 #include "Xor.hpp"
 #include "True.hpp"
 #include "False.hpp"
+#include "FlipFlop.hpp"
 #include "C4081.hpp"
 #include "C4071.hpp"
 #include "C4069.hpp"
@@ -52,6 +53,7 @@ class Builder {
         uComp createTrue(std::string const &name);
         uComp createFalse(std::string const &name);
         uComp createClock(std::string const &name);
+        uComp createFlipFlop(std::string const &name);
         uComp createAnd(std::string const &name);
         uComp createC4081(std::string const &name);
         uComp createOr(std::string const &name);

@@ -1,0 +1,16 @@
+.chipsets:
+input reset
+input data
+input set
+clock cl
+flipflop ff
+output out1
+output out2
+
+.links:
+cl:1    ff:3
+reset:1 ff:4
+data:1  ff:5
+set:1   ff:6
+out1:1  ff:1
+out2:1  ff:2

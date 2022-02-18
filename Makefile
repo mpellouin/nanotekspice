@@ -124,15 +124,11 @@ clean:
 > @$(RMDIR) $(OBJ_DIR)
 > @$(RMDIR) $(TEST_OBJ_DIR)
 > @ printf "$(RED)Removing object files.$(WHITE)\n"
-# > @echo RMDIR $(OBJ_DIR)
-# > @echo RMDIR $(TEST_OBJ_DIR)
 
 fclean: clean
 > @$(RM) $(NAME)
 > @$(RM) test
 > @ printf "$(RED)Removing binary file.$(WHITE)\n"
-# > @echo RM $(NAME)
-# > @echo RM test
 
 re: fclean all
 

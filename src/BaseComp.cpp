@@ -38,7 +38,7 @@ nts::Tristate BaseComp::compute(std::size_t pin)
             return _links[pin].component->compute(_links[pin].pin);
         }
     } else {
-        throw BaseComp::Error("Pin not found");
+        throw BaseComp::Error("BaseComp: Pin not found");
     }
     return nts::UNDEFINED;
 }

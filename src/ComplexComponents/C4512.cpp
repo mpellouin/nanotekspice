@@ -44,11 +44,11 @@ void C4512::selectInput()
 {
     int selector = 0;
     if (_links[11].component != nullptr && _links[12].component != nullptr && _links[13].component != nullptr) {
-        std::cerr << "ABC" << std::endl;
         if (_links[11].component->compute(_links[11].pin) == nts::UNDEFINED ||
             _links[12].component->compute(_links[12].pin) == nts::UNDEFINED ||
             _links[13].component->compute(_links[13].pin) == nts::UNDEFINED) {
                 _pins[14] = nts::UNDEFINED;
+                return;
             }
         selector += (_links[11].component->compute(_links[11].pin) == nts::TRUE ? 1 : 0) +
                 (_links[12].component->compute(_links[12].pin) == nts::TRUE ? 2 : 0) +

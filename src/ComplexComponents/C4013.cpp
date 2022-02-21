@@ -34,15 +34,6 @@ C4013::~C4013()
 {
 }
 
-int C4013::getIndex(std::vector<int> v, int k)
-{
-    for (size_t i = 0; i < v.size(); i++) {
-        if (v.at(i) == k)
-            return i;
-    }
-    throw BaseComp::Error("Pin out of bounds");
-}
-
 void C4013::simulate(std::size_t tick)
 {
     (void)tick;
@@ -50,12 +41,19 @@ void C4013::simulate(std::size_t tick)
 
 nts::Tristate C4013::compute(std::size_t pin)
 {
+    simulate(0);
     if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
-        _pins[1] = _flipFlopComponents[0].compute(1);
-        _pins[2] = _flipFlopComponents[0].compute(2);
+        if (pin == 1 || pin == 2) {
+            _pins[1] = _flipFlopComponents[0].compute(1);
+            _pins[2] = _flipFlopComponents[0].compute(2);
+        } else if (pin == 12 || pin == 13) {
+            _pins[12] = _flipFlopComponents[1].compute(1);
+            _pins[13] = _flipFlopComponents[1].compute(2);
+        }
         return _pins[pin];
     } else if (std::find(_inPins.begin(), _inPins.end(), pin) != _inPins.end()) {
-        _pins[pin] = _links[pin].component->compute(_links[pin].pin);
+        if (_links[pin].component != nullptr)
+            _pins[pin] = _links[pin].component->compute(_links[pin].pin);
         return _pins[pin];
     } else {
         throw BaseComp::Error("C4013: Pin not found");

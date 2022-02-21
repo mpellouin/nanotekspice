@@ -53,12 +53,10 @@ void FlipFlop::simulate(std::size_t tick)
     if (ManageSetters())
         return;
     if (_links[3].component->compute(_links[3].pin) == nts::TRUE && isNegligeable(3)) {
-        std::cout << "----- Front montant -----" << std::endl;
         _pins[1] = nts::FALSE;
         _pins[2] = nts::TRUE;
     }
     if (_links[3].component->compute(_links[3].pin) == nts::TRUE && isNegligeable(3) && _pins[5] == nts::TRUE) {
-        std::cout << "----- Front montant reverse -----" << std::endl;
         _pins[1] = nts::TRUE;
         _pins[2] = nts::FALSE;
     }
@@ -72,7 +70,6 @@ nts::Tristate FlipFlop::compute(std::size_t pin)
             _pins[pin] = _links[pin].component->compute(_links[pin].pin);
             return _pins[pin];
         }
-        return _pins[pin];
     } else if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
         this->simulate(0);
         return _pins[pin];

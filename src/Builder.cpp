@@ -30,6 +30,7 @@ Builder::Builder()
     _builders["4040"] = &Builder::createC4040;
     _builders["4512"] = &Builder::createC4512;
     _builders["4013"] = &Builder::createC4013;
+    _builders["4514"] = &Builder::createC4514;
 }
 
 Builder::~Builder()
@@ -170,6 +171,12 @@ uComp Builder::createC4512(std::string const &name)
 uComp Builder::createC4013(std::string const &name)
 {
     nts::IComponent *component = new C4013(name, 14);
+    return uComp(component);
+}
+
+uComp Builder::createC4514(std::string const &name)
+{
+    nts::IComponent *component = new C4514(name, 24);
     return uComp(component);
 }
 

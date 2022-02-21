@@ -31,6 +31,7 @@
 #include "C4512.hpp"
 #include "C4013.hpp"
 #include "C4514.hpp"
+#include "Logger.hpp"
 
 class Builder;
 using builderFunc = uComp (Builder::*)(std::string const &value);
@@ -50,6 +51,7 @@ class Builder {
         } err;
     private:
         std::unordered_map<std::string, builderFunc> _builders;
+        uComp createLogger(std::string const &name);
         uComp createInput(std::string const &name);
         uComp createOutput(std::string const &name);
         uComp createTrue(std::string const &name);

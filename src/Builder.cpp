@@ -9,6 +9,7 @@
 
 Builder::Builder()
 {
+    _builders["logger"] = &Builder::createLogger;
     _builders["input"] = &Builder::createInput;
     _builders["output"] = &Builder::createOutput;
     _builders["true"] = &Builder::createTrue;
@@ -47,6 +48,13 @@ uComp Builder::createComponent(const std::string &type, const std::string &name)
         throw Builder::Error("Builder error: Unknown chipset type");
     return (this->*ptr)(name);
 }
+
+uComp Builder::createLogger(std::string const &name)
+{
+    nts::IComponent *component = new Logger(name, 10);
+    return uComp(component);
+}
+
 
 uComp Builder::createInput(std::string const &name)
 {

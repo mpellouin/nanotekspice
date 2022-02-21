@@ -6,7 +6,6 @@
 */
 
 #include "C4040.hpp"
-#include <bitset>
 
 C4040::C4040(std::string const &name, std::size_t nbPin = 16) : BaseComp(name, nbPin)
 {

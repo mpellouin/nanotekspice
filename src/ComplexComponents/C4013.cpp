@@ -21,6 +21,13 @@ C4013::C4013(std::string const &name, std::size_t nb = 14) : BaseComp(name, nb)
     _flipFlopComponents[0].setLink(4, *this, 4);
     _flipFlopComponents[0].setLink(5, *this, 5);
     _flipFlopComponents[0].setLink(6, *this, 6);
+
+    this->setLink(12, _flipFlopComponents[1], 1);
+    this->setLink(13, _flipFlopComponents[1], 2);
+    _flipFlopComponents[1].setLink(3, *this, 11);
+    _flipFlopComponents[1].setLink(4, *this, 10);
+    _flipFlopComponents[1].setLink(5, *this, 9);
+    _flipFlopComponents[1].setLink(6, *this, 8);
 }
 
 C4013::~C4013()
@@ -44,9 +51,14 @@ void C4013::simulate(std::size_t tick)
 nts::Tristate C4013::compute(std::size_t pin)
 {
     if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
-        std::cout << "Need to compute pin n*" << pin << std::endl;
-        _pins[pin] = _flipFlopComponents[0].compute(2);
+        _pins[1] = _flipFlopComponents[0].compute(1);
+        _pins[2] = _flipFlopComponents[0].compute(2);
         return _pins[pin];
+    } else if (std::find(_inPins.begin(), _inPins.end(), pin) != _inPins.end()) {
+        _pins[pin] = _links[pin].component->compute(_links[pin].pin);
+        return _pins[pin];
+    } else {
+        throw BaseComp::Error("C4013: Pin not found");
     }
 
 

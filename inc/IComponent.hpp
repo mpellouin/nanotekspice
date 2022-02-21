@@ -13,12 +13,14 @@
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <fstream>
 #include <map>
 #include <unordered_map>
 #include <exception>
 #include <memory>
 #include <exception>
 #include <algorithm>
+#include <bitset>
 #include <list>
 
 namespace nts

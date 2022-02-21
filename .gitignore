@@ -2,3 +2,5 @@
 /.vscode
 /tests_build
 nanotekspice
+log.bin
+testStr

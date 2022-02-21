@@ -3,7 +3,7 @@ input reset
 input data
 input set
 clock cl
-flipflop ff
+4013 ff
 output out1
 output out2
 

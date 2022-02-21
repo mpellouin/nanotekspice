@@ -15,8 +15,12 @@ class C4013 : public BaseComp {
         C4013(std::string const &name, std::size_t nbPin);
         ~C4013();
 
+        int getIndex(std::vector<int> v, int k);
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
+
+    protected:
+        std::vector<FlipFlop> _flipFlopComponents;
 };
 
 #endif /* !C4013_HPP_ */

@@ -96,6 +96,6 @@ Test(Circuit, Circuit_4512_Gate)
     try {
         grid["C"]->compute(18);
     } catch(const std::exception& e) {
-        cr_assert_str_eq(e.what(), "Pin not found");
+        cr_assert_str_eq(e.what(), "BaseComp: Pin not found");
     }
 }

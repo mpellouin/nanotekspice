@@ -27,8 +27,7 @@ void Nor::simulate(size_t tick)
     }
     if (_pins[1] == nts::FALSE && _pins[2] == nts::FALSE)
         _pins[3] = nts::TRUE;
-    else if ((_pins[1] == nts::UNDEFINED && _pins[2] == nts::FALSE) ||
-    (_pins[2] == nts::UNDEFINED && _pins[1] == nts::FALSE))
+    else if ((_pins[1] == nts::UNDEFINED && _pins[2] == nts::FALSE) || (_pins[2] == nts::UNDEFINED && _pins[1] == nts::FALSE) || (_pins[1] == nts::UNDEFINED && _pins[2] == nts::UNDEFINED))
         _pins[3] = nts::UNDEFINED;
     else
         _pins[3] = nts::FALSE;

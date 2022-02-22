@@ -19,11 +19,11 @@ class BaseComp : public nts::IComponent {
         nts::Tristate compute(std::size_t pin);
         void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
         void dump() const;
+        bool _isUpdated;
 
     protected:
         std::string _name;
         std::size_t _nbPin;
-        bool _isUpdated;
         std::vector<int> _inPins;
         std::vector<int> _outPins;
         std::map<std::size_t, nts::Tristate> _pins;

@@ -58,7 +58,7 @@ Test(Circuit, Circuit_4514_Gate)
     grid.setLink(1, "C", 21, "dec");
     grid.setLink(1, "D", 22, "dec");
 
-    std::cerr << "line 61" << std::endl;
+    // std::cerr << "line 61" << std::endl;
 
     dynamic_cast<Input *>(grid["prob"])->setValue(nts::FALSE);
     dynamic_cast<Input *>(grid["inh"])->setValue(nts::TRUE);
@@ -73,7 +73,7 @@ Test(Circuit, Circuit_4514_Gate)
     cr_assert_eq(grid["14"]->compute(1), nts::UNDEFINED);
     cr_assert_eq(grid["10"]->compute(1), nts::UNDEFINED);
 
-    std::cerr << "line 76" << std::endl;
+    // std::cerr << "line 76" << std::endl;
 
     dynamic_cast<Input *>(grid["prob"])->setValue(nts::TRUE);
     grid.simulate(1);
@@ -83,7 +83,7 @@ Test(Circuit, Circuit_4514_Gate)
     cr_assert_eq(grid["14"]->compute(1), nts::FALSE);
     cr_assert_eq(grid["10"]->compute(1), nts::FALSE);
 
-    std::cerr << "line 86" << std::endl;
+    // std::cerr << "line 86" << std::endl;
 
     dynamic_cast<Input *>(grid["inh"])->setValue(nts::FALSE);
     grid.simulate(1);
@@ -91,7 +91,7 @@ Test(Circuit, Circuit_4514_Gate)
     cr_assert_eq(grid["0"]->compute(1), nts::TRUE);
     cr_assert_eq(grid["1"]->compute(1), nts::FALSE);
 
-    std::cerr << "line 91" << std::endl;
+    // std::cerr << "line 91" << std::endl;
 
     dynamic_cast<Input *>(grid["inh"])->setValue(nts::UNDEFINED);
     grid.simulate(1);
@@ -99,14 +99,14 @@ Test(Circuit, Circuit_4514_Gate)
     cr_assert_eq(grid["1"]->compute(1), nts::UNDEFINED);
     cr_assert_eq(grid["2"]->compute(1), nts::UNDEFINED);
 
-    std::cerr << "line 99" << std::endl;
+    // std::cerr << "line 99" << std::endl;
 
     dynamic_cast<Input *>(grid["inh"])->setValue(nts::FALSE);
     grid.simulate(1);
     cr_assert_eq(grid["0"]->compute(1), nts::TRUE);
     cr_assert_eq(grid["1"]->compute(1), nts::FALSE);
 
-    std::cerr << "line 106" << std::endl;
+    // std::cerr << "line 106" << std::endl;
 
     dynamic_cast<Input *>(grid["B"])->setValue(nts::TRUE);
     grid.simulate(1);
@@ -114,7 +114,7 @@ Test(Circuit, Circuit_4514_Gate)
     cr_assert_eq(grid["1"]->compute(1), nts::FALSE);
     cr_assert_eq(grid["2"]->compute(1), nts::TRUE);
 
-    std::cerr << "line 114" << std::endl;
+    // std::cerr << "line 114" << std::endl;
 
     dynamic_cast<Input *>(grid["A"])->setValue(nts::TRUE);
     grid.simulate(1);

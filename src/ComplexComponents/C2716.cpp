@@ -36,12 +36,12 @@ void C2716::fillMemory(void)
     }
 }
 
-void C2716::dumpMemory(void)
-{
-    for (std::size_t i = 0; i < _memory.size(); i++) {
-        std::cout << "Memory[" << i << "] = " << _memory[i] << " = " << static_cast<char>(_memory[i].to_ulong()) << std::endl;
-    }
-}
+// void C2716::dumpMemory(void)
+// {
+//     for (std::size_t i = 0; i < _memory.size(); i++) {
+//         std::cout << "Memory[" << i << "] = " << _memory[i] << " = " << static_cast<char>(_memory[i].to_ulong()) << std::endl;
+//     }
+// }
 
 void C2716::simulate(std::size_t tick)
 {
@@ -83,8 +83,8 @@ nts::Tristate C2716::compute(std::size_t pin)
             return _pins[pin];
         }
     } else if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
-        if (compute(18) == nts::FALSE && compute(20) == nts::FALSE) {
-            // _isUpdated = true;
+        if (compute(18) == nts::FALSE && compute(20) == nts::FALSE && !_isUpdated) {
+            _isUpdated = true;
             simulate(0);
             return _pins[pin];
         }

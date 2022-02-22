@@ -17,6 +17,7 @@ class Circuit : public BaseComp {
 
         nts::IComponent *operator[](const std::string &name);
         void AddComponent(const std::string &type, const std::string &name);
+        void confirmSimulation(void);
 
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
@@ -38,6 +39,7 @@ class Circuit : public BaseComp {
         std::map<std::string, uComp> _components;
         std::vector<std::string> _inpComponents;
         std::vector<std::string> _outComponents;
+        std::vector<std::string> _midComponents;
         int _tickCount = 0;
         Builder builder;
 };

@@ -1,8 +1,9 @@
 .chipsets:
-true in1
-false in2
+clock cl
 output out1
-output out2
+
 .links:
-in1:1 out1:1
-in2:1 out2:1
+cl:1 out1:1
+# output out2
+# false in2
+# in2:1 out2:1

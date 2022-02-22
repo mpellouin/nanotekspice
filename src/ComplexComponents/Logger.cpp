@@ -62,7 +62,6 @@ void Logger::simulate(std::size_t tick)
         }
     }
     if (_links[9].component != nullptr && _links[9].component->compute(_links[9].pin) == nts::TRUE && isNegligeable(9)) {
-        std::cout << "Logger gonna do something" << std::endl;
         LogData(getData());
     }
     _pins[9] = _links[9].component->compute(_links[9].pin);

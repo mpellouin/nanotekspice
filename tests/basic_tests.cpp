@@ -116,7 +116,7 @@ Test(Circuit, Circuit_errors)
     try {
         grid.AddComponent("vache", "B");
     } catch (std::exception &e) {
-        cr_assert_str_eq(e.what(), "Builder error: Unknown chipset type");
+        cr_assert_str_eq(e.what(), "Builder error: Unknown chipset type ['vache']");
     }
     try {
         grid.AddComponent("input", "A");

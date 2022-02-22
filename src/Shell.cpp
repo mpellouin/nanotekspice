@@ -90,11 +90,13 @@ void Shell::_displayCircuit(Circuit *test)
 void Shell::_simulateCircuit(Circuit *test)
 {
     test->simulate(1);
+    test->confirmSimulation();
 }
 
 void Shell::_roundCircuit(Circuit *test)
 {
     test->simulate(1);
+    test->confirmSimulation();
     test->display();
 }
 
@@ -103,7 +105,6 @@ void Shell::_sigintHandler(int signal)
     (void)signal;
     nts::simulationIsRunning = false;
 }
-
 
 void Shell::_loopCircuit(Circuit *test)
 {

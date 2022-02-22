@@ -38,7 +38,6 @@ int main(int ac, char **av)
         return 84;
     }
     if (ac == 2 && !std::string(av[1]).compare("-h")) printUsage();
-
     try {
         parser.openFile(av[1]);
         parser.buildCircuit(circuit);

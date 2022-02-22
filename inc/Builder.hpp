@@ -33,6 +33,7 @@
 #include "C4514.hpp"
 #include "Logger.hpp"
 #include "C2716.hpp"
+#include "C4008.hpp"
 
 class Builder;
 using builderFunc = uComp (Builder::*)(std::string const &value);
@@ -76,6 +77,7 @@ class Builder {
         uComp createC4013(std::string const &name);
         uComp createC4514(std::string const &name);
         uComp createC2716(std::string const &name);
+        uComp createC4008(std::string const &name);
 };
 
 #endif /* !BUILDER_HPP_ */

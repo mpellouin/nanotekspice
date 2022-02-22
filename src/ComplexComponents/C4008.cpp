@@ -48,16 +48,16 @@ void C4008::addInputs()
             if (Ai == nts::UNDEFINED || Bi == nts::UNDEFINED || (opNumber == 0 &&
             _links[inputOrder[opNumber * 3 + 3]].component->compute(_links[inputOrder[opNumber * 3 + 3]].pin) == nts::UNDEFINED)) {
                 _pins[outputOrder[opNumber]] = nts::UNDEFINED;
-                if (opNumber == 4) _pins[14] = nts::UNDEFINED;
-                else outputOrder[(opNumber + 1) * 3 + 3] = 84;
+                if (opNumber == 3) _pins[14] = nts::UNDEFINED;
+                else inputOrder.at((opNumber + 1) * 3 + 3) = 84;
             } else {
-                _pins[outputOrder[opNumber]] = getAddedValue(Ai, Bi,
+                _pins[outputOrder.at(opNumber)] = getAddedValue(Ai, Bi,
                     (opNumber == 0 ?
-                        _links[inputOrder[opNumber * 3 + 3]].component->compute(_links[inputOrder[opNumber * 3 + 3]].pin)
-                        : outputOrder[opNumber * 3 + 3]));
-                if (opNumber == 4) _pins[14] = getCarryOut(Ai, Bi, outputOrder[opNumber * 3 + 3]);
-                else outputOrder[(opNumber + 1) * 3 + 3] = getCarryOut(Ai, Bi, opNumber != 0 ? outputOrder[opNumber * 3 + 3] :
-                _links[inputOrder[opNumber * 3 + 3]].component->compute(_links[inputOrder[opNumber * 3 + 3]].pin));
+                        _links[inputOrder.at(opNumber * 3 + 3)].component->compute(_links[inputOrder.at(opNumber * 3 + 3)].pin)
+                        : inputOrder.at(opNumber * 3 + 3)));
+                if (opNumber == 3) _pins[14] = getCarryOut(Ai, Bi, inputOrder.at(opNumber * 3 + 3));
+                else inputOrder.at((opNumber + 1) * 3 + 3) = getCarryOut(Ai, Bi, opNumber != 0 ? inputOrder.at(opNumber * 3 + 3) :
+                _links[inputOrder.at(opNumber * 3 + 3)].component->compute(_links[inputOrder.at(opNumber * 3 + 3)].pin));
             }
         }
     }

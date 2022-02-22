@@ -15,7 +15,7 @@ class Clock : public Input {
         Clock(std::string const &name);
         ~Clock();
 
-        void simulate(std::size_t tick);
+        void simulate(std::size_t tick) override;
 };
 
 #endif /* !CLOCK_HPP_ */

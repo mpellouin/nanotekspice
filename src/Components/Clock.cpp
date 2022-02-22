@@ -18,12 +18,12 @@ Clock::~Clock()
 
 void Clock::simulate(std::size_t tick)
 {
+    (void)tick;
     if (_pins[1] != nts::UNDEFINED) {
-        for (size_t i = 0; i < tick; i++)
-            _pins[1] = (_pins[1] == nts::TRUE) ? nts::FALSE : nts::TRUE;
+        _pins[1] = (_pins[1] == nts::TRUE) ? nts::FALSE : nts::TRUE;
     }
     if (_newPins.size() > 0) {
-        _pins = _newPins;
+        _pins[1] = _newPins.at(1);
         _newPins.clear();
     }
 }

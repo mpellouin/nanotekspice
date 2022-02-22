@@ -29,9 +29,6 @@ void Input::simulate(std::size_t tick)
 
 bool Input::setValue(nts::Tristate value)
 {
-    if (value != _pins[1]) {
-        _newPins[1] = value;
-        return true;
-    }
-    return false;
+    _newPins[1] = value;
+    return true;
 }

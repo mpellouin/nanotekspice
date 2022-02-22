@@ -16,7 +16,6 @@ class Input : public BaseComp {
         ~Input();
 
         void simulate(std::size_t tick);
-
         bool setValue(nts::Tristate value);
 };
 

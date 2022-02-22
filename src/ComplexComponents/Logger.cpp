@@ -44,6 +44,7 @@ void Logger::LogData(const char value)
 
     outfile.open("log.bin", std::ios_base::app);
     outfile << value;
+    outfile.close();
     return;
 }
 
@@ -51,12 +52,10 @@ void Logger::simulate(std::size_t tick)
 {
     (void)tick;
     if (_links[10].component != nullptr) {
-        std::cout << "bite " << _links[10].pin << std::endl;
         if (_links[10].component->compute(_links[10].pin) == nts::TRUE) {
             return;
         }
     }
-    std::cout << "bite " << std::endl;
     for (std::size_t i = 1; i <= 8; i++) {
         if (_links[i].component != nullptr) {
             _pins[i] = _links[i].component->compute(_links[i].pin);

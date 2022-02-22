@@ -23,6 +23,7 @@ class BaseComp : public nts::IComponent {
     protected:
         std::string _name;
         std::size_t _nbPin;
+        bool _isUpdated;
         std::vector<int> _inPins;
         std::vector<int> _outPins;
         std::map<std::size_t, nts::Tristate> _pins;

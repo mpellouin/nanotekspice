@@ -32,6 +32,7 @@ Builder::Builder()
     _builders["4512"] = &Builder::createC4512;
     _builders["4013"] = &Builder::createC4013;
     _builders["4514"] = &Builder::createC4514;
+    _builders["2716"] = &Builder::createC2716;
 }
 
 Builder::~Builder()
@@ -45,7 +46,7 @@ uComp Builder::createComponent(const std::string &type, const std::string &name)
     if (_builders.find(type) != _builders.end())
         ptr = _builders[type];
     else
-        throw Builder::Error("Builder error: Unknown chipset type");
+        throw Builder::Error("Builder error: Unknown chipset type ['" + type + "']");
     return (this->*ptr)(name);
 }
 
@@ -185,6 +186,12 @@ uComp Builder::createC4013(std::string const &name)
 uComp Builder::createC4514(std::string const &name)
 {
     nts::IComponent *component = new C4514(name, 24);
+    return uComp(component);
+}
+
+uComp Builder::createC2716(std::string const &name)
+{
+    nts::IComponent *component = new C2716(name, 24);
     return uComp(component);
 }
 

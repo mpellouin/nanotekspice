@@ -1,0 +1,36 @@
+.chipsets:
+input reset
+false enable
+false read
+input inhibit
+clock cl
+4040 counter
+2716 rom
+logger logger
+
+.links:
+reset:1 counter:11
+cl:1 counter:10
+enable:1 rom:18
+read:1 rom:20
+cl:1 logger:9
+inhibit:1 logger:10
+counter:9 rom:8
+counter:7 rom:7
+counter:6 rom:6
+counter:5 rom:5
+counter:3 rom:4
+counter:2 rom:3
+counter:4 rom:2
+counter:13 rom:1
+counter:12 rom:23
+counter:14 rom:22
+counter:15 rom:19
+rom:9 logger:1
+rom:10 logger:2
+rom:11 logger:3
+rom:13 logger:4
+rom:14 logger:5
+rom:15 logger:6
+rom:16 logger:7
+rom:17 logger:8

@@ -2,7 +2,7 @@
 /.vscode
 /tests_build
 nanotekspice
-log.bin
+*.bin
 testStr
 
 vgcore*

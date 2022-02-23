@@ -1,0 +1,24 @@
+.chipsets:
+4801 ram
+output out1
+output out2
+input ram_read
+input ram_write
+input ram_enable
+4040 counter
+clock cl
+
+.links:
+ram_read:1      ram:20
+ram_write:1     ram:21
+ram_enable:1    ram:18
+ram:9           out1:1
+ram:10          out2:1
+cl:1            counter:10
+counter:9       ram:8
+counter:7       ram:7
+counter:6       ram:6
+
+counter:9       ram:9
+counter:7       ram:10
+counter:6       ram:11

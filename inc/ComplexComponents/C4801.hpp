@@ -15,12 +15,16 @@ class C4801 : public BaseComp {
         C4801(std::string const &name, std::size_t nbPin);
         ~C4801();
 
+        void clearPins(void);
         void fillMemory(void);
         void dumpMemory(void);
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
     private:
         std::map<std::size_t, std::bitset<8>> _memory;
+        std::vector<int> _ioPins;
+        bool _readMode;
+        bool _writeMode;
 };
 
 #endif /* !C4801_HPP_ */

@@ -9,6 +9,7 @@
 
 C4030::C4030(std::string const &name, std::size_t nbPin = 14) : BaseComp(name, nbPin)
 {
+    _type = "4030";
     _inPins = std::vector<int> {1, 2, 5, 6, 8, 9, 12, 13};
     _outPins = std::vector<int> {3, 4, 10, 11};
     for (int i =0; i < 4; i++) {

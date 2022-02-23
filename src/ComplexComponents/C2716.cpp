@@ -10,6 +10,7 @@
 
 C2716::C2716(std::string const &name, std::size_t nbPin = 24) : BaseComp(name, nbPin)
 {
+    _type = "2716";
     _inPins = std::vector<int> {1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 22, 23};
     _outPins = std::vector<int> {9, 10, 11, 13, 14, 15, 16, 17};
     fillMemory();

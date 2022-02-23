@@ -9,6 +9,7 @@
 
 C4801::C4801(std::string const &name, std::size_t nbPin = 24) : BaseComp(name, nbPin)
 {
+    _type = "4801";
     _inPins = std::vector<int> {1, 2, 3, 4, 5, 6, 7, 8, 18, 20, 21, 22, 23};
     _outPins = std::vector<int> {};
     _ioPins = std::vector<int> {9, 10, 11, 13, 14, 15, 16, 17};

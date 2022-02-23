@@ -9,6 +9,7 @@
 
 C4013::C4013(std::string const &name, std::size_t nb = 14) : BaseComp(name, nb)
 {
+    _type = "4013";
     _inPins = std::vector<int> {3, 4, 5, 6, 8, 9, 10, 11};
     _outPins = std::vector<int> {1, 2, 12, 13};
 

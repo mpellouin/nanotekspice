@@ -51,6 +51,7 @@ void BaseComp::setLink(std::size_t pin, nts::IComponent &other, std::size_t othe
     } else {
         return;
     }
+
 }
 
 void BaseComp::dump() const

@@ -23,8 +23,6 @@ class C4801 : public BaseComp {
     private:
         std::map<std::size_t, std::bitset<8>> _memory;
         std::vector<int> _ioPins;
-        bool _readMode;
-        bool _writeMode;
 };
 
 #endif /* !C4801_HPP_ */

@@ -19,7 +19,6 @@ class FlipFlop : public BaseComp{
         bool ManageSetters(void);
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
-
 };
 
 #endif /* !FLIPFLOP_HPP_ */

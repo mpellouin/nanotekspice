@@ -9,6 +9,7 @@
 
 C4040::C4040(std::string const &name, std::size_t nbPin = 16) : BaseComp(name, nbPin)
 {
+    _type = "4040";
     _inPins = std::vector<int> {10, 11};
     _outPins = std::vector<int> {1, 2, 3, 4, 5, 6, 7, 9, 12, 13, 14, 15};
     _counter = 0;

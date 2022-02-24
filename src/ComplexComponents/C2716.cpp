@@ -10,10 +10,10 @@
 
 C2716::C2716(std::string const &name, std::size_t nbPin = 24) : BaseComp(name, nbPin)
 {
+    _type = "2716";
     _inPins = std::vector<int> {1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 22, 23};
     _outPins = std::vector<int> {9, 10, 11, 13, 14, 15, 16, 17};
     fillMemory();
-    // dumpMemory();
 }
 
 C2716::~C2716()
@@ -35,13 +35,6 @@ void C2716::fillMemory(void)
         rom.close();
     }
 }
-
-// void C2716::dumpMemory(void)
-// {
-//     for (std::size_t i = 0; i < _memory.size(); i++) {
-//         std::cout << "Memory[" << i << "] = " << _memory[i] << " = " << static_cast<char>(_memory[i].to_ulong()) << std::endl;
-//     }
-// }
 
 void C2716::simulate(std::size_t tick)
 {

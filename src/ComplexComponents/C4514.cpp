@@ -9,6 +9,7 @@
 
 C4514::C4514(std::string const &name, std::size_t nbPin = 16) : BaseComp(name, nbPin)
 {
+    _type = "4514";
     _inPins = std::vector<int> {1, 2, 3, 21, 22, 23};
     _outPins = std::vector<int> {4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20};
 }
@@ -84,4 +85,3 @@ nts::Tristate C4514::compute(std::size_t pin)
     }
     return nts::UNDEFINED;
 }
-

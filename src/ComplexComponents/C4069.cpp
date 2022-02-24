@@ -9,6 +9,7 @@
 
 C4069::C4069(std::string const &name, std::size_t nbPin = 14) : BaseComp(name, nbPin)
 {
+    _type = "4069";
     _inPins = std::vector<int> {1, 3, 5, 9, 11, 13};
     _outPins = std::vector<int> {2, 4, 6, 8, 10, 12};
     for (int i =0; i < 6; i++) {

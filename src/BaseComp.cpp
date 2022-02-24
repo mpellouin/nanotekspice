@@ -48,9 +48,13 @@ void BaseComp::setLink(std::size_t pin, nts::IComponent &other, std::size_t othe
     if (std::find(_inPins.begin(), _inPins.end(), pin) != _inPins.end()) {
         _links[pin].component = &other;
         _links[pin].pin = otherPin;
+    } else if (_type == "4801") {
+        _links[pin].component = &other;
+        _links[pin].pin = otherPin;
     } else {
         return;
     }
+
 }
 
 void BaseComp::dump() const

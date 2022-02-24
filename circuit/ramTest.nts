@@ -5,6 +5,7 @@ output out2
 input ram_read
 input ram_write
 input ram_enable
+input reset
 4040 counter
 clock cl
 
@@ -14,11 +15,15 @@ ram_write:1     ram:21
 ram_enable:1    ram:18
 ram:9           out1:1
 ram:10          out2:1
+reset:1         counter:11
 cl:1            counter:10
 counter:9       ram:8
 counter:7       ram:7
 counter:6       ram:6
+counter:5       ram:5
+counter:3       ram:4
+counter:2       ram:3
 
-ram:11          counter:9
-ram:12          counter:7
-ram:13          counter:6
+ram:9           counter:9
+ram:10          counter:7
+ram:11          counter:6

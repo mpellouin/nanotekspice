@@ -17,12 +17,13 @@ class C4801 : public BaseComp {
 
         void clearPins(void);
         void fillMemory(void);
-        void dumpMemory(void);
+        void readMemory(void);
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
     private:
         std::map<std::size_t, std::bitset<8>> _memory;
         std::vector<int> _ioPins;
+        bool _readMode;
 };
 
 #endif /* !C4801_HPP_ */

@@ -11,35 +11,11 @@ FlipFlop::FlipFlop(const std::string &name, std::size_t nbPin) : BaseComp(name, 
 {
     _inPins = std::vector<int> {3, 4, 5, 6};
     _outPins = std::vector<int> {1, 2};
+    _isUpdated = false;
 }
 
 FlipFlop::~FlipFlop()
 {
-}
-
-bool FlipFlop::ManageSetters(void)
-{
-    if (_pins[4] == nts::UNDEFINED || _pins[6] == nts::UNDEFINED) {
-        _pins[1] = nts::UNDEFINED;
-        _pins[2] = nts::UNDEFINED;
-        return true;
-    }
-    if (_pins[6] == nts::TRUE && _pins[4] == nts:: TRUE) {
-        _pins[1] = nts::TRUE;
-        _pins[2] = nts::TRUE;
-        return true;
-    }
-    if (_pins[6] == nts::TRUE && isNegligeable(5)) {
-        _pins[1] = nts::TRUE;
-        _pins[2] = nts::FALSE;
-        return true;
-    }
-    if (_pins[4] == nts::TRUE && isNegligeable(5)) {
-        _pins[1] = nts::FALSE;
-        _pins[2] = nts::TRUE;
-        return true;
-    }
-    return false;
 }
 
 bool FlipFlop::isNegligeable(std::size_t pin)
@@ -52,20 +28,35 @@ bool FlipFlop::isNegligeable(std::size_t pin)
 void FlipFlop::simulate(std::size_t tick)
 {
     (void)tick;
-    _pins[4] = compute(4);
-    _pins[5] = compute(5);
-    _pins[6] = compute(6);
-    if (ManageSetters())
-        return;
-    if (_links[3].component->compute(_links[3].pin) == nts::TRUE && isNegligeable(3)) {
-        _pins[1] = nts::FALSE;
-        _pins[2] = nts::TRUE;
+    _pins[4] = compute(4); // reset
+    _pins[5] = compute(5); // data
+    _pins[6] = compute(6); // set
+
+    if (_pins[4] == nts::FALSE && _pins[6] == nts::FALSE) {
+        if (_links[3].component->compute(_links[3].pin) == nts::TRUE && isNegligeable(3)) {
+            _pins[1] = nts::FALSE;
+            _pins[2] = nts::TRUE;
+        }
+        if (_links[3].component->compute(_links[3].pin) == nts::TRUE && isNegligeable(3) && _pins[5] == nts::TRUE) {
+            _pins[1] = nts::TRUE;
+            _pins[2] = nts::FALSE;
+        }
+        compute(3);
+    } else {
+        if (_pins[4] == nts::TRUE && isNegligeable(6)) {
+            _pins[1] = nts::FALSE;
+            _pins[2] = nts::TRUE;
+        } else if (_pins[6] == nts::TRUE && isNegligeable(4)) {
+            _pins[1] = nts::TRUE;
+            _pins[2] = nts::FALSE;
+        } else if (_pins[4] == nts::TRUE && _pins[6] == nts::TRUE) {
+            _pins[1] = nts::TRUE;
+            _pins[2] = nts::TRUE;
+        } else {
+            _pins[1] = nts::UNDEFINED;
+            _pins[2] = nts::UNDEFINED;
+        }
     }
-    if (_links[3].component->compute(_links[3].pin) == nts::TRUE && isNegligeable(3) && _pins[5] == nts::TRUE) {
-        _pins[1] = nts::TRUE;
-        _pins[2] = nts::FALSE;
-    }
-    compute(3);
 }
 
 nts::Tristate FlipFlop::compute(std::size_t pin)

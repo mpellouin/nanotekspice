@@ -28,14 +28,20 @@ Test(Circuit, C4040_component)
 
     dynamic_cast<Input *>(grid["cl"])->setValue(nts::TRUE);
     grid.simulate(1);
-    cr_assert_eq(grid["out1"]->compute(1), nts::FALSE);
+    cr_assert_eq(grid["out1"]->compute(1), nts::UNDEFINED);
 
     grid.simulate(1);
-    cr_assert_eq(grid["out1"]->compute(1), nts::TRUE);
+    cr_assert_eq(grid["out1"]->compute(1), nts::UNDEFINED);
 
     dynamic_cast<Input *>(grid["in1"])->setValue(nts::TRUE);
     grid.simulate(1);
-    cr_assert_eq(grid["out1"]->compute(1), nts::FALSE);
+    cr_assert_eq(grid["counter"]->compute(1), nts::FALSE);
+
+    dynamic_cast<Input *>(grid["in1"])->setValue(nts::FALSE);
+    grid.simulate(1);
+    grid.simulate(1);
+    grid.simulate(1);
+    cr_assert_eq(grid["out1"]->compute(1), nts::TRUE);
 
     try {
         grid["counter"]->compute(19);

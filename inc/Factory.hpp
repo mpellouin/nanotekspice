@@ -33,7 +33,7 @@
 #include "LogicalComponent.hpp"
 
 class Factory;
-using builderFunc = uComp (Factory::*)(std::string const &value);
+using factoryFunc = uComp (Factory::*)(std::string const &value);
 
 class Factory {
     public:
@@ -49,7 +49,7 @@ class Factory {
                 std::string *message;
         } err;
     private:
-        std::unordered_map<std::string, builderFunc> _factories;
+        std::unordered_map<std::string, factoryFunc> _factories;
         uComp createLogger(std::string const &name);
         uComp createInput(std::string const &name);
         uComp createOutput(std::string const &name);

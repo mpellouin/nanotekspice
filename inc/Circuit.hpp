@@ -41,7 +41,7 @@ class Circuit : public BaseComp {
         std::vector<std::string> _outComponents;
         std::vector<std::string> _midComponents;
         int _tickCount = 0;
-        Factory builder;
+        Factory factory;
 };
 
 #endif /* !CIRCUIT_HPP_ */

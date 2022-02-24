@@ -43,7 +43,7 @@ Factory::~Factory()
 
 uComp Factory::createComponent(const std::string &type, const std::string &name)
 {
-    builderFunc ptr = NULL;
+    factoryFunc ptr = NULL;
 
     if (_factories.find(type) != _factories.end())
         ptr = _factories[type];

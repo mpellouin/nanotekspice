@@ -28,7 +28,7 @@ void Circuit::AddComponent(const std::string &type, const std::string &name)
     if (_components.find(name) != _components.end()) {
         throw Circuit::Error("Circuit error: This component already exists in this circuit");
     }
-    uComp newComp = builder.createComponent(type, name);
+    uComp newComp = factory.createComponent(type, name);
     _components.emplace(name, std::move(newComp));
     if (type == "input" || type == "clock") {
         _inpComponents.insert(_inpComponents.begin(), name);

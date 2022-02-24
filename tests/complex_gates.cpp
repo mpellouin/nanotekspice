@@ -205,7 +205,7 @@ Test(Circuit, Circuit_4030_Gate)
     try {
         grid["C"]->compute(18);
     } catch(const std::exception& e) {
-        cr_assert_str_eq(e.what(), "C4030: Pin not found");
+        cr_assert_str_eq(e.what(), "Pin not found");
     }
 }
 
@@ -261,7 +261,7 @@ Test(Circuit, Circuit_4001_Gate)
     try {
         grid["C"]->compute(18);
     } catch(const std::exception& e) {
-        cr_assert_str_eq(e.what(), "C4001: Pin not found");
+        cr_assert_str_eq(e.what(), "Pin not found");
     }
 }
 
@@ -317,6 +317,6 @@ Test(Circuit, Circuit_4011_Gate)
     try {
         grid["C"]->compute(18);
     } catch(const std::exception& e) {
-        cr_assert_str_eq(e.what(), "C4011: Pin not found");
+        cr_assert_str_eq(e.what(), "Pin not found");
     }
 }

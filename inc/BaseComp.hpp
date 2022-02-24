@@ -23,7 +23,7 @@ class BaseComp : public nts::IComponent {
 
     protected:
         std::string _name;
-        std::string _type;
+        std::string _type = "";
         std::size_t _nbPin;
         std::vector<int> _inPins;
         std::vector<int> _outPins;

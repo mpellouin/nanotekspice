@@ -35,6 +35,7 @@
 #include "C2716.hpp"
 #include "C4008.hpp"
 #include "C4801.hpp"
+#include "LogicalComponent.hpp"
 
 class Factory;
 using builderFunc = uComp (Factory::*)(std::string const &value);

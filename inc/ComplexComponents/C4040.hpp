@@ -20,7 +20,7 @@ class C4040 : public BaseComp{
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
     private:
-        std::size_t _counter;
+        int _counter;
 };
 
 #endif /* !4040_HPP_ */

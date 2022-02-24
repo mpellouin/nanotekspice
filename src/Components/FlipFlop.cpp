@@ -19,18 +19,23 @@ FlipFlop::~FlipFlop()
 
 bool FlipFlop::ManageSetters(void)
 {
-    if (_pins[4] == nts::TRUE && isNegligeable(6)) {
-        _pins[1] = nts::FALSE;
+    if (_pins[4] == nts::UNDEFINED || _pins[6] == nts::UNDEFINED) {
+        _pins[1] = nts::UNDEFINED;
+        _pins[2] = nts::UNDEFINED;
+        return true;
+    }
+    if (_pins[6] == nts::TRUE && _pins[4] == nts:: TRUE) {
+        _pins[1] = nts::TRUE;
         _pins[2] = nts::TRUE;
         return true;
     }
-    if (isNegligeable(4) && _pins[6] == nts::TRUE) {
+    if (_pins[6] == nts::TRUE && isNegligeable(5)) {
         _pins[1] = nts::TRUE;
         _pins[2] = nts::FALSE;
         return true;
     }
-    if (_pins[4] == nts::TRUE && _pins[6] == nts::TRUE) {
-        _pins[1] = nts::TRUE;
+    if (_pins[4] == nts::TRUE && isNegligeable(5)) {
+        _pins[1] = nts::FALSE;
         _pins[2] = nts::TRUE;
         return true;
     }

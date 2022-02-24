@@ -14,6 +14,7 @@ Test(Parser, parser)
     parse::Parser parser;
     Circuit circuit;
 
+
     try {
         fals.openFile("rere");
     } catch (const std::exception &err) {

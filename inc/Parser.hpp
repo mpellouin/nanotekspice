@@ -85,8 +85,8 @@ namespace parse
 
     protected:
     private:
-        std::ifstream *_stream = nullptr;
-        std::stringstream *_line;
+        std::ifstream _stream;
+        std::stringstream _line;
         int _argNumber = 0;
         parse::State _parseState = null;
     };

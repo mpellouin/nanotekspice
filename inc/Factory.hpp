@@ -2,11 +2,11 @@
 ** EPITECH PROJECT, 2022
 ** B-OOP-400-LYN-4-1-tekspice-florian.gibault
 ** File description:
-** Builder
+** Factory
 */
 
-#ifndef BUILDER_HPP_
-#define BUILDER_HPP_
+#ifndef FACTORY_HPP_
+#define FACTORY_HPP_
 
 #include "IComponent.hpp"
 #include "Input.hpp"
@@ -36,13 +36,13 @@
 #include "C4008.hpp"
 #include "C4801.hpp"
 
-class Builder;
-using builderFunc = uComp (Builder::*)(std::string const &value);
+class Factory;
+using builderFunc = uComp (Factory::*)(std::string const &value);
 
-class Builder {
+class Factory {
     public:
-        Builder();
-        ~Builder();
+        Factory();
+        ~Factory();
         uComp createComponent(const std::string &type, const std::string &name);
         static class Error : public std::exception {
             public:
@@ -53,7 +53,7 @@ class Builder {
                 std::string *message;
         } err;
     private:
-        std::unordered_map<std::string, builderFunc> _builders;
+        std::unordered_map<std::string, builderFunc> _factories;
         uComp createLogger(std::string const &name);
         uComp createInput(std::string const &name);
         uComp createOutput(std::string const &name);
@@ -82,4 +82,4 @@ class Builder {
         uComp createC4801(std::string const &name);
 };
 
-#endif /* !BUILDER_HPP_ */
+#endif /* !FACTORY_HPP_ */

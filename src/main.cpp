@@ -11,7 +11,7 @@
 #include <memory>
 #include <sstream>
 
-#include "Builder.hpp"
+#include "Factory.hpp"
 #include "Shell.hpp"
 #include "Parser.hpp"
 #include "Circuit.hpp"

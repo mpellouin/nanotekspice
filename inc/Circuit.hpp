@@ -8,7 +8,7 @@
 #ifndef CIRCUIT_HPP_
 #define CIRCUIT_HPP_
 
-#include "Builder.hpp"
+#include "Factory.hpp"
 
 class Circuit : public BaseComp {
     public:
@@ -41,7 +41,7 @@ class Circuit : public BaseComp {
         std::vector<std::string> _outComponents;
         std::vector<std::string> _midComponents;
         int _tickCount = 0;
-        Builder builder;
+        Factory builder;
 };
 
 #endif /* !CIRCUIT_HPP_ */

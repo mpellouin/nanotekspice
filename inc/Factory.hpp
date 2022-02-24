@@ -21,12 +21,7 @@
 #include "True.hpp"
 #include "False.hpp"
 #include "FlipFlop.hpp"
-#include "C4081.hpp"
-#include "C4071.hpp"
 #include "C4069.hpp"
-#include "C4011.hpp"
-#include "C4001.hpp"
-#include "C4030.hpp"
 #include "C4040.hpp"
 #include "C4512.hpp"
 #include "C4013.hpp"
@@ -35,6 +30,7 @@
 #include "C2716.hpp"
 #include "C4008.hpp"
 #include "C4801.hpp"
+#include "LogicalComponent.hpp"
 
 class Factory;
 using builderFunc = uComp (Factory::*)(std::string const &value);

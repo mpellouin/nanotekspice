@@ -103,7 +103,7 @@ uComp Factory::createAnd(std::string const &name)
 
 uComp Factory::createC4081(std::string const &name)
 {
-    nts::IComponent *component = new C4081(name, 14);
+    nts::IComponent *component = new LogicalComponent<And>(name, 14);
     return uComp(component);
 }
 
@@ -115,7 +115,7 @@ uComp Factory::createOr(std::string const &name)
 
 uComp Factory::createC4071(std::string const &name)
 {
-    nts::IComponent *component = new C4071(name, 14);
+    nts::IComponent *component = new LogicalComponent<Or>(name, 14);
     return uComp(component);
 }
 
@@ -139,7 +139,7 @@ uComp Factory::createNand(std::string const &name)
 
 uComp Factory::createC4011(std::string const &name)
 {
-    nts::IComponent *component = new C4011(name, 14);
+    nts::IComponent *component = new LogicalComponent<Nand>(name, 14);
     return uComp(component);
 }
 
@@ -151,7 +151,7 @@ uComp Factory::createNor(std::string const &name)
 
 uComp Factory::createC4001(std::string const &name)
 {
-    nts::IComponent *component = new C4001(name, 14);
+    nts::IComponent *component = new LogicalComponent<Nor>(name, 14);
     return uComp(component);
 }
 
@@ -163,7 +163,7 @@ uComp Factory::createXor(std::string const &name)
 
 uComp Factory::createC4030(std::string const &name)
 {
-    nts::IComponent *component = new C4030(name, 14);
+    nts::IComponent *component = new LogicalComponent<Xor>(name, 14);
     return uComp(component);
 }
 

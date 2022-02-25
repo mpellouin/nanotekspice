@@ -1,9 +1,14 @@
 .chipsets:
-clock cl
+input in1
+input in2
 output out1
+4081 door
+
 
 .links:
-cl:1 out1:1
+in1:1 door:1
+in2:1 door:2
+door:3 out1:1
 # output out2
 # false in2
 # in2:1 out2:1

@@ -38,16 +38,16 @@ void C4801::fillMemory()
         }
     }
     std::bitset<10> address;
-    address[0] = _pins[8];
-    address[1] = _pins[7];
-    address[2] = _pins[6];
-    address[3] = _pins[5];
-    address[4] = _pins[4];
-    address[5] = _pins[3];
-    address[6] = _pins[2];
-    address[7] = _pins[1];
-    address[8] = _pins[23];
-    address[9] = _pins[22];
+    address[0] = _pins[8] == nts::TRUE ? 1 : 0;
+    address[1] = _pins[7] == nts::TRUE ? 1 : 0;
+    address[2] = _pins[6] == nts::TRUE ? 1 : 0;
+    address[3] = _pins[5] == nts::TRUE ? 1 : 0;
+    address[4] = _pins[4] == nts::TRUE ? 1 : 0;
+    address[5] = _pins[3] == nts::TRUE ? 1 : 0;
+    address[6] = _pins[2] == nts::TRUE ? 1 : 0;
+    address[7] = _pins[1] == nts::TRUE ? 1 : 0;
+    address[8] = _pins[23] == nts::TRUE ? 1 : 0;
+    address[9] = _pins[22] == nts::TRUE ? 1 : 0;
     std::bitset<8> data;
     data[0] = _pins[9] == nts::TRUE ? 1 : 0;
     data[1] = _pins[10] == nts::TRUE ? 1 : 0;
@@ -93,10 +93,8 @@ void C4801::simulate(std::size_t tick)
     (void)tick;
     for (std::size_t i = 0; i < _inPins.size(); i++) {
         if (_links[_inPins.at(i)].component != nullptr) {
-            std::cout << "C4801: " << _name << " " << _inPins.at(i) << " -> " << " counter " << _links[_inPins.at(i)].pin << " -> " << std::endl;
             compute(_inPins.at(i));
         } else {
-            std::cout << "C4801: " << _name << " " << _inPins.at(i) << " -> " << " " << nts::UNDEFINED << std::endl;
             _pins[_inPins.at(i)] = nts::FALSE;
         }
     }

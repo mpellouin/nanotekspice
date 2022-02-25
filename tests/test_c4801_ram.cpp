@@ -12,15 +12,15 @@ Test(Circuit, basic_ram_test)
 {
     Circuit grid;
 
-    grid.addComponent("4801", "ram");
-    grid.addComponent("output", "out1");
-    grid.addComponent("output", "out2");
-    grid.addComponent("input", "ram_read");
-    grid.addComponent("input", "ram_write");
-    grid.addComponent("input", "ram_enable");
-    grid.addComponent("input", "reset");
-    grid.addComponent("4040", "counter");
-    grid.addComponent("clock", "cl");
+    grid.AddComponent("4801", "ram");
+    grid.AddComponent("output", "out1");
+    grid.AddComponent("output", "out2");
+    grid.AddComponent("input", "ram_read");
+    grid.AddComponent("input", "ram_write");
+    grid.AddComponent("input", "ram_enable");
+    grid.AddComponent("input", "reset");
+    grid.AddComponent("4040", "counter");
+    grid.AddComponent("clock", "cl");
 
     grid.setLink(1, "ram_read", 20, "ram");
     grid.setLink(1, "ram_write", 21, "ram");
@@ -39,5 +39,6 @@ Test(Circuit, basic_ram_test)
     grid.setLink(10, "ram", 7, "counter");
     grid.setLink(11, "ram", 6, "counter");
 
-
+    grid.simulate(1);
+    grid.display();
 }

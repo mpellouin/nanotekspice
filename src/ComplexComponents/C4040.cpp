@@ -46,7 +46,6 @@ void C4040::updateOutputPins(void)
     _pins[14] = bits[9] == 1 ? nts::TRUE : nts::FALSE; // Q10
     _pins[15] = bits[10] == 1 ? nts::TRUE : nts::FALSE; // Q11
     _pins[1] = bits[11] == 1 ? nts::TRUE : nts::FALSE; // Q12
-    std::cout << "C4040: " << bits << std::endl;
 }
 
 void C4040::simulate(std::size_t tick)

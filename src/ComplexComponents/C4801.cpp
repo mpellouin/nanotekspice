@@ -125,6 +125,7 @@ nts::Tristate C4801::compute(std::size_t pin)
             _readMode = false;
             fillMemory();
         }
+        return _pins[pin];
     }
     if (_readMode) {
         if (std::find(_ioPins.begin(), _ioPins.end(), pin) != _ioPins.end()) {

@@ -40,5 +40,23 @@ Test(Circuit, basic_ram_test)
     grid.setLink(11, "ram", 6, "counter");
 
     grid.simulate(1);
-    grid.display();
+    dynamic_cast<Input *>(grid["reset"])->setValue(nts::TRUE);
+    grid.simulate(1);
+    dynamic_cast<Input *>(grid["reset"])->setValue(nts::FALSE);
+    grid.simulate(1);
+    // dynamic_cast<Input *>(grid["ram_enable"])->setValue(nts::TRUE);
+    grid.simulate(1);
+    grid.simulate(1);
+    // dynamic_cast<Input *>(grid["ram_enable"])->setValue(nts::UNDEFINEDxx);
+    grid.simulate(1);
+    grid.simulate(1);
+    dynamic_cast<Input *>(grid["cl"])->setValue(nts::TRUE);
+    grid.simulate(1);
+    dynamic_cast<Input *>(grid["reset"])->setValue(nts::TRUE);
+    grid.simulate(1);
+    dynamic_cast<Input *>(grid["reset"])->setValue(nts::FALSE);
+    grid.simulate(1);
+    dynamic_cast<Input *>(grid["ram_write"])->setValue(nts::TRUE);
+    grid.simulate(1);
+    grid["out1"]->compute(1);
 }

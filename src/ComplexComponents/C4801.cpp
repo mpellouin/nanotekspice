@@ -58,7 +58,7 @@ void C4801::fillMemory()
     data[6] = _pins[16] == nts::TRUE ? 1 : 0;
     data[7] = _pins[17] == nts::TRUE ? 1 : 0;
     _memory[address.to_ulong()] = data;
-    std::cout << "C4801: W address = " << address << "\tData = " << data << std::endl;
+    // std::cout << "C4801: W address = " << address << "\tData = " << data << std::endl;
 
 }
 
@@ -77,7 +77,7 @@ void C4801::readMemory()
     address[8] = _pins[23];
     address[9] = _pins[22];
     std::bitset<8> data = _memory[address.to_ulong()];
-    std::cout << "C4801: R address = " << address << "\tData = " << data << std::endl;
+    // std::cout << "C4801: R address = " << address << "\tData = " << data << std::endl;
     _pins[9] = data[0] == 1 ? nts::TRUE : nts::FALSE;
     _pins[10] = data[1] == 1 ? nts::TRUE : nts::FALSE;
     _pins[12] = data[2] == 1 ? nts::TRUE : nts::FALSE;
@@ -110,18 +110,18 @@ nts::Tristate C4801::compute(std::size_t pin)
         return _pins[pin];
     }
     if (compute(18) == nts::TRUE) {
-        std::cout << "C4801: Component disabled" << std::endl;
+        // std::cout << "C4801: Component disabled" << std::endl;
         clearPins();
         return _pins[pin];
     } else if (!_isUpdated) {
         _isUpdated = true;
-        std::cout << "C4801: Component enabled" << std::endl;
+        // std::cout << "C4801: Component enabled" << std::endl;
         if (compute(21) == nts::TRUE) {
-            std::cout << "C4081: Component READ mode" << std::endl;
+            // std::cout << "C4081: Component READ mode" << std::endl;
             _readMode = true;
             readMemory();
         } else {
-            std::cout << "C4081: Component WRITE mode" << std::endl;
+            // std::cout << "C4081: Component WRITE mode" << std::endl;
             _readMode = false;
             fillMemory();
         }

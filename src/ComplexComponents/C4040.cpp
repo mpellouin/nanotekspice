@@ -72,12 +72,16 @@ nts::Tristate C4040::compute(std::size_t pin)
 {
     if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
         simulate(0);
-        return _pins[pin];
+        if (_counter == -1) {
+            return nts::UNDEFINED;
+        } else {
+            return _pins[pin];
+        }
     } else if (std::find(_inPins.begin(), _inPins.end(), pin) != _inPins.end()) {
         if (_links[pin].component != nullptr) {
             _pins[pin] = _links[pin].component->compute(_links[pin].pin);
-            return _pins[pin];
         }
+        return _pins[pin];
     } else {
         throw BaseComp::Error("C4040: Pin not found");
     }

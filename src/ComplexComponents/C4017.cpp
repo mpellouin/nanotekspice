@@ -20,10 +20,24 @@ C4017::~C4017()
 
 void C4017::simulate(std::size_t tick)
 {
+    std::cout << "C4017::simulate" << std::endl;
     (void)tick;
 }
 
 nts::Tristate C4017::compute(std::size_t pin)
 {
-
+    if (std::find(_inPins.begin(), _inPins.end(), pin) != _inPins.end()) {
+        if (_links[pin].component != nullptr) {
+            _pins[pin] = _links[pin].component->compute(_links[pin].pin);
+        }
+        return _pins[pin];
+    } else if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
+        if (!_isUpdated) {
+            _isUpdated = true;
+            simulate(0);
+        }
+        return _pins[pin];
+    } else {
+        throw BaseComp::Error("C4017: Pin not found");
+    }
 }

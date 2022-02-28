@@ -21,6 +21,8 @@ class C4514 : public BaseComp{
         nts::Tristate compute(std::size_t pin);
     protected:
     private:
+        std::vector<nts::Tristate> _inputStates;
+        std::vector<nts::Tristate> _prevStates;
 };
 
 #endif /* !C4514_HPP_ */

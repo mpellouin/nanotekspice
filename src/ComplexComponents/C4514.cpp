@@ -12,6 +12,8 @@ C4514::C4514(std::string const &name, std::size_t nbPin = 16) : BaseComp(name, n
     _type = "4514";
     _inPins = std::vector<int> {1, 2, 3, 21, 22, 23};
     _outPins = std::vector<int> {4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20};
+    _prevStates = {nts::UNDEFINED, nts::UNDEFINED, nts::UNDEFINED, nts::UNDEFINED};
+    _inputStates = {nts::UNDEFINED, nts::UNDEFINED, nts::UNDEFINED, nts::UNDEFINED};
 }
 
 C4514::~C4514()
@@ -29,10 +31,14 @@ void C4514::simulate(std::size_t tick)
 {
     (void)tick;
     if (_links[1].component != nullptr) {
-        if (_links[1].component->compute(_links[1].pin) == nts::UNDEFINED ||
-            _links[1].component->compute(_links[1].pin) == nts::FALSE) {
-            setAllPins(nts::UNDEFINED);
-            return;
+        if (_links[1].component->compute(_links[1].pin) == nts::UNDEFINED) return;
+        else if (_links[1].component->compute(_links[1].pin) == nts::TRUE) {
+            _prevStates = _inputStates;
+            _inputStates[0] = _links[2].component != nullptr ? _links[2].component->compute(_links[2].pin) : nts::UNDEFINED;
+            _inputStates[1] = _links[3].component != nullptr ? _links[3].component->compute(_links[3].pin) : nts::UNDEFINED;
+            _inputStates[2] = _links[21].component != nullptr ? _links[21].component->compute(_links[21].pin) : nts::UNDEFINED;
+            _inputStates[3] = _links[22].component != nullptr ? _links[22].component->compute(_links[22].pin) : nts::UNDEFINED;
+            return ;
         }
     }
     if (_links[23].component != nullptr) {
@@ -54,17 +60,13 @@ void C4514::selectInput()
     std::vector<int> outputLocations = {11, 9, 10, 8, 7, 6, 5, 4, 18, 17, 20, 19, 14, 13, 16, 15};
     if (_links[2].component != nullptr && _links[3].component != nullptr &&
     _links[21].component != nullptr && _links[22].component != nullptr) {
-        if (_links[2].component->compute(_links[2].pin) == nts::UNDEFINED ||
-            _links[3].component->compute(_links[3].pin) == nts::UNDEFINED ||
-            _links[21].component->compute(_links[21].pin) == nts::UNDEFINED ||
-            _links[22].component->compute(_links[22].pin) == nts::UNDEFINED) {
+        if (_prevStates[0] == nts::UNDEFINED || _prevStates[1] == nts::UNDEFINED ||
+            _prevStates[2] == nts::UNDEFINED || _prevStates[3] == nts::UNDEFINED) {
                 setAllPins(nts::UNDEFINED);
                 return;
             }
-        selector += (_links[2].component->compute(_links[2].pin) == nts::TRUE ? 1 : 0) +
-                (_links[3].component->compute(_links[3].pin) == nts::TRUE ? 2 : 0) +
-                (_links[21].component->compute(_links[21].pin) == nts::TRUE ? 4 : 0) +
-                (_links[22].component->compute(_links[22].pin) == nts::TRUE ? 8 : 0);
+        selector += (_prevStates[0] == nts::TRUE ? 1 : 0) + (_prevStates[1] == nts::TRUE ? 2 : 0) +
+                (_prevStates[2] == nts::TRUE ? 4 : 0) + (_prevStates[3] == nts::TRUE ? 8 : 0);
         setAllPins(nts::FALSE);
         _pins[outputLocations.at(selector)] = nts::TRUE;
         }

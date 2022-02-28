@@ -37,7 +37,7 @@ Test(Circuit, test_logger_and_rom_simultaneously)
     grid.setLink(13, "counter", 1, "rom");
     grid.setLink(12, "counter", 23, "rom");
     grid.setLink(14, "counter", 22, "rom");
-    // grid.setLink(15, "counter", 19, "rom");
+
     grid.setLink(9, "rom", 1, "logger");
     grid.setLink(10, "rom", 2, "logger");
     grid.setLink(11, "rom", 3, "logger");
@@ -47,7 +47,15 @@ Test(Circuit, test_logger_and_rom_simultaneously)
     grid.setLink(16, "rom", 7, "logger");
     grid.setLink(17, "rom", 8, "logger");
 
+
     dynamic_cast<Input *>(grid["cl"])->setValue(nts::TRUE);
+    dynamic_cast<Input *>(grid["reset"])->setValue(nts::TRUE);
+    grid.simulate(1);
+    grid.confirmSimulation();
+    dynamic_cast<Input *>(grid["reset"])->setValue(nts::FALSE);
+    grid.simulate(1);
+    grid.confirmSimulation();
+
     for (int i = 0; i < 27; i++) {
         grid.simulate(1);
         grid.confirmSimulation();

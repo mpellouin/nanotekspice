@@ -25,6 +25,15 @@ bool Logger::isNegligeable(std::size_t pin)
     return false;
 }
 
+bool Logger::checkUndefined(void)
+{
+    for (std::size_t i = 0; i < _inPins.size(); i++) {
+        if (_pins[_inPins.at(i)] == nts::UNDEFINED)
+            return true;
+    }
+    return false;
+}
+
 char Logger::getData(void)
 {
     std::bitset<8> bits;
@@ -63,7 +72,9 @@ void Logger::simulate(std::size_t tick)
         }
     }
     if (_links[9].component != nullptr && _links[9].component->compute(_links[9].pin) == nts::TRUE && isNegligeable(9)) {
-        LogData(getData());
+        if (!checkUndefined()) {
+            LogData(getData());
+        }
     }
     _pins[9] = _links[9].component->compute(_links[9].pin);
 }

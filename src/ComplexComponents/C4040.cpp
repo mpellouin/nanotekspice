@@ -34,38 +34,36 @@ void C4040::updateOutputPins(void)
         return;
     }
     std::bitset<12> bits(_counter);
-    _pins[9] = bits[0] == 1 ? nts::TRUE : nts::FALSE; // Q1
-    _pins[7] = bits[1] == 1 ? nts::TRUE : nts::FALSE; // Q2
-    _pins[6] = bits[2] == 1 ? nts::TRUE : nts::FALSE; // Q3
-    _pins[5] = bits[3] == 1 ? nts::TRUE : nts::FALSE; // Q4
-    _pins[3] = bits[4] == 1 ? nts::TRUE : nts::FALSE; // Q5
-    _pins[2] = bits[5] == 1 ? nts::TRUE : nts::FALSE; // Q6
-    _pins[4] = bits[6] == 1 ? nts::TRUE : nts::FALSE; // Q7
-    _pins[13] = bits[7] == 1 ? nts::TRUE : nts::FALSE; // Q8
-    _pins[12] = bits[8] == 1 ? nts::TRUE : nts::FALSE; // Q9
-    _pins[14] = bits[9] == 1 ? nts::TRUE : nts::FALSE; // Q10
+    _pins[9] = bits[0] == 1 ? nts::TRUE : nts::FALSE;   // Q1
+    _pins[7] = bits[1] == 1 ? nts::TRUE : nts::FALSE;   // Q2
+    _pins[6] = bits[2] == 1 ? nts::TRUE : nts::FALSE;   // Q3
+    _pins[5] = bits[3] == 1 ? nts::TRUE : nts::FALSE;   // Q4
+    _pins[3] = bits[4] == 1 ? nts::TRUE : nts::FALSE;   // Q5
+    _pins[2] = bits[5] == 1 ? nts::TRUE : nts::FALSE;   // Q6
+    _pins[4] = bits[6] == 1 ? nts::TRUE : nts::FALSE;   // Q7
+    _pins[13] = bits[7] == 1 ? nts::TRUE : nts::FALSE;  // Q8
+    _pins[12] = bits[8] == 1 ? nts::TRUE : nts::FALSE;  // Q9
+    _pins[14] = bits[9] == 1 ? nts::TRUE : nts::FALSE;  // Q10
     _pins[15] = bits[10] == 1 ? nts::TRUE : nts::FALSE; // Q11
-    _pins[1] = bits[11] == 1 ? nts::TRUE : nts::FALSE; // Q12
+    _pins[1] = bits[11] == 1 ? nts::TRUE : nts::FALSE;  // Q12
 }
 
 void C4040::simulate(std::size_t tick)
 {
     (void)tick;
-    if (_links[11].component != nullptr) {
-        if (compute(11) == nts::TRUE) {
-            this->resetCounter();
-            return;
-        }
+    if (_links[11].component != nullptr && compute(11) == nts::TRUE) {
+        this->resetCounter();
+        _pins[10] = compute(10);
+        return;
     }
     if (_links[10].component != nullptr && _counter != -1) {
-        if (_links[10].component->compute(_links[10].pin) == nts::FALSE && _pins[10] == nts::TRUE) {
+        if (_pins[10] == nts::TRUE && _links[10].component->compute(_links[10].pin) == nts::FALSE) {
             _counter++;
         }
         this->updateOutputPins();
         _pins[10] = compute(10);
         return;
     }
-
 }
 
 nts::Tristate C4040::compute(std::size_t pin)

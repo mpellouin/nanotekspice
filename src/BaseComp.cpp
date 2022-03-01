@@ -20,7 +20,7 @@ BaseComp::~BaseComp()
 
 const char *BaseComp::Error::what() const noexcept
 {
-    return this->message->c_str();
+    return this->message.c_str();
 }
 
 

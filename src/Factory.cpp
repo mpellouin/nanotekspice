@@ -211,5 +211,5 @@ uComp Factory::createC4801(std::string const &name)
 
 const char *Factory::Error::what() const noexcept
 {
-    return this->message->c_str();
+    return this->message.c_str();
 }

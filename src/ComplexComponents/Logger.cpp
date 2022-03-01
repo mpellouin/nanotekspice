@@ -27,7 +27,7 @@ bool Logger::isNegligeable(std::size_t pin)
 
 bool Logger::checkUndefined(void)
 {
-    for (std::size_t i = 0; i < _inPins.size(); i++) {
+    for (std::size_t i = 0; i < 8; i++) {
         if (_pins[_inPins.at(i)] == nts::UNDEFINED)
             return true;
     }
@@ -74,6 +74,8 @@ void Logger::simulate(std::size_t tick)
     if (_links[9].component != nullptr && _links[9].component->compute(_links[9].pin) == nts::TRUE && isNegligeable(9)) {
         if (!checkUndefined()) {
             LogData(getData());
+        } else {
+            std::cout << "Can't log, undefined value" << std::endl;
         }
     }
     _pins[9] = _links[9].component->compute(_links[9].pin);

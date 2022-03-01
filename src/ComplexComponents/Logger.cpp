@@ -74,8 +74,6 @@ void Logger::simulate(std::size_t tick)
     if (_links[9].component != nullptr && _links[9].component->compute(_links[9].pin) == nts::TRUE && isNegligeable(9)) {
         if (!checkUndefined()) {
             LogData(getData());
-        } else {
-            std::cout << "Can't log, undefined value" << std::endl;
         }
     }
     _pins[9] = _links[9].component->compute(_links[9].pin);

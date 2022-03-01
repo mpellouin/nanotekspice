@@ -44,6 +44,7 @@ void Circuit::confirmSimulation(void)
     for (auto it = _midComponents.begin(); it != _midComponents.end(); it++) {
         if (_components.find(*it) != _components.end()) {
             dynamic_cast<BaseComp *>(_components[*it].get())->_isUpdated = false;
+            dynamic_cast<BaseComp *>(_components[*it].get())->_computedOutPins.clear();
         }
     }
 }
@@ -68,6 +69,7 @@ void Circuit::simulate(std::size_t tick)
     _tickCount++;
     std::sort(_inpComponents.begin(), _inpComponents.end());
     std::sort(_outComponents.begin(), _outComponents.end());
+    confirmSimulation();
     return;
 }
 

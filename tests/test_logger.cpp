@@ -51,14 +51,12 @@ Test(Circuit, test_logger_and_rom_simultaneously)
     dynamic_cast<Input *>(grid["cl"])->setValue(nts::TRUE);
     dynamic_cast<Input *>(grid["reset"])->setValue(nts::TRUE);
     grid.simulate(1);
-    grid.confirmSimulation();
     dynamic_cast<Input *>(grid["reset"])->setValue(nts::FALSE);
     grid.simulate(1);
-    grid.confirmSimulation();
 
     for (int i = 0; i < 27; i++) {
         grid.simulate(1);
-        grid.confirmSimulation();
+
     }
 
     try {

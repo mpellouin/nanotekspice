@@ -52,13 +52,16 @@ class LogicalComponent : public BaseComp{
 
         nts::Tristate compute(std::size_t pin) {
             if (std::find(_outPins.begin(), _outPins.end(), pin) != _outPins.end()) {
-                _pins[pin] = _components[getIndex(_outPins, pin)].compute(3);
+                if (!_computedOutPins[pin]) {
+                    _computedOutPins[pin] = true;
+                    _pins[pin] = _components[getIndex(_outPins, pin)].compute(3);
+                }
                 return _pins[pin];
             } else if (std::find(_inPins.begin(), _inPins.end(), pin) != _inPins.end()) {
                 if (_links[pin].component != nullptr) {
-                _pins[pin] = _links[pin].component->compute(_links[pin].pin);
-                return _pins[pin];
+                    _pins[pin] = _links[pin].component->compute(_links[pin].pin);
                 }
+                return _pins[pin];
             } else {
                 throw BaseComp::Error("Pin not found");
             }
@@ -67,6 +70,7 @@ class LogicalComponent : public BaseComp{
 
     protected:
         std::vector<T> _components;
+
 };
 
 #endif /* !LOGICALCOMPONENT_HPP_ */

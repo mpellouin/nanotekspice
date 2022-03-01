@@ -20,6 +20,7 @@ class BaseComp : public nts::IComponent {
         void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
         void dump() const;
         bool _isUpdated;
+        std::unordered_map<int, bool> _computedOutPins;
 
     protected:
         std::string _name;

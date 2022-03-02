@@ -30,6 +30,7 @@
 #include "C2716.hpp"
 #include "C4008.hpp"
 #include "C4801.hpp"
+#include "C4017.hpp"
 #include "LogicalComponent.hpp"
 
 class Factory;
@@ -76,6 +77,7 @@ class Factory {
         uComp createC2716(std::string const &name);
         uComp createC4008(std::string const &name);
         uComp createC4801(std::string const &name);
+        uComp createC4017(std::string const &name);
 };
 
 #endif /* !FACTORY_HPP_ */

@@ -62,7 +62,8 @@ void Logger::simulate(std::size_t tick)
 {
     (void)tick;
     if (_links[10].component != nullptr) {
-        if (_links[10].component->compute(_links[10].pin) == nts::TRUE) {
+        _pins[10] = _links[10].component->compute(_links[10].pin);
+        if (_pins[10] == nts::TRUE) {
             return;
         }
     }

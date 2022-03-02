@@ -44,7 +44,7 @@ int C4069::getIndex(std::vector<int> v, int k)
         if (v.at(i) == k)
             return i;
     }
-    throw BaseComp::Error("Pin out of bounds");
+    return 0;
 }
 
 nts::Tristate C4069::compute(std::size_t pin)

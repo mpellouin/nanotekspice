@@ -23,8 +23,8 @@ C4013::C4013(std::string const &name, std::size_t nb = 14) : BaseComp(name, nb)
     _flipFlopComponents[0].setLink(5, *this, 5);
     _flipFlopComponents[0].setLink(6, *this, 6);
 
-    this->setLink(12, _flipFlopComponents[1], 1);
-    this->setLink(13, _flipFlopComponents[1], 2);
+    this->setLink(13, _flipFlopComponents[1], 1);
+    this->setLink(12, _flipFlopComponents[1], 2);
     _flipFlopComponents[1].setLink(3, *this, 11);
     _flipFlopComponents[1].setLink(4, *this, 10);
     _flipFlopComponents[1].setLink(5, *this, 9);

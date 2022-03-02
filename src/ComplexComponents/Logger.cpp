@@ -61,19 +61,16 @@ void Logger::LogData(const char value)
 void Logger::simulate(std::size_t tick)
 {
     (void)tick;
-    if (_links[10].component != nullptr) {
-        _pins[10] = _links[10].component->compute(_links[10].pin);
-        if (_pins[10] == nts::TRUE) {
-            return;
-        }
-    }
     for (std::size_t i = 1; i <= 8; i++) {
         if (_links[i].component != nullptr) {
             _pins[i] = _links[i].component->compute(_links[i].pin);
         }
     }
+    if (_links[10].component != nullptr) {
+        _pins[10] = _links[10].component->compute(_links[10].pin);
+    }
     if (_links[9].component != nullptr && _links[9].component->compute(_links[9].pin) == nts::TRUE && isNegligeable(9)) {
-        if (!checkUndefined()) {
+        if (!checkUndefined() && _pins[10] != nts::TRUE) {
             LogData(getData());
         }
     }

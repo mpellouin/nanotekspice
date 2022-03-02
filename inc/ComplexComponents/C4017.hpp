@@ -15,10 +15,11 @@ class C4017 : public BaseComp {
         C4017(std::string const &name, std::size_t nbPin);
         ~C4017();
 
+        void reset(void);
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
-    protected:
     private:
+        int _counter;
 };
 
 #endif /* !C4017_HPP_ */

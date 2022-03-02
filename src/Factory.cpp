@@ -186,8 +186,7 @@ uComp Factory::createC4801(std::string const &name)
 
 uComp Factory::createC4017(std::string const &name)
 {
-    nts::IComponent *component = new C4017(name, 14);
-    return uComp(component);
+    return uComp(new C4017(name, 15));
 }
 
 const char *Factory::Error::what() const noexcept

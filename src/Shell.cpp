@@ -69,7 +69,7 @@ void Shell::run(Circuit &circuit)
 
 const char *Shell::Error::what() const noexcept
 {
-    return this->message->c_str();
+    return this->message.c_str();
 }
 
 void Shell::_exitProgram(Circuit *test)

@@ -44,6 +44,7 @@ void Circuit::confirmSimulation(void)
     for (auto it = _midComponents.begin(); it != _midComponents.end(); it++) {
         if (_components.find(*it) != _components.end()) {
             dynamic_cast<BaseComp *>(_components[*it].get())->_isUpdated = false;
+            dynamic_cast<BaseComp *>(_components[*it].get())->_computedOutPins.clear();
         }
     }
 }
@@ -54,20 +55,17 @@ void Circuit::simulate(std::size_t tick)
     for (auto it = _inpComponents.begin(); it != _inpComponents.end(); it++) {
         if (_components.find(*it) != _components.end()) {
             _components[*it]->simulate(tick);
-        } else {
-            throw Circuit::Error("Circuit error: Component not found");
         }
     }
     for (auto it = _outComponents.begin(); it != _outComponents.end(); it++) {
         if (_components.find(*it) != _components.end()) {
             _components[*it]->simulate(tick);
-        } else {
-            throw Circuit::Error("Circuit error: Component not found");
         }
     }
     _tickCount++;
     std::sort(_inpComponents.begin(), _inpComponents.end());
     std::sort(_outComponents.begin(), _outComponents.end());
+    confirmSimulation();
     return;
 }
 
@@ -119,8 +117,6 @@ void Circuit::display()
             nts::Tristate res = _components[*it]->compute(1);
             char st = res == nts::UNDEFINED ? 'U' : res == 0 ? '0' : '1';
             std::cout << "  " << *it << ": " << st << std::endl;
-        } else {
-            throw Circuit::Error("Component not found");
         }
     }
     std::cout << "output(s):" << std::endl;
@@ -129,13 +125,11 @@ void Circuit::display()
             nts::Tristate res = _components[*it]->compute(1);
             char st = res == nts::UNDEFINED ? 'U' : res == 0 ? '0' : '1';
             std::cout << "  " << *it << ": " << st << std::endl;
-        } else {
-            throw Circuit::Error("Component not found");
         }
     }
 }
 
 const char *Circuit::Error::what() const noexcept
 {
-    return this->message->c_str();
+    return this->message.c_str();
 }

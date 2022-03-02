@@ -20,6 +20,7 @@ class BaseComp : public nts::IComponent {
         void setLink(std::size_t pin, nts::IComponent &other, std::size_t otherPin);
         void dump() const;
         bool _isUpdated;
+        std::unordered_map<int, bool> _computedOutPins;
 
     protected:
         std::string _name;
@@ -34,11 +35,11 @@ class BaseComp : public nts::IComponent {
     public:
         static class Error : public std::exception {
             public:
-                Error(const std::string &message) {this->message = new std::string(message);};
-                ~Error() {delete this->message;};
+                Error(const std::string &message) {this->message = std::string(message);};
+                ~Error() {};
                 const char *what() const noexcept override;
             private:
-                std::string *message;
+                std::string message;
         } err;
 };
 

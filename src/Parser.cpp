@@ -103,5 +103,5 @@ void parse::Parser::buildCircuit(Circuit &circuit)
 
 const char *parse::Parser::Error::what() const noexcept
 {
-    return this->message->c_str();
+    return this->message.c_str();
 }

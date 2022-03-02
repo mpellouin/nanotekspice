@@ -55,159 +55,133 @@ uComp Factory::createComponent(const std::string &type, const std::string &name)
 
 uComp Factory::createLogger(std::string const &name)
 {
-    nts::IComponent *component = new Logger(name, 10);
-    return uComp(component);
+    return uComp(new Logger(name, 10));
 }
 
 
 uComp Factory::createInput(std::string const &name)
 {
-    nts::IComponent *component = new Input(name, 1);
-    return uComp(component);
+    return uComp(new Input(name, 1));
 }
 
 uComp Factory::createOutput(std::string const &name)
 {
-    nts::IComponent *component = new Output(name, 1);
-    return uComp(component);
+    return uComp(new Output(name, 1));
 }
 
 uComp Factory::createTrue(std::string const &name)
 {
-    nts::IComponent *component = new True(name, 1);
-    return uComp(component);
+    return uComp(new True(name, 1));
 }
 
 uComp Factory::createFalse(std::string const &name)
 {
-    nts::IComponent *component = new False(name, 1);
-    return uComp(component);
+    return uComp(new False(name, 1));
 }
 
 uComp Factory::createClock(std::string const &name)
 {
-    nts::IComponent *component = new Clock(name);
-    return uComp(component);
+    return uComp(new Clock(name));
 }
 
 uComp Factory::createFlipFlop(std::string const &name)
 {
-    nts::IComponent *component = new FlipFlop(name, 6);
-    return uComp(component);
+    return uComp(new FlipFlop(name, 6));
 }
 
 uComp Factory::createAnd(std::string const &name)
 {
-    nts::IComponent *component = new And(name, 3);
-    return uComp(component);
+    return uComp(new And(name, 3));
 }
 
 uComp Factory::createC4081(std::string const &name)
 {
-    nts::IComponent *component = new LogicalComponent<And>(name, 14);
-    return uComp(component);
+    return uComp(new LogicalComponent<And>(name, 14));
 }
 
 uComp Factory::createOr(std::string const &name)
 {
-    nts::IComponent *component = new Or(name, 3);
-    return uComp(component);
+    return uComp(new Or(name, 3));
 }
 
 uComp Factory::createC4071(std::string const &name)
 {
-    nts::IComponent *component = new LogicalComponent<Or>(name, 14);
-    return uComp(component);
+    return uComp(new LogicalComponent<Or>(name, 14));
 }
 
 uComp Factory::createNot(std::string const &name)
 {
-    nts::IComponent *component = new Not(name, 2);
-    return uComp(component);
+    return uComp(new Not(name, 2));
 }
 
 uComp Factory::createC4069(std::string const &name)
 {
-    nts::IComponent *component = new C4069(name, 14);
-    return uComp(component);
+    return uComp(new C4069(name, 14));
 }
 
 uComp Factory::createNand(std::string const &name)
 {
-    nts::IComponent *component = new Nand(name, 3);
-    return uComp(component);
+    return uComp(new Nand(name, 3));
 }
 
 uComp Factory::createC4011(std::string const &name)
 {
-    nts::IComponent *component = new LogicalComponent<Nand>(name, 14);
-    return uComp(component);
+    return uComp(new LogicalComponent<Nand>(name, 14));
 }
 
 uComp Factory::createNor(std::string const &name)
 {
-    nts::IComponent *component = new Nor(name, 3);
-    return uComp(component);
+    return uComp(new Nor(name, 3));
 }
 
 uComp Factory::createC4001(std::string const &name)
 {
-    nts::IComponent *component = new LogicalComponent<Nor>(name, 14);
-    return uComp(component);
+    return uComp(new LogicalComponent<Nor>(name, 14));
 }
 
 uComp Factory::createXor(std::string const &name)
 {
-    nts::IComponent *component = new Xor(name, 3);
-    return uComp(component);
+    return uComp(new Xor(name, 3));
 }
 
 uComp Factory::createC4030(std::string const &name)
 {
-    nts::IComponent *component = new LogicalComponent<Xor>(name, 14);
-    return uComp(component);
+    return uComp(new LogicalComponent<Xor>(name, 14));
 }
 
 uComp Factory::createC4040(std::string const &name)
 {
-    nts::IComponent *component = new C4040(name, 16);
-    return uComp(component);
+    return uComp(new C4040(name, 16));
 }
 
 uComp Factory::createC4512(std::string const &name)
 {
-    nts::IComponent *component = new C4512(name, 16);
-    return uComp(component);
+    return uComp(new C4512(name, 16));
 }
 
 uComp Factory::createC4013(std::string const &name)
 {
-    nts::IComponent *component = new C4013(name, 14);
-    return uComp(component);
+    return uComp(new C4013(name, 14));
 }
 
 uComp Factory::createC4514(std::string const &name)
 {
-    nts::IComponent *component = new C4514(name, 24);
-    return uComp(component);
+    return uComp(new C4514(name, 24));
 }
 
 uComp Factory::createC4008(std::string const &name)
 {
-    nts::IComponent *component = new C4008(name, 16);
-    return uComp(component);
+    return uComp(new C4008(name, 16));
 }
 
 uComp Factory::createC2716(std::string const &name)
 {
-    nts::IComponent *component = new C2716(name, 24);
-    return uComp(component);
+    return uComp(new C2716(name, 24));
 }
 
 uComp Factory::createC4801(std::string const &name)
 {
-    nts::IComponent *component = new C4801(name, 24);
-    return uComp(component);
+    return uComp(new C4801(name, 24));
 }
 
 uComp Factory::createC4017(std::string const &name)
@@ -218,5 +192,5 @@ uComp Factory::createC4017(std::string const &name)
 
 const char *Factory::Error::what() const noexcept
 {
-    return this->message->c_str();
+    return this->message.c_str();
 }

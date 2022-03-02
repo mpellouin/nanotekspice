@@ -104,7 +104,7 @@ tests_run: $(OBJECTS) $(TEST_OBJECTS)
 tests_recap:
 > @ printf "$(ORANGE)$(BOLD)Tests recap:$(WHITE)\n"
 > gcovr --exclude tests --exclude inc
-> gcovr --exclude tests --exclude inc --branches
+# > gcovr --exclude tests --exclude inc --branches
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJECTS_SUB_DIRS)
 > @$(CXX) $(CXXFLAGS) $(CXX_DEPS) -c $< -o $@

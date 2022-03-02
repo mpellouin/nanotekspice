@@ -16,6 +16,7 @@ class Logger : public BaseComp {
         ~Logger();
 
         bool isNegligeable(std::size_t pin);
+        bool checkUndefined(void);
         char getData(void);
         void LogData(const char value);
         void simulate(std::size_t tick);

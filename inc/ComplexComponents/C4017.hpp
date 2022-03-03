@@ -16,6 +16,7 @@ class C4017 : public BaseComp {
         ~C4017();
 
         void reset(void);
+        void updatePins(void);
         void simulate(std::size_t tick);
         nts::Tristate compute(std::size_t pin);
     private:

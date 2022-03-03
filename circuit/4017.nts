@@ -17,7 +17,7 @@
 #          out_4 -10-+ +-1- out_5
 
 .chipsets:
-input in_0
+clock in_0
 input in_1
 input in_r
 output out_0

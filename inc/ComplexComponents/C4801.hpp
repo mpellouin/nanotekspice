@@ -16,6 +16,8 @@ class C4801 : public BaseComp {
         ~C4801();
 
         void clearPins(void);
+        bool verifyAddressPins(void);
+        bool verifyDataPins(void);
         void fillMemory(void);
         void readMemory(void);
         void simulate(std::size_t tick);

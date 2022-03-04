@@ -71,7 +71,7 @@ void C4017::simulate(std::size_t tick)
         // std::cout << "Johnson alt ++" << std::endl;
         _counter += _counter < 9 ? 1 : -9;
     }
-    std::cout << "C4017::simulate (" << _counter << ")" << std::endl;
+    // std::cout << "C4017::simulate (" << _counter << ")" << std::endl;
     updatePins();
     _pins[13] = newPin13;
     _pins[14] = newPin14;

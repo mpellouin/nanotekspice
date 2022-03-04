@@ -27,9 +27,33 @@ void C4801::clearPins(void)
     }
 }
 
+bool C4801::verifyAddressPins(void)
+{
+    for (std::size_t i = 0; i < 8; i++) {
+        if (_pins[_inPins.at(i)] == nts::UNDEFINED)
+            return false;
+    }
+    if (_pins[_inPins.at(22)] == nts::UNDEFINED)
+        return false;
+    if (_pins[_inPins.at(23)] == nts::UNDEFINED)
+        return false;
+    return true;
+}
+
+bool C4801::verifyDataPins(void)
+{
+    for (std::size_t i = 0; i < _ioPins.size(); i++) {
+        if (_pins[_ioPins.at(i + 8)] == nts::UNDEFINED)
+            return false;
+    }
+    return true;
+}
+
 void C4801::fillMemory()
 {
     simulate(0);
+    if (!verifyDataPins())
+        return;
     for (std::size_t i = 0; i < _ioPins.size(); i++) {
         if (_links[_ioPins.at(i)].component != nullptr) {
             _pins[_ioPins.at(i)] = _links[_ioPins.at(i)].component->compute(_links[_ioPins.at(i)].pin);
@@ -64,7 +88,9 @@ void C4801::fillMemory()
 void C4801::readMemory()
 {
     simulate(0);
-    std::bitset<10> address;
+    if (!verifyAddressPins())
+        return;
+    std::bitset<10> address ;
     address[0] = _pins[8];
     address[1] = _pins[7];
     address[2] = _pins[6];

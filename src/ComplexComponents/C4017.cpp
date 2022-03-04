@@ -13,6 +13,7 @@ C4017::C4017(std::string const &name, std::size_t nbPin = 15) : BaseComp(name , 
     _inPins = std::vector<int> {13, 14, 15};
     _outPins = std::vector<int> {1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12};
     _counter = -1;
+    updatePins();
 }
 
 C4017::~C4017()
@@ -62,19 +63,29 @@ void C4017::simulate(std::size_t tick)
 
     if (newPin15 == nts::TRUE) {
         reset();
+        _pins[13] = newPin13;
+        _pins[14] = newPin14;
         return;
     }
-    if ((_pins[14] == nts::FALSE || _pins[14] == nts::UNDEFINED) && newPin14 == nts::TRUE && ((_pins[13] == nts::FALSE || _pins[13] == nts::UNDEFINED))) {
+    if (_counter == -1) {
+        _pins[13] = newPin13;
+        _pins[14] = newPin14;
+        return;
+    }
+
+    // IN 0 = 14
+    // IN 1 = 13
+
+    if (_pins[14] == nts::FALSE && newPin14 == nts::TRUE && (_pins[13] == nts::FALSE || _pins[13] == nts::UNDEFINED)) {
         // std::cout << "Johnson ++" << std::endl;
         _counter += _counter < 9 ? 1 : -9;
     } else if (_pins[13] == nts::TRUE && newPin13 == nts::FALSE && _pins[14] == nts::TRUE) {
         // std::cout << "Johnson alt ++" << std::endl;
         _counter += _counter < 9 ? 1 : -9;
     }
-    // std::cout << "C4017::simulate (" << _counter << ")" << std::endl;
-    updatePins();
     _pins[13] = newPin13;
     _pins[14] = newPin14;
+    updatePins();
 }
 
 nts::Tristate C4017::compute(std::size_t pin)

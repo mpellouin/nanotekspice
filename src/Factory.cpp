@@ -192,7 +192,7 @@ uComp Factory::createC4017(std::string const &name)
 
 uComp Factory::createSevenSeg(std::string const &name)
 {
-    return uComp(new SevenSegmentDisplay(name, 11));
+    return uComp(new SevenSegmentDisplay(name, 6));
 }
 
 const char *Factory::Error::what() const noexcept

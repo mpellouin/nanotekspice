@@ -1,0 +1,33 @@
+.chipsets:
+input in1
+input in2
+input in3
+input in4
+input in5
+input in6
+input in7
+input in8
+input in9
+input in10
+output out1
+output out2
+output out3
+7seg seg
+7seg seg2
+7seg flo_trop_beau
+
+.links:
+in1:1       seg:1
+in2:1       seg:10
+in3:1       seg:8
+in4:1       seg:6
+in5:1       seg:5
+in6:1       seg:2
+in7:1       seg:9
+in8:1       seg:4
+out1:1      seg:11
+in9:1       seg2:2
+out2:1      seg2:11
+in10:1      flo_trop_beau:10
+out3:1      flo_trop_beau:11
+

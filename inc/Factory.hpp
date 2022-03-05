@@ -32,6 +32,7 @@
 #include "C4801.hpp"
 #include "C4017.hpp"
 #include "LogicalComponent.hpp"
+#include "SevenSegmentDisplay.hpp"
 
 class Factory;
 using factoryFunc = uComp (Factory::*)(std::string const &value);
@@ -78,6 +79,7 @@ class Factory {
         uComp createC4008(std::string const &name);
         uComp createC4801(std::string const &name);
         uComp createC4017(std::string const &name);
+        uComp createSevenSeg(std::string const &name);
 };
 
 #endif /* !FACTORY_HPP_ */

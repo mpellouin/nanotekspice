@@ -64,7 +64,7 @@ else
   CXX           := clang++
   CXX_WARNINGS  := -Wall -Wextra -Wpedantic
   CXXFLAGS      := -std=c++20
-  LDFLAGS       :=
+  LDFLAGS       := -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 endif
 
 CXX_DEPS      =   -MT $(OBJ_DIR)/$*.o -MP -MMD  -MF $(OBJ_DIR)/$*.d

@@ -36,6 +36,7 @@ Factory::Factory()
     _factories["4801"] = &Factory::createC4801;
     _factories["4008"] = &Factory::createC4008;
     _factories["4017"] = &Factory::createC4017;
+    _factories["7seg"] = &Factory::createSevenSeg;
 }
 
 Factory::~Factory()
@@ -187,6 +188,11 @@ uComp Factory::createC4801(std::string const &name)
 uComp Factory::createC4017(std::string const &name)
 {
     return uComp(new C4017(name, 15));
+}
+
+uComp Factory::createSevenSeg(std::string const &name)
+{
+    return uComp(new SevenSegmentDisplay(name, 11));
 }
 
 const char *Factory::Error::what() const noexcept

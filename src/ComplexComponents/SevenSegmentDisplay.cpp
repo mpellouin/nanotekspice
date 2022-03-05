@@ -55,7 +55,6 @@ void SevenSegmentDisplay::simulate(std::size_t tick)
                 + (_links[2].component->compute(_links[2].pin) == nts::TRUE ? 2 : 0)
                 + (_links[3].component->compute(_links[3].pin) == nts::TRUE ? 4 : 0)
                 + (_links[4].component->compute(_links[4].pin) == nts::TRUE ? 8 : 0);
-    }
     for (int i = 0; i < 7; i++) {
         _rects[i].setFillColor(sf::Color(91, 91, 91));
     }
@@ -100,6 +99,7 @@ void SevenSegmentDisplay::simulate(std::size_t tick)
     for (int i = 0; i < 7; i++)
         _window.draw(_rects[i]);
     _window.display();
+    }
 }
 
 nts::Tristate SevenSegmentDisplay::compute(std::size_t pin)

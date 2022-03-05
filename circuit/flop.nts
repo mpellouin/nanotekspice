@@ -1,16 +1,81 @@
+# .chipsets:
+# input reset
+# input data
+# input set
+# clock cl
+# 4013 ff
+# output out1
+# output out2
+# output out3
+# output out4
+
+# .links:
+# cl:1    ff:3
+# reset:1 ff:4
+# data:1  ff:5
+# set:1   ff:6
+# out1:1  ff:1
+# out2:1  ff:2
+
+# cl:1    ff:11
+# reset:1 ff:10
+# data:1  ff:9
+# set:1   ff:8
+# out3:1  ff:13
+# out4:1  ff:12
+
+# Dual D-Type Flip-Flop (4013)
+#
+#     cl_1_clock  -3-+
+#                    |
+#                +---v---+
+#                |   |   |
+#                | +-v-+ |
+#                | |   | |
+# in_1_data   -5->-> L | |
+#                | | A >->-1-  out_1_q
+# in_1_set    -6->-> T | |
+#                | | C >->-2-  out_1_qb
+# in_1_reset  -4->-> H | |
+#                | |   | |
+#                | +---+ |
+#                |       |
+#                | +---+ |
+#                | |   | |
+# in_2_data   -9->-> L | |
+#                | | A >->-13- out_2_q
+# in_2_set    -8->-> T | |
+#                | | C >->-12- out_2_qb
+# in_2_reset -10->-> H | |
+#                | |   | |
+#                | +-^-+ |
+#                |   |   |
+#                +---^---+
+#                    |
+#     cl_2_clock -11-+
+
 .chipsets:
-input reset
-input data
-input set
-clock cl
-4013 ff
-output out1
-output out2
+clock   cl
+input   data
+input   set
+input   reset
+output  out1
+output  out2
+output  out3
+output  out4
+4013    flipflop
 
 .links:
-cl:1    ff:3
-reset:1 ff:4
-data:1  ff:5
-set:1   ff:6
-out1:1  ff:1
-out2:1  ff:2
+cl:1        flipflop:3
+data:1      flipflop:5
+set:1       flipflop:6
+reset:1     flipflop:4
+out1:1      flipflop:1
+out2:1      flipflop:2
+
+# cl:1        flipflop:11
+# data:1      flipflop:9
+# set:1       flipflop:8
+# reset:1     flipflop:10
+# out3:1      flipflop:13
+# out4:1      flipflop:12
